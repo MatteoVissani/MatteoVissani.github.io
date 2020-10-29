@@ -1,0 +1,103 @@
+{% extends "ATLAS/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="content-section">
+    <h3>Submit a new ATLAS:</h3>
+    <p class='text-muted'> Do you want to contribute with a new ATLAS that it is not yet included in
+        our database? Fill the following form to submit for a request of addition of your ATLAS. Your request will be reviewed
+        by our team as soon as possible and you will be notified about it!
+    </p>
+</div>
+<div class="content-section">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Information about ATLAS author:</legend>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{ req_form.name_author|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    {{ req_form.surname_author|as_crispy_field }}
+                </div>                
+            </div>        
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{ req_form.short_ref|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    {{ req_form.url_paper|as_crispy_field }}
+                </div>                
+            </div>  
+            {{ req_form.long_ref|as_crispy_field}}   
+            <legend class="border-bottom mb-4">General Information about ATLAS:</legend>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-0">
+                    {{ req_form.name_atlas|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                    {{ req_form.version|as_crispy_field }}
+                </div>               
+                <div class="form-group col-md-7 mb-0">
+                    {{ req_form.url_download|as_crispy_field }}
+                </div>                           
+            </div>  
+            {{ req_form.description|as_crispy_field}}   
+            <legend class="border-bottom mb-4">Detailed Information about ATLAS:</legend>
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-0">
+                    {{ req_form.coordinate|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    {{ req_form.method|as_crispy_field }}
+                </div>               
+                <div class="form-group col-md-4 mb-0">
+                    {{ req_form.region|as_crispy_field }}
+                </div>                           
+            </div>  
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-0">
+                    {{ req_form.laterality|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    {{ req_form.result|as_crispy_field }}
+                </div>               
+                <div class="form-group col-md-4 mb-0">
+                    {{ req_form.threshold|as_crispy_field }}
+                </div>                           
+            </div> 
+            <legend class="border-bottom mb-4">Upload your files:</legend>
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{ req_form.image|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    {{ req_form.file|as_crispy_field }}
+                </div>                                        
+            </div>                        
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<!--
+    <div class="content-section">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Submit a new ATLAS:</legend>
+                {{ form|crispy }}
+                <legend class="border-bottom mb-4">Properties:</legend>
+                {% for formset in inlines %}
+                   {{ formset | crispy}}
+                {% endfor %}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+-->
+{% endblock content %}
