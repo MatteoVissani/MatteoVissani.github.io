@@ -2,7 +2,7 @@
     01.COMMON css 
 ===========================*/
 
-@import url("../../../css2.css");
+@import url("css2.css");
 
 .hero-section .hero-content .scroll-bottom, .feature-section .single-feature .icon, .box-style .icon, .testimonial-section .testimonial-active-wrapper .tns-controls button, .testimonial-section .testimonial-active-wrapper .testimonial-active .single-testimonial .testimonial-img .quote, .footer .widget-wrapper .footer-widget .socials li a {
   display: flex;
@@ -1485,7 +1485,7 @@ p {
     height: 130px;
     border-radius: 50%;
     background: rgba(88, 100, 255, 0.1);
-    color: #5864FF;
+    color: #b4b6ca;
     margin: auto;
     margin-bottom: 30px;
     font-size: 65px;
@@ -1668,7 +1668,7 @@ p {
 
 .feature-extended-section .feature-extended-wrapper {
   padding: 70px 0;
-  background: rgba(88, 100, 255, 0.1); }
+  background: rgba(164, 164, 172, 0.1); }
 
 .feature-extended-section .single-feature-extended {
   padding: 30px; }
