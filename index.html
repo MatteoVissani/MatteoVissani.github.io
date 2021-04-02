@@ -1,165 +1,438 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+
+<html>
+
+<!--<![endif]-->
+<!-- Head -->
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-  <title>Covid19 Vaccine Report</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="author" content="Matteo Vissani">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Matteo Vissani">
+    <meta name="description" content="Matteo Vissani's Personal Website">
+    <meta name="allow-search" content="yes">
+    <meta name="language" content="en">
+    <!-- Title -->
+    <title>Matteo Vissani</title>
+    <!-- Short-Cut Icon -->
+    <link rel="shortcut icon" href="images/brain-logo.ico" />
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+    <!-- Icons -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="css/academicons.min.css" rel="stylesheet" />
+    <link href="css/linearicons.css" rel="stylesheet" />
+    <!-- Bootstrap Style Sheet Version - 3.3.6 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="all">
+    <!-- Animation Style Sheet Version - 3.5.0  -->
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet" media="all">
+    <link href="css/lightbox.css" rel="stylesheet" />
+    <link href="css/mystyle.css" rel="stylesheet" />
+    <!-- my style -->
+    <link href="css/owl.carousel.css" rel="stylesheet" />
+    <link href="css/infinite-slider.css" rel="stylesheet" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175482666-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175482666-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'UA-175482666-1');
-  </script>
-
-  <!-- ========================= CSS here ========================= -->
-  <link rel="stylesheet" href="assets/css/LineIcons.2.0.css">
-  <link rel="stylesheet" href="assets/css/animate.css">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-
-  <script>
-    const myModal = document.getElementById('myModal');
-    const myInput = document.getElementById('myInput');
-
-    myModal.addEventListener('shown.bs.modal', () => {
-      myInput.focus()
-    })
-  </script>
-
-
+        gtag('config', 'UA-175482666-1');
+    </script>
 </head>
 
 <body>
-  <header>
-    <div class="collapse bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About me</h4>
-            <p class="text-muted">A PhD student in Biorobotics with a keen interest in neuroscience, neurotechnology and
-              computational modelling.
-
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">Contact me</h4>
-            <ul class="list-unstyled">
-              <li><a href="https://twitter.com/MatteoVissani92" class="text-white">Follow on Twitter</a></li>
-              <li><a href="https://www.facebook.com/matteo.vissani.7/" class="text-white">Follow on Facebook</a></li>
-              <li><a href="mailto:matteo.vissani92@gmail.com" class="text-white">Email me</a></li>
-            </ul>
-          </div>
+    <!-- ========== Loading animation ========== -->
+    <section class="lodaing-overlay">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
         </div>
-      </div>
-    </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
-          aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-    </div>
-  </header>
-  <main>
-    <div class="container">
-      <h1 class="mt-3">Coronavirus (COVID-19) Vaccinations: Data and Statistics</h1>
-      <p>A comprehensive report about Covid19 vaccination in Italy. </p>
-    </div>
-
-    <section id="about" class="feature-extended-section pt-60">
-      <div class="feature-extended-wrapper">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-12 col-sm-12">
-              <div class="single-feature">
-                <br>
-                <div class="content">
-                  <iframe title="Covid19 Vaccine Administration: " aria-label="Grouped Bars"
-                    id="datawrapper-chart-3xb35" src="https://datawrapper.dwcdn.net/3xb35/1/" scrolling="no"
-                    frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="244"></iframe>
-                  <script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) for (var e in a.data["datawrapper-height"]) { var t = document.getElementById("datawrapper-chart-" + e) || document.querySelector("iframe[src*='" + e + "']"); t && (t.style.height = a.data["datawrapper-height"][e] + "px") } })) }();
-                  </script>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-5 col-md-12 col-sm-12">
-              <div class="single-feature">
-                <br>
-                <div class="content">
-                  <iframe title="Covid19 Vaccination in time" aria-label="Interactive line chart"
-                    id="datawrapper-chart-EWtEP" src="https://datawrapper.dwcdn.net/EWtEP/1/" scrolling="no"
-                    frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400"></iframe>
-                  <script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) for (var e in a.data["datawrapper-height"]) { var t = document.getElementById("datawrapper-chart-" + e) || document.querySelector("iframe[src*='" + e + "']"); t && (t.style.height = a.data["datawrapper-height"][e] + "px") } })) }();
-                  </script>
-                  </script>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
+    <!-- ========== End Loading animation ========== -->
+    <!-- ========== Navbar ========== -->
+    <nav class="menu">
+        <div class="container-fluid">
+            <div class="brand">
+                <a href="index.html">
+                    Matteo <font color="green"> Vissani </font>
+                </a>
+            </div>
+            <div class="nested-menu">
+                <ul class="menu-items" role="tablist">
+                    <li><a href="#home" class="link">Home</a></li>
+                    <li><a href="#about-me" class="link">About</a></li>
+                    <li><a href="#research" class="link">Research</a></li>
+                    <!--
+                    <li><a href="#awards" class="link">Awards</a></li>
+                    <li><a href="#news" class="link">News</a></li>
+                    -->
+                    <li><a href="#contact-me" class="link">Contact</a></li>
+                    <li class="social"><a href="https://www.linkedin.com/in/matteo-vissani/" target="_blank"><i
+                                class="fa fa-linkedin"></i></a></li>
+                    <li class="social"><a href="https://twitter.com/MatteoVissani92" target="_blank"><i
+                                class="fa fa-twitter"></i></a></li>
+                </ul>
+                <div class="menu-trigger">
+                    <div class="menu-bar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="text">
+                        <span>Menu</span>
+                        <span>Close</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
+    <!-- ========== End Navbar ========== -->
 
-
-    <section id="about" class="feature-extended-section pt-60">
-      <div class="feature-extended-wrapper">
+    <!-- ========== Header ===================== -->
+    <section id="home">
+        <div class="overlay">
+            <div id="particles-js">
+            </div>
+            <div class="text-content">
+                <h1>Matteo Vissani<span class="text-contenth2">, PhD</span></h1>
+                <p>Biomedical Engineer | PhD in Biorobotics </p>
+                <p>Passionately Curious</p>
+                <a class="button" href="#contact-me">Contact me</a>
+            </div>
+        </div>
+    </section>
+    <!-- ========== End Header ======================= -->
+    <!-- ========== About Me ===================== -->
+    <section id="about-me">
         <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-12 col-sm-12">
-              <div class="single-feature">
-                <br>
-                <div class="content">
-                  <iframe title="Map of Covid19 Vaccine " aria-label="Map" id="datawrapper-chart-Vj4fZ"
-                    src="https://datawrapper.dwcdn.net/Vj4fZ/1/" scrolling="no" frameborder="0"
-                    style="width: 0; min-width: 100% !important; border: none;" height="790"></iframe>
-                  <script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) for (var e in a.data["datawrapper-height"]) { var t = document.getElementById("datawrapper-chart-" + e) || document.querySelector("iframe[src*='" + e + "']"); t && (t.style.height = a.data["datawrapper-height"][e] + "px") } })) }();
-                  </script>
+            <div class="row">
+                <div class="col-md-4 col-sm-12" align="center">
+                    <div class="about-avatar">
+                        <img class="img-responsive" src="images/circle-cropped.png" alt="" />
+                        <col align="center">
+                        <a class="socialbutton" href="https://scholar.google.com/citations?user=xYmTzVQAAAAJ&hl=it"
+                            target="_blank"><i class="ai ai-google-scholar-square"
+                                style="font-size:45px;"></i></a>&emsp;
+                        <a class="socialbutton" href="https://www.researchgate.net/profile/Matteo-Vissani"
+                            style="font-size:45px;"></i></a>&emsp;
+                        <a class="socialbutton" href="https://orcid.org/0000-0002-3908-7620" target="_blank"><i
+                                class="ai ai-orcid-square" style="font-size:45px;"></i></a>&emsp;
+                    </div>
+                    <div class="about-content">
+                        <br>
+                        <a class="button" href="files/CV_Vissani_Matteo_2021.pdf" target="_blank">Download CV</a>
+                        </br>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-lg-5 col-md-12 col-sm-12">
-              <div class="single-feature">
-                <br>
-                <div class="content">
-                  <iframe title="Table of Covid19 Vaccine Administration" aria-label="Split Bars"
-                    id="datawrapper-chart-PjI0U" src="https://datawrapper.dwcdn.net/PjI0U/3/" scrolling="no"
-                    frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="630"></iframe>
-                  <script type="text/javascript">!function () { "use strict"; window.addEventListener("message", (function (a) { if (void 0 !== a.data["datawrapper-height"]) for (var e in a.data["datawrapper-height"]) { var t = document.getElementById("datawrapper-chart-" + e) || document.querySelector("iframe[src*='" + e + "']"); t && (t.style.height = a.data["datawrapper-height"][e] + "px") } })) }();
-                  </script>
+                <div class="col-md-7 col-sm-12">
+                    <div class="about-content">
+                        <h2 class="background animate-box">About me</h2>
+                        <p>Matteo Vissani received a PhD in Biorobotics at Scuola Superiore Sant'Anna. He received a
+                            BSc in Biomedical Engineering at Marche Polytechnic University and a MSc in Biomedical
+                            Engineering at University of Bologna. He partecipated in the Erasmus + Programme at Campus
+                            Biotech and École Polytechnique Fédérale de Lausanne. He pursued a Research Fellowship at
+                            Centre hospitalier universitaire vaudois.
+                        </p>
+                        <p>Matteo's research interest lies in the intersection between neuroengineering, computational
+                            modeling and clinical questions. He focuses on tackling two current scientific Deep Brain
+                            Stimulation (DBS) challenges. The first one hovers around
+                            the localization of neural targets that mediate optimal clinical outcomes for patients
+                            without emerging
+                            noxious DBS-induced side-effects – the so-called sweet spots. The second one deals with the
+                            computation of patient-state related biomarkers that could be potentially used to inform the
+                            pattern
+                            of the stimulation.
+                        </p>
+                        <p> In his PhD work, Matteo focused on developing quantitative tools to elucidate how different
+                            basal
+                            ganglia nuclei are functionally organized and to characterize the relationship between the
+                            neural
+                            activity with either the stimulation in situ or the state (e.g., clinical severity, motor
+                            behaviour) of the
+                            patient. These methods have been applied to a variegate repertoire of neural signals
+                            acquired either
+                            with explorative microelectrodes (intraoperatively) or DBS electrodes (postoperatively) from
+                            different
+                            DBS target nuclei in the basal ganglia (e.g., Subthalamic Nucleus and Globus Pallidus
+                            internus) in
+                            multiple cohorts of patients (e.g., Parkinson's Disease and Tourette Syndrome).
+
+                        </p>
+                        <p>When not working at these tasks, Matteo loves cooking, staring stars, reading and hiking.
+                        </p>
+                    </div>
                 </div>
-              </div>
+                <div class="col-md-1 col-sm-12">
+                    <a class="twitter-timeline" data-height="300" data-width="300" data-theme="light"
+                        href="https://twitter.com/MatteoVissani92?ref_src=twsrc%5Etfw">Tweets by MatteoVissani92</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
             </div>
-          </div>
+
+        </div>
+        </div>
+    </section>
+    <!-- ========== End About Me ===================== -->
+
+    <!-- ========== Research ===================== -->
+
+
+    <section id="research" class="portfolio text-center">
+        <div class="container">
+            <div class="heading" align = "left">
+                <h2 class="background animate-box">Publications (in progress)</h2>
+                <h3> Journal Articles </h3>
+                <ol>
+                    <li><p><b>Vissani M.* </b>, Palmisano C.*, Volkmann J., Pezzoli G., Micera S., Mazzoni A. and Isaias I. U. <b>Impaired reach-to-grasp kinematics in parkinsonian patients relates to dopamine-dependent, subthalamic beta bursts.</b> (in press in NPJ Parkinson’s Disease)</p></li>
+                    <li><p>Micheli F.*, <b>Vissani M.* </b>, Pecchioli G., Terenzi F., Ramat S., Mazzoni A. <b>Impulsivity Markers in Parkinsonian Subthalamic Single-Unit Activity.</b> Mov Disord. 2021 Jan 16. <a href ="https://movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.28497">doi: 10.1002/mds.28497</a>. Epub ahead of print. PMID: 33453079.   <a href = "papers/Micheli_ICB_STN_PD_MD_2021.pdf" ><i class="fa fa-file-pdf-o" style = "color:red"></i></a></p> </li>
+                    <li><p><b>Vissani M.</b>, Isaias I. U., Mazzoni A. <b> Deep brain stimulation: a review of the open neural engineering challenges.</b> J Neural Eng. 2020 Oct 14;17(5):051002. <a href="https://iopscience.iop.org/article/10.1088/1741-2552/abb581/meta">doi: 10.1088/1741-2552/abb581 </a>. PMID: 33052884.   <a href = "papers/Vissani_2020_J._Neural_Eng._17_051002.pdf" ><i class="fa fa-file-pdf-o" style = "color:red"></i></a></p></li>
+                    <li><p><b>Vissani M.</b>, Cordella R., Micera S., Eleopra R., Romito L. M., Mazzoni A. <b> Spatio-temporal structure of single neuron subthalamic activity identifies DBS target for anesthetized Tourette syndrome patients. </b> J Neural Eng. 2019 Oct 23;16(6):066011. <a href = "https://iopscience.iop.org/article/10.1088/1741-2552/ab37b4">doi: 10.1088/1741-2552/ab37b4 </a>. PMID: 31370042.   <a href = "papers/Vissani_Spatio-temporalneuronalactivitystructureinTouretteSTN-Jneuraleng2019_DEFF.pdf"><i class = "fa fa-file-pdf-o" style = "color:red"></i></a></p></li>
+                    <li><p>Palmisano C., Brandt G., <b>Vissani M.</b>, Pozzi N. G., ..., and Isaias I. U. <b>Gait Initiation in Parkinson's Disease: Impact of Dopamine Depletion and Initial Stance Condition.</b>Front Bioeng Biotechnol. 2020 Mar 6;8:137. <a href = "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7068722/">doi: 10.3389/fbioe.2020.00137</a>. PMID: 32211390; PMCID: PMC7068722.   <a href = "papers/Vissani_Gait_initiation_Front.pdf"><i class = "fa fa-file-pdf-o" style = "color:red"></i></a></p></li>
+                    <li><p>Franza M., Sorrentino G., <b>Vissani M.</b>, Serino .A, Blanke O. and Bassolino M.<b>Hand perceptions induced by single pulse transcranial magnetic stimulation over the primary motor cortex.</b>Brain Stimul. 2019 May-Jun;12(3):693-701.<a href = "https://www.sciencedirect.com/science/article/abs/pii/S1935861X18313913">doi: 10.1016/j.brs.2018.12.972</a>.Epub 2018 Dec 23. PMID: 30611706.   <a href="papers/Vissani_Hand_Perception_TMS_BrainStim.pdf"><i class = "fa fa-file-pdf-o" style = "color:red"></i></a></p></li>
+               
+                </ol>
+                
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="heading">
+                <h2 class="background animate-box">Projects</h2>
+                <br>
+                <ul class="portfolio-sorting list-inline text-center">
+                    <li><a href="#" data-group="all" class="active">All</a></li>
+                    <li><a href="#" data-group="stimulation">Stimulation</a></li>
+                    <li><a href="#" data-group="biomarker">Biomarker</a></li>
+                    <li><a href="#" data-group="modeling">Modeling</a></li>
+                </ul>
+                <!--end research sorting -->
+            </div>
+            <div class="row">
+                <div class="portfolio-items" id="grid">
+                    <div class="col-md-4 col-sm-6 col-xs-6" data-groups='["stimulation"]'>
+                        <div class="img-thumb margin-desktop margin-tablet margin-mobile">
+                            <a style="z-index:500" href="images/projects-DBS_sweetspot.jpg" data-lightbox="gallery">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                        <h3>DBS Tourette Syndrome Sweet-Spot</h3>
+                                    </div>
+                                </div>
+                                <img class="img-responsive" src="images/projects-DBS_sweetspot.jpg" alt=""
+                                    data-animation="animated rotateInDownLeft" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-6" data-groups='["biomarker"]'>
+                        <div class="img-thumb margin-desktop margin-tablet margin-mobile">
+                            <a style="z-index:500" href="images/projects-gait.png" data-lightbox="gallery">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                        <h3>Dopamine role for gait</h3>
+                                    </div>
+                                </div>
+                                <img class="img-responsive" src="images/projects-gait.png" alt=""
+                                    data-animation="animated rotateInDownLeft" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-6" data-groups='["biomarker"]'>
+                        <div class="img-thumb margin-desktop margin-tablet margin-mobile">
+                            <a style="z-index:500" href="images/projects-ICB_PD.png" data-lightbox="gallery">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                        <h3>Impulsivity Markers in STN </h3>
+                                    </div>
+                                </div>
+                                <img class="img-responsive" src="images/projects-ICB_PD.png" alt=""
+                                    data-animation="animated rotateInDownLeft" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-6" data-groups='["stimulation"]'>
+                        <div class="img-thumb margin-desktop margin-tablet margin-mobile">
+                            <a style="z-index:500" href="images/projects-reviewDBS.png" data-lightbox="gallery">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                        <h3>DBS Review</h3>
+                                    </div>
+                                </div>
+                                <img class="img-responsive" src="images/projects-reviewDBS.png" alt=""
+                                    data-animation="animated rotateInDownLeft" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-6" data-groups='["stimulation"]'>
+                        <div class="img-thumb margin-desktop margin-tablet margin-mobile">
+                            <a style="z-index:500" href="images/projects-tms_hand.png" data-lightbox="gallery">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                        <h3>TMS Hand Perception </h3>
+                                    </div>
+                                </div>
+                                <img class="img-responsive" src="images/projects-tms_hand.png" alt=""
+                                    data-animation="animated rotateInDownLeft" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-6" data-groups='["modeling"]'>
+                        <div class="img-thumb margin-desktop margin-tablet margin-mobile">
+                            <a style="z-index:500" href="images/projects-corrBG.png" data-lightbox="gallery">
+                                <div class="caption">
+                                    <div class="caption-content">
+                                        <h3>Correlated Input in Basal Ganglia</h3>
+                                    </div>
+                                </div>
+                                <img class="img-responsive" src="images/projects-corrBG.png" alt=""
+                                    data-animation="animated rotateInDownLeft" />
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!-- sizer -->
+                    <div class="col-md-4 col-sm-6 col-xs-6 shuffle_sizer"></div>
+                </div>
+            </div>
+            <!--end row -->
+        </div> <!-- end container-->
+    </section>
+    <!-- ========== End Research ===================== -->
+
+
+    <!-- ========== Contact Me ===================== -->
+    <section id="contact-me">
+        <div class="container">
+            <div class="heading-right">
+                <h2 class="background animate-box">Keep in Touch</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contact-info">
+                        <div style="font-size:25px; color:green">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <p>+39 351 8550637</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <div style="font-size:27px; color:green">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <p>Viale Rinaldo Piaggio, 34, 56025 Pontedera PI</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <div style="font-size:20px; color:green">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <p>matteo.vissani@santannapisa.it</p>
+                    </div>
+                    <br></br>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="contact-me-nested">
+                        <form action="htthttps://formspree.io/f/xleaeear" method="POST">
+                            <div class="col-lg-5">
+                                <div class="form-filed-container">
+                                    <span class="error-name">What do I call you?</span>
+                                    <input name="name" id="name" type="text" placeholder="Name" />
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-filed-container">
+                                    <span class="error-emailEmpty">Where can I email you back?</span>
+                                    <span class="error-notValid">e-mail is not a valid format</span>
+                                    <input name="email" id="email" type="email" placeholder="Email" />
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-filed-container">
+                                    <textarea name="message" id="message"
+                                        placeholder="What can I do for you?"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button class="send_message" id="send_message">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- ========== This Div Will Be animated When Message Sent Successfully ===================== -->
+                    <div class="success">
+                        <h4>
+                            Message sent successfully
+                        </h4>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
-
-      </div>
     </section>
+    <!-- ========== End Contact Me ===================== -->
 
-    <footer class="text-muted py-5">
-      <div class="container">
-        <p class="float-end mb-1">
-          <a href="#">Back to top</a>
-        </p>
-        <p class="mb-1">Author: Matteo Vissani @2021</p>
-        <p class="mb-0">Site powered by <a href="https://getbootstrap.com/"">Bootstrap</a>  and <a href="
-            https://www.datawrapper.de/"">Datawrapper</a>.</p>
-      </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-      crossorigin="anonymous"></script>
+    <!-- ========== Footer ===================== -->
+    <section id="footer" class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        Disclaimer: This is a personal webpage. Also, if you wasted HOURS of your life pushing the
+                        dots on the home screen&mdash;and I know you did&mdash;that's on you.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/matteo-vissani/" target="_blank"><span
+                                class="fa fa-linkedin"></span></a>
+                        <a href="https://twitter.com/MatteoVissani92" target="_blank"><span
+                                class="fa fa-twitter"></span></a>
+ a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========== End Footer ===================== -->
 
+    <!-- jQuery Version - 1.12.3 -->
+    <script src="js/jquery-1.12.3.min.js"></script>
+    <!-- Bootstrap JS File Version - 3.3.6 -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slick.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.shuffle.min.js"></script>
+    <!-- Canvas Nodes JS -->
+    <script src="js/particles.min.js"></script>
+    <script src="js/customParticles.js"></script>
+
+    <!-- Contact JS -->
+    <script src="js/contact.js"></script>
+    <!-- Touch Swipe JS File to support Touchable Devices -->
+    <script src="js/jquery.touchSwipe.min.js"></script>
+    <!-- My Plugin JS -->
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/myplugin.js"></script>
+
+    <!-- Lightbox -->
+    <script src="js/lightbox.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 
 </html>
