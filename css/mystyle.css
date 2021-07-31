@@ -935,7 +935,7 @@ h2.background:after{
     display:inline-block;
 }
 #news h2.background:after{
-  content: 'good';
+  content: ' '; /*good*/
 }
 #news .carousel-indicators {
   width: 100%;
