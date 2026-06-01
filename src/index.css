@@ -563,7 +563,7 @@ img { max-width: 100%; display: block; }
 .pub-act svg { width: 15px; height: 15px; }
 .pub-act:hover { color: var(--neon-cyan); border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
 .pub-act.pdf:hover { color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: var(--glow-pink); }
-.pub-altmetric { display: inline-flex; align-items: center; transform: scale(0.5); transform-origin: center; margin: 0 -8px; }
+.pub-altmetric { display: inline-flex; align-items: center; transform: scale(0.5); transform-origin: center; margin: 0 -8px; background: rgba(244,246,251,0.96); border-radius: 50%; padding: 3px; }
 .paper-metrics { display: inline-flex; align-items: center; gap: 8px; background: rgba(244,246,251,0.96); padding: 4px 10px; border-radius: 9px; transform: scale(0.7); transform-origin: left center; }
 @media (max-width: 720px) {
   .pub-row { grid-template-columns: 44px 1fr; gap: 12px; }
