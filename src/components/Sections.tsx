@@ -140,7 +140,7 @@ export function Featured() {
         <div className="work-grid">
           {featured.map((f, i) => (
             <Reveal key={f.title} delay={0.05 * (i % 3)}>
-              <a className="work-card panel" href={`#/paper/${f.slug}`}>
+              <a className="work-card panel" href={`/paper/${f.slug}/`}>
                 <div className="work-art">
                   <SignalArt variant={f.variant} id={`art-${i}`} />
                 </div>
@@ -215,7 +215,7 @@ export function Publications() {
             <div className="pub-row" key={p.title}>
               <span className="pub-year">{p.year}</span>
               <span className="pub-main">
-                <a className="pt" href={`#/paper/${p.slug}`}>
+                <a className="pt" href={`/paper/${p.slug}/`}>
                   {p.title}
                   {p.flagship && <span className="flag">Flagship</span>}
                 </a>

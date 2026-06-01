@@ -6,7 +6,7 @@
   "homepage": "https://matteovissani.github.io",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && tsx scripts/prerender.ts",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "@types/react-dom": "^18.3.1",
     "@types/three": "^0.169.0",
     "@vitejs/plugin-react": "^6.0.2",
+    "tsx": "^4.22.4",
     "typescript": "^5.6.3",
     "vite": "^8.0.16"
   }

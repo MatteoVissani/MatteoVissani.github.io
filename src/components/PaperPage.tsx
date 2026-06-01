@@ -34,7 +34,7 @@ export default function PaperPage({ slug }: { slug: string }) {
         <div className="wrap" style={{ paddingTop: 140 }}>
           <p className="eyebrow">404</p>
           <h1 className="section-title">Paper <span className="accent">not found</span></h1>
-          <a className="btn ghost" href="#/">← Back home</a>
+          <a className="btn ghost" href="/">← Back home</a>
         </div>
       </main>
     )
@@ -62,8 +62,8 @@ export default function PaperPage({ slug }: { slug: string }) {
   return (
     <main className="paper-wrap">
       <div className="paper-topbar">
-        <a className="paper-home" href="#/" aria-label="Home"><LogoMark size={26} /><span>MATTEO<i>//</i>VISSANI</span></a>
-        <a className="paper-back" href="#/">← All papers</a>
+        <a className="paper-home" href="/" aria-label="Home"><LogoMark size={26} /><span>MATTEO<i>//</i>VISSANI</span></a>
+        <a className="paper-back" href="/">← All papers</a>
       </div>
 
       <article className="wrap paper">
@@ -116,7 +116,7 @@ export default function PaperPage({ slug }: { slug: string }) {
             <h2 className="paper-h2">Related work · {categoryLabels[p.category]}</h2>
             <div className="paper-related">
               {related.map((r) => (
-                <a key={r.slug} className="paper-rel panel" href={`#/paper/${r.slug}`}>
+                <a key={r.slug} className="paper-rel panel" href={`/paper/${r.slug}/`}>
                   <div className="paper-rel-art"><SignalArt variant={r.variant} id={`rel-${r.slug}`} /></div>
                   <div className="paper-rel-body">
                     <div className="paper-rel-venue">{r.venue} · {r.year}</div>
@@ -130,7 +130,7 @@ export default function PaperPage({ slug }: { slug: string }) {
         )}
 
         <div className="paper-footer">
-          <a className="btn ghost" href="#/">← Back to {profile.shortName}’s portfolio</a>
+          <a className="btn ghost" href="/">← Back to {profile.shortName}’s portfolio</a>
         </div>
       </article>
     </main>
