@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from 'react'
+import { Suspense, lazy, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import SignalArt from './SignalArt'
 import GraphicalAbstract from './GraphicalAbstract'
@@ -47,6 +47,18 @@ export default function PaperPage({ slug }: { slug: string }) {
     .trim()
 
   const summary = summaries[slug] || ''
+  const doi = p.link.startsWith('https://doi.org/') ? p.link.replace('https://doi.org/', '') : ''
+
+  // Load the Altmetric badge embed; re-run per paper so the donut updates on
+  // client-side navigation between papers.
+  useEffect(() => {
+    if (!doi) return
+    const s = document.createElement('script')
+    s.src = 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'
+    s.async = true
+    document.body.appendChild(s)
+    return () => { s.remove() }
+  }, [doi])
 
   // sibling papers in the same research area
   const related = publications.filter((q) => q.category === p.category && q.slug !== p.slug).slice(0, 3)
@@ -83,6 +95,19 @@ export default function PaperPage({ slug }: { slug: string }) {
             {p.code && <a className="btn ghost" href={p.code} target="_blank" rel="noreferrer"><GitHub style={{ width: 16, height: 16, verticalAlign: '-3px', marginRight: 8 }} />Code</a>}
             <button className="btn ghost" onClick={copyCite}>{copied ? '✓ Copied BibTeX' : 'Cite (BibTeX)'}</button>
           </div>
+
+          {doi && (
+            <div className="paper-metrics" style={{ marginTop: 20 }}>
+              <div
+                key={doi}
+                className="altmetric-embed"
+                data-badge-type="donut"
+                data-badge-popover="right"
+                data-doi={doi}
+                data-hide-no-mentions="true"
+              />
+            </div>
+          )}
         </motion.div>
 
         {abstract && (
