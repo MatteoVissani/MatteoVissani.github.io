@@ -10,6 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+# Run JS actions on Node 24 (Node 20 is deprecated on GitHub runners)
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 # Allow one concurrent deployment, cancel in-progress runs
 concurrency:
   group: pages
@@ -20,12 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
