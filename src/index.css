@@ -563,6 +563,7 @@ img { max-width: 100%; display: block; }
 .pub-act svg { width: 15px; height: 15px; }
 .pub-act:hover { color: var(--neon-cyan); border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
 .pub-act.pdf:hover { color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: var(--glow-pink); }
+.pub-altmetric { display: inline-flex; align-items: center; transform: scale(0.7); transform-origin: center; margin-right: -2px; }
 @media (max-width: 720px) {
   .pub-row { grid-template-columns: 44px 1fr; gap: 12px; }
   .pub-actions { grid-column: 2; }

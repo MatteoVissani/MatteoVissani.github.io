@@ -104,7 +104,7 @@ export default function PaperPage({ slug }: { slug: string }) {
           </div>
 
           {doi && (
-            <div className="paper-metrics" style={{ marginTop: 20, display: 'flex', alignItems: 'center', gap: 22, flexWrap: 'wrap' }}>
+            <div className="paper-metrics" style={{ marginTop: 20, display: 'inline-flex', alignItems: 'center', gap: 22, flexWrap: 'wrap', background: 'rgba(244,246,251,0.96)', padding: '12px 20px', borderRadius: 14 }}>
               <div
                 key={`alt-${doi}`}
                 className="altmetric-embed"

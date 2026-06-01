@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import Reveal from './Reveal'
 import PillarGlyph from './PillarGlyph'
 import SignalArt from './SignalArt'
@@ -185,6 +185,15 @@ export function Publications() {
     [filter],
   )
 
+  // (Re)load the Altmetric embed so the per-row donuts render after each filter.
+  useEffect(() => {
+    const s = document.createElement('script')
+    s.src = 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'
+    s.async = true
+    document.body.appendChild(s)
+    return () => { s.remove() }
+  }, [filter])
+
   return (
     <section id="publications" className="section">
       <div className="wrap">
@@ -223,6 +232,16 @@ export function Publications() {
                 <span className="pub-venue">{p.venue}</span>
               </span>
               <span className="pub-actions">
+                {p.link.startsWith('https://doi.org/') && (
+                  <span
+                    key={`${filter}-${p.slug}`}
+                    className="altmetric-embed pub-altmetric"
+                    data-badge-type="donut"
+                    data-badge-popover="left"
+                    data-doi={p.link.replace('https://doi.org/', '')}
+                    data-hide-no-mentions="true"
+                  />
+                )}
                 <a className="pub-act" href={p.link} target="_blank" rel="noreferrer" title="Publisher / DOI" aria-label="DOI"><Doi /></a>
                 {p.pdf && <a className="pub-act pdf" href={p.pdf} target="_blank" rel="noreferrer" title="Download PDF" aria-label="PDF"><Pdf /></a>}
                 {p.code && <a className="pub-act" href={p.code} target="_blank" rel="noreferrer" title="Code repository" aria-label="Code"><GitHub /></a>}
