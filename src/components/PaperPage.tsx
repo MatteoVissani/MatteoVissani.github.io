@@ -49,15 +49,22 @@ export default function PaperPage({ slug }: { slug: string }) {
   const summary = summaries[slug] || ''
   const doi = p.link.startsWith('https://doi.org/') ? p.link.replace('https://doi.org/', '') : ''
 
-  // Load the Altmetric badge embed; re-run per paper so the donut updates on
-  // client-side navigation between papers.
+  // Load the Altmetric (attention) and Dimensions (citations) badge embeds;
+  // re-run per paper so the badges update on client-side navigation.
   useEffect(() => {
     if (!doi) return
-    const s = document.createElement('script')
-    s.src = 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'
-    s.async = true
-    document.body.appendChild(s)
-    return () => { s.remove() }
+    const srcs = [
+      'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js',
+      'https://badge.dimensions.ai/badge.js',
+    ]
+    const els = srcs.map((src) => {
+      const s = document.createElement('script')
+      s.src = src
+      s.async = true
+      document.body.appendChild(s)
+      return s
+    })
+    return () => { els.forEach((s) => s.remove()) }
   }, [doi])
 
   // sibling papers in the same research area
@@ -97,14 +104,20 @@ export default function PaperPage({ slug }: { slug: string }) {
           </div>
 
           {doi && (
-            <div className="paper-metrics" style={{ marginTop: 20 }}>
+            <div className="paper-metrics" style={{ marginTop: 20, display: 'flex', alignItems: 'center', gap: 22, flexWrap: 'wrap' }}>
               <div
-                key={doi}
+                key={`alt-${doi}`}
                 className="altmetric-embed"
                 data-badge-type="donut"
                 data-badge-popover="right"
                 data-doi={doi}
                 data-hide-no-mentions="true"
+              />
+              <span
+                key={`dim-${doi}`}
+                className="__dimensions_badge_embed__"
+                data-doi={doi}
+                data-style="small_circle"
               />
             </div>
           )}
