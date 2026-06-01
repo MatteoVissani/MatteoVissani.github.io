@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://matteovissani.github.io/sitemap.xml
