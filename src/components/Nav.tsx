@@ -15,7 +15,7 @@ export default function Nav() {
 
   return (
     <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
-      <a className="nav-brand" href="#top" aria-label="Matteo Vissani — home">
+      <a className="nav-brand" href="#top" aria-label="Matteo Vissani, home">
         <Logo />
       </a>
 

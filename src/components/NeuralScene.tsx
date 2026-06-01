@@ -3,7 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
 
-// Brain-ish ellipsoid — wider front-to-back than tall.
+// Brain-ish ellipsoid, wider front-to-back than tall.
 const SX = 2.6
 const SY = 1.95
 const SZ = 3.1

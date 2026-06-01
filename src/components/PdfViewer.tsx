@@ -4,7 +4,7 @@ import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl
 
-// Client-side PDF page viewer — renders each page to a canvas with
+// Client-side PDF page viewer, renders each page to a canvas with
 // prev/next navigation, a counter, and arrow keys (clean, on-brand).
 export default function PdfViewer({ url }: { url: string }) {
   const wrapRef = useRef<HTMLDivElement>(null)

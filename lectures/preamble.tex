@@ -1,0 +1,63 @@
+% Shared preamble for the lecture notes
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=2.4cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+\usepackage[american]{circuitikz}
+\usepackage{microtype}
+\usepackage[colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent]{hyperref}
+\usepackage{fancyhdr}
+
+\definecolor{accent}{HTML}{B4126B}
+\definecolor{accent2}{HTML}{0E7C86}
+\definecolor{rule}{HTML}{C9C9D6}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% handy macros
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\renewcommand{\vec}[1]{\bm{#1}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\itshape Information Theory \& Neural Modeling}
+\fancyhead[R]{\small M.\ Vissani}
+\fancyfoot[C]{\small\thepage}
+
+% title block
+\newcommand{\lectitle}[3]{%
+  \begin{center}
+    {\footnotesize\sffamily\bfseries\color{accent} GRADUATE LECTURE NOTES \quad\textbullet\quad SCUOLA SUPERIORE SANT'ANNA}\\[2pt]
+    {\color{rule}\rule{\linewidth}{0.8pt}}\\[8pt]
+    {\LARGE\sffamily\bfseries #1}\\[6pt]
+    {\large\sffamily #2}\\[6pt]
+    {\small Matteo Vissani \quad\textbullet\quad Course: \emph{Information Theory \& Neural Modeling}}\\[6pt]
+    {\color{rule}\rule{\linewidth}{0.8pt}}
+  \end{center}
+  \vspace{0.6em}
+}

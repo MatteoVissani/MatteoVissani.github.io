@@ -13,7 +13,7 @@ export default class SceneBoundary extends Component<
   }
 
   componentDidCatch() {
-    /* swallow — the page is fully usable without the 3D hero */
+    /* swallow, the page is fully usable without the 3D hero */
   }
 
   render() {

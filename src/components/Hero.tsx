@@ -33,7 +33,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p className="hero-role" custom={2} variants={rise} initial="hidden" animate="show">
-          Decoding the brain’s electrical code to build <b>adaptive neurostimulation</b>.
+          I record from the human brain during neurosurgery to develop <b>adaptive deep brain stimulation</b>.
         </motion.p>
 
         <motion.p className="hero-sub" custom={3} variants={rise} initial="hidden" animate="show">
@@ -41,7 +41,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.div className="hero-cta" custom={4} variants={rise} initial="hidden" animate="show">
-          <a className="btn" href="#work">View featured work</a>
+          <a className="btn" href="#work">View selected work</a>
           <a className="btn ghost" href="#contact">Get in touch</a>
         </motion.div>
       </div>

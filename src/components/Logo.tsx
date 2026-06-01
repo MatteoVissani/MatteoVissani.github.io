@@ -1,5 +1,5 @@
 // Brand mark + wordmark. The glyph is a neural action-potential spike
-// inside a rounded frame — echoed in the favicon for a consistent identity.
+// inside a rounded frame, echoed in the favicon for a consistent identity.
 export function LogoMark({ size = 30 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden>

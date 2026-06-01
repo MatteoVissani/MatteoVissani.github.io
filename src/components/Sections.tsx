@@ -2,13 +2,25 @@ import { useMemo, useState } from 'react'
 import Reveal from './Reveal'
 import PillarGlyph from './PillarGlyph'
 import SignalArt from './SignalArt'
-import CitationTracker from './CitationTracker'
+import CiteStrip from './CiteStrip'
+import LIFSim from './LIFSim'
+import InfoLab from './InfoLab'
+import SpikePhaseLab from './SpikePhaseLab'
+import DecodingLab from './DecodingLab'
+import WaveletLab from './WaveletLab'
+import FilterLab from './FilterLab'
+import KalmanLab from './KalmanLab'
+import FourierLab from './FourierLab'
+import DBSLab from './DBSLab'
+import EEGLab from './EEGLab'
+import WilsonCowanLab from './WilsonCowanLab'
+import DemoToggle from './DemoToggle'
 import {
   Mail, LinkedIn, GitHub, Scholar, Orcid, ResearchGate, ArrowRight, External, Pdf, Doi,
 } from './Icons'
 import {
   profile, aboutParagraphs, education, pillars, featured,
-  publications, awards, talks, media, categoryLabels, type Pub, type Category,
+  publications, awards, teaching, mentoring, talks, media, categoryLabels, type Pub, type Category,
 } from '../data/content'
 
 function Socials() {
@@ -69,15 +81,12 @@ export function About() {
                 <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
               ))}
             </div>
-            <a className="btn ghost" href={profile.cv} target="_blank" rel="noreferrer" style={{ marginTop: '0.6rem', display: 'inline-block' }}>
-              Download full CV
-            </a>
+            <div className="about-cta">
+              <a className="btn ghost" href={profile.cv} target="_blank" rel="noreferrer">Download full CV</a>
+              <CiteStrip />
+            </div>
           </Reveal>
         </div>
-
-        <Reveal>
-          <CitationTracker />
-        </Reveal>
       </div>
     </section>
   )
@@ -92,7 +101,7 @@ export function Research() {
           <p className="eyebrow">02 — Research</p>
           <h2 className="section-title">Lines of <span className="accent">research</span></h2>
           <p className="section-lead">
-            Six areas I work across at the Brain Modulation Lab (MGH / Harvard) — from intraoperative recordings
+            Six areas I work across at the Brain Modulation Lab (MGH / Harvard), from intraoperative recordings
             and adaptive stimulation to connectomics, analysis methods and computational models of the
             cortico-basal-ganglia circuit.
           </p>
@@ -120,11 +129,11 @@ export function Featured() {
     <section id="work" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">03 — Featured</p>
+          <p className="eyebrow">03 — Selected work</p>
           <h2 className="section-title">Selected <span className="accent">work</span></h2>
           <p className="section-lead">
-            Flagship studies spanning my research lines — from single-neuron discoveries in the human basal ganglia
-            published in <em>Nature</em> and <em>Nature&nbsp;Communications</em>, to sensing-enabled DBS and large
+            Flagship studies across my research lines, from single-neuron work in the human basal ganglia
+            published in <em>Nature</em> and <em>Nature&nbsp;Communications</em> to sensing-enabled DBS and large
             multi-site connectomic atlases. Each card opens a full project page.
           </p>
         </Reveal>
@@ -180,11 +189,11 @@ export function Publications() {
     <section id="publications" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">04 — Publications</p>
+          <p className="eyebrow">05 — Publications</p>
           <h2 className="section-title">Peer-reviewed <span className="accent">papers</span></h2>
           <p className="section-lead">
             {publications.length} selected peer-reviewed articles. Filter by research area, or open any title for its
-            project page — abstract, links, code and BibTeX. Full list on{' '}
+            project page, with abstract, links, code, and BibTeX. The full list is available on{' '}
             <a href={profile.links.scholar} target="_blank" rel="noreferrer" style={{ color: 'var(--neon-cyan)' }}>Google Scholar</a>.
           </p>
         </Reveal>
@@ -232,7 +241,7 @@ export function Awards() {
     <section id="awards" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">05 — Recognition</p>
+          <p className="eyebrow">06 — Recognition</p>
           <h2 className="section-title">Awards &amp; <span className="accent">honors</span></h2>
         </Reveal>
         <div className="awards-wrap">
@@ -251,16 +260,132 @@ export function Awards() {
   )
 }
 
+/* ---------------- INTERACTIVE LABS ---------------- */
+export function Interactive() {
+  return (
+    <section id="interactive" className="section">
+      <div className="wrap">
+        <Reveal>
+          <p className="eyebrow">04 — Interactive</p>
+          <h2 className="section-title">Interactive <span className="accent">labs</span></h2>
+          <p className="section-lead">
+            Hands-on demos of the methods behind my research, single-neuron dynamics, neural coding and
+            information theory, time–frequency analysis, filtering and decoding.
+          </p>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <DemoToggle title="Integrate-and-fire neuron"
+            subtitle="Live simulation, phase plane, f–I curve and adaptation">
+            <LIFSim />
+          </DemoToggle>
+          <DemoToggle title="Spike–phase coupling"
+            subtitle="STN single units locking to a cortical rhythm, phase-locking value and preferred phase">
+            <SpikePhaseLab />
+          </DemoToggle>
+          <DemoToggle title="Entropy &amp; mutual information"
+            subtitle="Noisy-channel information and Shannon/Huffman source coding">
+            <InfoLab />
+          </DemoToggle>
+          <DemoToggle title="Population coding &amp; neural decoding"
+            subtitle="Tuning curves, a maximum-likelihood decoder, Fisher information and the Cramér–Rao bound">
+            <DecodingLab />
+          </DemoToggle>
+          <DemoToggle title="Wavelet time–frequency decomposition"
+            subtitle="Live Morlet continuous wavelet transform of a neural signal, inspect every parameter">
+            <WaveletLab />
+          </DemoToggle>
+          <DemoToggle title="Digital filter designer"
+            subtitle="Windowed-sinc FIR band-pass: live frequency response and filtered signal">
+            <FilterLab />
+          </DemoToggle>
+          <DemoToggle title="Kalman-filter BCI decoder"
+            subtitle="Track a 2D cursor from a noisy neural read-out with a real-time Kalman filter">
+            <KalmanLab />
+          </DemoToggle>
+          <DemoToggle title="Fourier epicycles"
+            subtitle="Draw any shape and watch rotating vectors (the Fourier series) retrace it">
+            <FourierLab />
+          </DemoToggle>
+          <DemoToggle title="DBS waveform &amp; charge-safety designer"
+            subtitle="Design a stimulation pulse, charge per phase, charge density, and the Shannon safety limit">
+            <DBSLab />
+          </DemoToggle>
+          <DemoToggle title="EEG source localization &amp; spatial mixing"
+            subtitle="A dipole spreads to every electrode (volume conduction); a dipole-fit tries to localize it">
+            <EEGLab />
+          </DemoToggle>
+          <DemoToggle title="Wilson–Cowan dynamics &amp; bifurcation"
+            subtitle="Coupled E/I populations: phase plane, nullclines, and a Hopf bifurcation into oscillations">
+            <WilsonCowanLab />
+          </DemoToggle>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+/* ---------------- TEACHING ---------------- */
+export function Teaching() {
+  return (
+    <section id="teaching" className="section">
+      <div className="wrap">
+        <Reveal>
+          <p className="eyebrow">07 — Teaching</p>
+          <h2 className="section-title">Teaching &amp; <span className="accent">mentoring</span></h2>
+          <p className="section-lead">Graduate-level teaching from my doctoral training.</p>
+        </Reveal>
+        <div className="teach-wrap">
+          {teaching.map((t, i) => (
+            <Reveal key={t.course} delay={0.05 * i}>
+              <div className="teach">
+                <div className="teach-head">
+                  <div className="teach-course">{t.course}</div>
+                  <div className="teach-meta">{t.place} · {t.period}</div>
+                </div>
+                <p className="teach-detail">{t.detail}</p>
+                {t.notes && (
+                  <div className="teach-notes">
+                    {t.notes.map((n) => (
+                      <a key={n.href} className="teach-note" href={n.href} target="_blank" rel="noreferrer">
+                        <Pdf /> {n.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal>
+          <h3 className="teach-subhead">Mentoring</h3>
+          <div className="mentor-wrap">
+            {mentoring.map((m) => (
+              <a key={m.program} className="mentor panel" href={m.href} target="_blank" rel="noreferrer">
+                <div className="mentor-head">
+                  <div className="mentor-name">{m.program} <External /></div>
+                  <div className="mentor-since">{m.since}</div>
+                </div>
+                <div className="mentor-detail">{m.detail}</div>
+              </a>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 /* ---------------- TALKS & MEDIA ---------------- */
 export function Talks() {
   return (
     <section id="talks" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">06 — Talks &amp; Media</p>
+          <p className="eyebrow">08 — Talks &amp; Media</p>
           <h2 className="section-title">On stage &amp; <span className="accent">in the field</span></h2>
           <p className="section-lead">
-            Recent invited talks and conference presentations — and where the work has been recognized.
+            Recent invited talks and conference presentations, and where the work has been featured.
           </p>
         </Reveal>
 
@@ -303,8 +428,8 @@ export function Contact() {
     <section id="contact" className="section contact">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow" style={{ justifyContent: 'center' }}>07 — Contact</p>
-          <h2 className="section-title">Let’s build the <span className="accent">future of neuromodulation</span></h2>
+          <p className="eyebrow" style={{ justifyContent: 'center' }}>09 — Contact</p>
+          <h2 className="section-title">Get in <span className="accent">touch</span></h2>
           <p className="big">
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
           </p>
@@ -324,8 +449,7 @@ export function Contact() {
         </Reveal>
       </div>
       <footer className="footer">
-        © {new Date().getFullYear()} Matteo Vissani · Built with React + Three.js ·{' '}
-        <span className="heart">synthwave</span> mode engaged
+        © {new Date().getFullYear()} Matteo Vissani · Boston, MA · Built with React and Three.js
       </footer>
     </section>
   )

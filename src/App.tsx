@@ -3,7 +3,7 @@ import Background from './components/Background'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import PaperPage from './components/PaperPage'
-import { About, Research, Featured, Publications, Awards, Talks, Contact } from './components/Sections'
+import { About, Research, Featured, Interactive, Publications, Awards, Teaching, Talks, Contact } from './components/Sections'
 
 function useHashRoute() {
   const [hash, setHash] = useState(() => window.location.hash)
@@ -40,8 +40,10 @@ export default function App() {
         <About />
         <Research />
         <Featured />
+        <Interactive />
         <Publications />
         <Awards />
+        <Teaching />
         <Talks />
         <Contact />
       </main>

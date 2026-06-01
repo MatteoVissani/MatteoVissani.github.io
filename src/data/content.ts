@@ -1,16 +1,16 @@
 // ============================================================
-//  Content for the portfolio — sourced from Matteo Vissani's CV
+//  Content for the portfolio, sourced from Matteo Vissani's CV
 // ============================================================
 
 export const profile = {
   name: 'Matteo Vissani',
   shortName: 'Vissani',
   roleLines: ['Neuroengineer', 'PhD'],
-  tagline: 'Decoding the brain’s electrical code',
+  tagline: 'Neural decoding for adaptive deep brain stimulation',
   subtitle:
     'Postdoctoral Research Fellow · Brain Modulation Lab · Massachusetts General Hospital / Harvard Medical School',
   blurb:
-    'I build the next generation of adaptive deep brain stimulation therapies — reading intracranial neural activity in real time and linking it directly to behavior and clinical symptoms, so stimulation can finally move beyond trial-and-error.',
+    'I develop adaptive deep brain stimulation methods that read intracranial neural activity in real time and relate it to behavior and clinical symptoms, with the aim of tailoring stimulation to each patient rather than relying on trial and error.',
   location: 'Boston, MA · USA',
   email: 'mvissani@mgh.harvard.edu',
   photo: '/images/matteo.jpg',
@@ -25,7 +25,7 @@ export const profile = {
   },
 }
 
-// Live-ish Google Scholar metrics (snapshot — update by re-reading the profile).
+// Live-ish Google Scholar metrics (snapshot, update by re-reading the profile).
 export const scholarStats = {
   citations: 890,
   hIndex: 13,
@@ -43,9 +43,9 @@ export const scholarStats = {
 }
 
 export const aboutParagraphs = [
-  'I am a postdoctoral research fellow in neurosurgery at the Brain Modulation Lab (MGH / Harvard Medical School), where I investigate the intracranial electrophysiological signatures of human behavior and psychiatric disease. In 2025 I received the <strong>NIH K99/R00 Pathway to Independence Award</strong> to launch my own research program on closed-loop deep brain stimulation for OCD.',
-  'My work spans the full arc of translational neurotechnology — from intraoperative recordings in the operating room, through machine-learning and signal-processing pipelines, to peer-reviewed discovery and patented hardware. I have led neural data collection in more than 100 movement-disorder and psychiatric surgery patients.',
-  'The thread through all of it: making neurostimulation intelligent. By directly linking neural dynamics to symptoms and movement, I aim to replace empirical trial-and-error with personalized, data-driven, closed-loop therapies for otherwise treatment-refractory brain disorders.',
+  'I am a postdoctoral research fellow in neurosurgery at the Brain Modulation Lab (Massachusetts General Hospital and Harvard Medical School), where I study the intracranial electrophysiology of human behavior and psychiatric disease. In 2026 I received the <strong>NIH K99/R00 Pathway to Independence Award</strong> to develop an independent research program on closed-loop deep brain stimulation for OCD.',
+  'I record and analyze intracranial neural activity in patients undergoing awake neurosurgery, and I develop the signal-processing and machine-learning methods needed to interpret it. To date I have contributed to neural data collection in more than 100 patients receiving neurosurgical treatment for movement disorders and psychiatric disease, work that has resulted in peer-reviewed publications and patented neurotechnology.',
+  'My broader aim is to make neurostimulation responsive to the individual patient. By relating neural dynamics directly to symptoms and movement, I work toward personalized, closed-loop therapies that can replace trial-and-error programming for brain disorders that do not respond to conventional treatment.',
 ]
 
 export type Pillar = {
@@ -60,7 +60,7 @@ export const pillars: Pillar[] = [
   {
     title: 'Adaptive & Closed-Loop DBS',
     blurb:
-      'Conventional deep brain stimulation runs on fixed, manually-programmed settings. I work on sensing-enabled DBS — using devices that chronically record local field potentials (e.g. Medtronic Percept) to find neural correlates of clinical state, a prerequisite for stimulation that responds to the patient. My main focus here is obsessive-compulsive disorder.',
+      'Conventional deep brain stimulation is programmed once and then runs continuously. I work with sensing-enabled implants that record neural activity while they stimulate, looking for signals that indicate when a patient improves or worsens. Such signals are a prerequisite for stimulation that adapts on its own, and most of my work in this area focuses on OCD.',
     glyph: 'pulse',
     accent: 'var(--neon-pink)',
     tag: 'OCD · sensing DBS · closed-loop',
@@ -68,7 +68,7 @@ export const pillars: Pillar[] = [
   {
     title: 'Neural Decoding & Single-Unit',
     blurb:
-      'During awake neurosurgery I record single neurons and local field potentials from the human basal ganglia together with cortical signals, and relate that activity to behavior — how subthalamic spiking couples to cortex during speech, and how beta-band activity tracks movement and impulsivity in Parkinson’s disease.',
+      'During surgery I record single neurons in the basal ganglia while patients move and speak, asking what this deep circuit actually computes. My work has shown that subthalamic neurons couple to speech-related cortex and that their bursting activity tracks the quality of reaching movements.',
     glyph: 'spike',
     accent: 'var(--neon-cyan)',
     tag: 'single-unit · speech · movement',
@@ -76,7 +76,7 @@ export const pillars: Pillar[] = [
   {
     title: 'Connectomic Neuromodulation',
     blurb:
-      'A DBS contact’s effect depends on the brain-wide network it engages, not only its local target. I contribute to multi-site, connectome-based analyses (Lead-DBS) that relate stimulation sites to distributed circuits and clinical outcomes across disorders — including work mapping frontal-cortex dysfunction and Parkinson’s network pathology.',
+      'Shifting a stimulation contact by a millimeter can change the clinical outcome, because it engages a different network. Using Lead-DBS and large multi-center datasets, I study which white-matter tracts and circuits carry the therapeutic benefit and which produce side effects.',
     glyph: 'network',
     accent: 'var(--neon-violet)',
     tag: 'connectomes · Lead-DBS · outcomes',
@@ -84,7 +84,7 @@ export const pillars: Pillar[] = [
   {
     title: 'Computational Methods',
     blurb:
-      'Human intracranial datasets are multi-stream, noisy and hard to acquire. I develop the analysis methods and infrastructure that make them usable — machine-learning denoising of speech artifacts in neural recordings, spectral and decoding pipelines, reproducible data management, and contributions to open tools such as Lead-DBS.',
+      'Intracranial recordings are rare, noisy, and acquired under demanding operating-room conditions. Much of my work develops the methods that make the analysis possible: removing speech artifacts from recordings, building decoding pipelines, and contributing to open-source tools such as Lead-DBS.',
     glyph: 'code',
     accent: 'var(--neon-blue)',
     tag: 'ML · signal processing · open tools',
@@ -92,7 +92,7 @@ export const pillars: Pillar[] = [
   {
     title: 'Computational Modeling',
     blurb:
-      'Alongside the recordings, I build models of the cortico-basal-ganglia circuit — spiking and oscillator networks of beta synchronization in Parkinson’s disease, and reinforcement-learning models of how neuromodulators shape decision-making — to test mechanisms that data alone cannot resolve.',
+      'Recordings describe what happened; models help explain why. I build spiking and oscillator models of the cortico-basal-ganglia loop to study beta synchronization in Parkinson’s disease, together with reinforcement-learning models of how dopamine and serotonin shape decision-making.',
     glyph: 'wave',
     accent: 'var(--neon-amber)',
     tag: 'spiking nets · oscillations · RL',
@@ -100,7 +100,7 @@ export const pillars: Pillar[] = [
   {
     title: 'Clinical & Translational',
     blurb:
-      'This work happens with patients, in the operating room and the clinic — across movement disorders, OCD and epilepsy, with earlier projects on stroke and sensorimotor rehabilitation. The goal is to keep the engineering anchored to questions that matter clinically.',
+      'This research is grounded in patient care, in the operating room and the clinic, across movement disorders, OCD, and epilepsy, with earlier work in stroke. Staying close to the clinic keeps the engineering aligned with real clinical needs.',
     glyph: 'cross',
     accent: 'var(--neon-magenta)',
     tag: 'movement · psychiatry · epilepsy',
@@ -132,7 +132,7 @@ export const featured: Featured[] = [
     tag: 'Network · Parkinson’s',
     variant: 'network',
     blurb:
-      'A landmark multi-site study reframing Parkinson’s disease as a disorder of the somato-cognitive action network (SCAN) — linking the network’s dysfunction to the diverse motor and cognitive symptoms of PD and to how medication and DBS act.',
+      'A multi-site study reframing Parkinson’s disease as a disorder of the somato-cognitive action network (SCAN), linking the network’s dysfunction to the motor and cognitive symptoms of PD and to the effects of medication and DBS.',
     slug: 'nature-pd-scan',
   },
   {
@@ -144,7 +144,7 @@ export const featured: Featured[] = [
     tag: 'Single-unit · Speech',
     variant: 'spikephase',
     blurb:
-      'Discovered that spike-phase coupling between subthalamic neurons and the posterior perisylvian cortex predicts how accurately people produce speech sounds — a window into the basal ganglia’s role in language.',
+      'Spike-phase coupling between subthalamic neurons and the posterior perisylvian cortex predicts how accurately people produce speech sounds, offering a window into the basal ganglia’s role in language.',
     slug: 'spike-phase-speech',
   },
   {
@@ -155,7 +155,7 @@ export const featured: Featured[] = [
     tag: 'Adaptive DBS · Psychiatry',
     variant: 'biomarker',
     blurb:
-      'A framework and early evidence for moving OCD therapy from fixed, open-loop stimulation toward symptom-responsive, closed-loop DBS — using sensing-enabled implants to read the patient’s neural state and adapt stimulation to it.',
+      'A framework and early evidence for moving OCD therapy from fixed, open-loop stimulation toward symptom-responsive, closed-loop DBS, using sensing-enabled implants to read the patient’s neural state and adapt stimulation to it.',
     slug: 'closed-loop-ocd',
   },
   {
@@ -166,7 +166,7 @@ export const featured: Featured[] = [
     tag: 'Connectomics · Network',
     variant: 'network',
     blurb:
-      'A multi-site effort segregating the frontal cortex into dysfunctional circuits via deep brain stimulation — a connectomic atlas linking stimulation sites to distinct clinical syndromes.',
+      'A multi-site study that segregates the frontal cortex into dysfunctional circuits using deep brain stimulation, producing a connectomic atlas that links stimulation sites to distinct clinical syndromes.',
     slug: 'frontal-cortex-atlas',
   },
   {
@@ -178,7 +178,7 @@ export const featured: Featured[] = [
     tag: 'Movement · Biomarker',
     variant: 'burst',
     blurb:
-      'Showed that transient high-frequency beta bursts in the subthalamic nucleus track impaired reaching in Parkinson’s patients — and that they depend on dopaminergic state.',
+      'Transient beta bursts in the subthalamic nucleus track impaired reaching in Parkinson’s disease, and their occurrence depends on dopaminergic state.',
     slug: 'reach-grasp-beta-bursts',
   },
   {
@@ -189,7 +189,7 @@ export const featured: Featured[] = [
     tag: 'Sensing DBS · Epilepsy',
     variant: 'epilepsy',
     blurb:
-      'First case series of a novel sensing-enabled DBS device in drug-resistant epilepsy, consistently identifying alpha/beta oscillatory biomarkers across patients.',
+      'A first case series of a sensing-enabled DBS device in drug-resistant epilepsy, which consistently identified alpha and beta oscillatory biomarkers across patients.',
     slug: 'sensing-dbs-epilepsy',
   },
   {
@@ -201,7 +201,7 @@ export const featured: Featured[] = [
     tag: 'Microelectrode · Targeting',
     variant: 'sweetspot',
     blurb:
-      'Used the spatio-temporal structure of single-neuron subthalamic activity to pinpoint the optimal stimulation target in anesthetized Tourette syndrome patients.',
+      'The spatio-temporal structure of single-neuron subthalamic activity is used to identify the optimal stimulation target in Tourette syndrome.',
     slug: 'tourette-dbs-target',
   },
 ]
@@ -220,11 +220,9 @@ export type Pub = {
   flagship?: boolean
   pdf?: string
   code?: string
-  figure?: string
-  figCaption?: string
 }
 
-type PubOpts = { flagship?: boolean; pdf?: string; code?: string; figure?: string; figCaption?: string }
+type PubOpts = { flagship?: boolean; pdf?: string; code?: string }
 
 const P = (
   slug: string,
@@ -247,12 +245,8 @@ const P = (
   flagship: opts.flagship,
   pdf: opts.pdf,
   code: opts.code,
-  figure: opts.figure,
-  figCaption: opts.figCaption,
   link: doi ? `https://doi.org/${doi}` : scholar(`${title} ${authors}`),
 })
-
-const IMG = '/images'
 
 const PAPERS = '/papers'
 const BML = 'https://github.com/Brain-Modulation-Lab'
@@ -273,12 +267,12 @@ export const publications: Pub[] = [
   P('peripersonal-space-stroke', 'network', 'Bassolino M, Franza M, Guanziroli E, Sorrentino G, Canzoneri E, Colombo M, …, Vissani M, et al.', 'Body and peripersonal space representations in chronic stroke patients with upper-limb motor deficits', 'Brain Communications', 2022, 'clinical', '10.1093/braincomms/fcac179'),
   P('meta-rl-cognitive-control', 'network', 'Robertazzi F, Vissani M, Schillaci G, Falotico E', 'Brain-inspired meta-reinforcement-learning cognitive control in conflictual decision-making for artificial agents', 'Neural Networks', 2022, 'modeling', '10.1016/j.neunet.2022.06.020', { code: `${GH}/Robertazzi_et_al_code_BG_MetaLearning_DecisionMakingTasks_NeuralNetworks_2022` }),
   P('impulsivity-firing-regularity', 'spikephase', 'Vissani M, Micheli F, Pecchioli G, Ramat S, Mazzoni A', 'Impulsivity is associated with firing regularity in parkinsonian ventral subthalamic nucleus', 'Ann. Clinical & Translational Neurology', 2022, 'decoding', '10.1002/acn3.51530'),
-  P('impulsivity-single-unit', 'spikephase', 'Micheli F, Vissani M, Pecchioli G, Terenzi F, Ramat S, Mazzoni A', 'Impulsivity markers in parkinsonian subthalamic single-unit activity', 'Movement Disorders', 2021, 'decoding', '10.1002/mds.28497', { pdf: `${PAPERS}/Micheli_ICB_STN_PD_MD_2021.pdf`, figure: `${IMG}/projects-ICB_PD.png`, figCaption: 'Single-unit firing markers of impulsivity in the parkinsonian subthalamic nucleus.' }),
-  P('reach-grasp-beta-bursts', 'burst', 'Vissani M, Palmisano C, Volkmann J, Pezzoli G, Micera S, Isaias IU, Mazzoni A', 'Impaired reach-to-grasp kinematics in parkinsonian patients relates to dopamine-dependent subthalamic beta bursts', 'npj Parkinson’s Disease', 2021, 'decoding', '10.1038/s41531-021-00187-6', { flagship: true, figure: `${IMG}/projects-reach-grasp.png`, figCaption: 'Transient subthalamic beta bursts scale with reach-to-grasp kinematics and depend on dopaminergic state.' }),
-  P('dbs-open-challenges', 'sweetspot', 'Vissani M, Isaias IU, Mazzoni A', 'Deep brain stimulation: a review of the open neural engineering challenges', 'Journal of Neural Engineering', 2020, 'adaptive', '10.1088/1741-2552/abb581', { pdf: `${PAPERS}/Vissani_2020_J._Neural_Eng._17_051002.pdf`, figure: `${IMG}/projects-reviewDBS.png`, figCaption: 'A map of the open neural-engineering challenges for deep brain stimulation.' }),
-  P('gait-initiation-pd', 'biomarker', 'Palmisano C, Brandt G, Vissani M, Pozzi NG, Canessa A, Brumberg J, et al.', 'Gait initiation in Parkinson’s disease: impact of dopamine depletion and initial stance condition', 'Frontiers in Bioeng. & Biotech.', 2020, 'clinical', '10.3389/fbioe.2020.00137', { pdf: `${PAPERS}/Vissani_Gait_initiation_Front.pdf`, figure: `${IMG}/projects-gait.png`, figCaption: 'Gait-initiation biomechanics and the impact of dopamine depletion in Parkinson’s disease.' }),
-  P('tourette-dbs-target', 'sweetspot', 'Vissani M, Cordella R, Micera S, Eleopra R, Romito LM, Mazzoni A', 'Spatio-temporal structure of single-neuron subthalamic activity identifies DBS target for Tourette syndrome', 'Journal of Neural Engineering', 2019, 'decoding', '10.1088/1741-2552/ab37b4', { flagship: true, pdf: `${PAPERS}/Vissani_Spatio-temporalneuronalactivitystructureinTouretteSTN-Jneuraleng2019_DEFF.pdf`, figure: `${IMG}/jneab37b4f04_hr.jpg`, figCaption: 'Spatio-temporal structure of single-neuron subthalamic activity used to identify the DBS target.' }),
-  P('tms-hand-perception', 'biomarker', 'Franza M, Sorrentino G, Vissani M, Serino A, Blanke O, Bassolino M', 'Hand perceptions induced by single-pulse TMS over the primary motor cortex', 'Brain Stimulation', 2019, 'clinical', '10.1016/j.brs.2018.12.972', { pdf: `${PAPERS}/Vissani_Hand_Perception_TMS_BrainStim.pdf`, figure: `${IMG}/projects-tms_hand.png`, figCaption: 'Changes in hand perception induced by single-pulse TMS over the primary motor cortex.' }),
+  P('impulsivity-single-unit', 'spikephase', 'Micheli F, Vissani M, Pecchioli G, Terenzi F, Ramat S, Mazzoni A', 'Impulsivity markers in parkinsonian subthalamic single-unit activity', 'Movement Disorders', 2021, 'decoding', '10.1002/mds.28497', { pdf: `${PAPERS}/Micheli_ICB_STN_PD_MD_2021.pdf` }),
+  P('reach-grasp-beta-bursts', 'burst', 'Vissani M, Palmisano C, Volkmann J, Pezzoli G, Micera S, Isaias IU, Mazzoni A', 'Impaired reach-to-grasp kinematics in parkinsonian patients relates to dopamine-dependent subthalamic beta bursts', 'npj Parkinson’s Disease', 2021, 'decoding', '10.1038/s41531-021-00187-6', { flagship: true }),
+  P('dbs-open-challenges', 'sweetspot', 'Vissani M, Isaias IU, Mazzoni A', 'Deep brain stimulation: a review of the open neural engineering challenges', 'Journal of Neural Engineering', 2020, 'adaptive', '10.1088/1741-2552/abb581', { pdf: `${PAPERS}/Vissani_2020_J._Neural_Eng._17_051002.pdf` }),
+  P('gait-initiation-pd', 'biomarker', 'Palmisano C, Brandt G, Vissani M, Pozzi NG, Canessa A, Brumberg J, et al.', 'Gait initiation in Parkinson’s disease: impact of dopamine depletion and initial stance condition', 'Frontiers in Bioeng. & Biotech.', 2020, 'clinical', '10.3389/fbioe.2020.00137', { pdf: `${PAPERS}/Vissani_Gait_initiation_Front.pdf` }),
+  P('tourette-dbs-target', 'sweetspot', 'Vissani M, Cordella R, Micera S, Eleopra R, Romito LM, Mazzoni A', 'Spatio-temporal structure of single-neuron subthalamic activity identifies DBS target for Tourette syndrome', 'Journal of Neural Engineering', 2019, 'decoding', '10.1088/1741-2552/ab37b4', { flagship: true, pdf: `${PAPERS}/Vissani_Spatio-temporalneuronalactivitystructureinTouretteSTN-Jneuraleng2019_DEFF.pdf` }),
+  P('tms-hand-perception', 'biomarker', 'Franza M, Sorrentino G, Vissani M, Serino A, Blanke O, Bassolino M', 'Hand perceptions induced by single-pulse TMS over the primary motor cortex', 'Brain Stimulation', 2019, 'clinical', '10.1016/j.brs.2018.12.972', { pdf: `${PAPERS}/Vissani_Hand_Perception_TMS_BrainStim.pdf` }),
 ]
 
 export const categoryLabels: Record<Category, string> = {
@@ -299,13 +293,51 @@ export type Award = {
 }
 
 export const awards: Award[] = [
-  { year: '2025', title: 'NIH K99/R00 Pathway to Independence Award', org: 'National Institute of Mental Health (NIMH) · 1K99MH144561' },
+  { year: '2026', title: 'NIH K99/R00 Pathway to Independence Award', org: 'National Institute of Mental Health (NIMH) · 1K99MH144561' },
   { year: '2024', title: 'BRAIN Initiative Scholar Spotlight Award', org: 'National Institutes of Health (NIH)' },
   { year: '2023', title: 'Michael Jenike Young Investigator Award', org: 'International OCD Foundation (IOCDF)' },
   { year: '2022', title: 'Best Contribution Award', org: 'Workshop on AI & Smart Systems, Scuola Superiore Sant’Anna' },
-  { year: '2021', title: 'Massimo Grattarola Award', org: 'GNB — best Italian PhD thesis in bioengineering' },
+  { year: '2021', title: 'Massimo Grattarola Award', org: 'GNB · best Italian PhD thesis in bioengineering' },
   { year: '2021', title: 'Ph.D. Awarded with Highest Honor', org: 'Scuola Superiore Sant’Anna' },
-  { year: '2017', title: 'Ph.D. Fellowship — top 1% of 100+ candidates', org: 'Scuola Superiore Sant’Anna' },
+  { year: '2017', title: 'Ph.D. Fellowship · top 1% of 100+ candidates', org: 'Scuola Superiore Sant’Anna' },
+]
+
+export type Teaching = {
+  period: string
+  course: string
+  detail: string
+  place: string
+  notes?: { label: string; href: string }[]
+}
+
+export const teaching: Teaching[] = [
+  {
+    period: '2017–2021',
+    course: 'Information Theory & Neural Modeling',
+    detail: 'During my PhD I taught a graduate course covering the mathematical theory of the integrate-and-fire neuron, with detailed formalism and extensions, together with the foundations of information theory, focusing on entropy and mutual information.',
+    place: 'Scuola Superiore Sant’Anna, Pisa',
+    notes: [
+      { label: 'Integrate-and-Fire Neuron', href: '/lectures/Vissani-Lecture-Integrate-and-Fire-Neuron.pdf' },
+      { label: 'Entropy & Mutual Information', href: '/lectures/Vissani-Lecture-Entropy-and-Mutual-Information.pdf' },
+    ],
+  },
+]
+
+export type Mentoring = { program: string; since: string; detail: string; href: string }
+
+export const mentoring: Mentoring[] = [
+  {
+    program: 'LeadTheFuture',
+    since: 'Since 2024',
+    detail: 'STEM mentor in a free program that connects Italian students with researchers and professionals working abroad.',
+    href: 'https://leadthefuture.tech/',
+  },
+  {
+    program: 'ISSNAF',
+    since: 'Since 2025',
+    detail: 'Mentor in the program of the Italian Scientists and Scholars in North America Foundation (ISSNAF).',
+    href: 'https://www.issnaf.org/mentoring-programs',
+  },
 ]
 
 export type Talk = {
@@ -319,7 +351,7 @@ export type Talk = {
 
 export const talks: Talk[] = [
   { year: '2025', title: 'Toward responsive, closed-loop deep brain stimulation for OCD', venue: 'IOCDF Research Symposium', place: 'Chicago, IL', kind: 'Conference' },
-  { year: '2024', title: 'Electrophysiological biomarkers for sensing-enabled DBS in OCD', venue: 'NIH BRAIN Initiative Conference — Scholar Spotlight Plenary', place: 'Bethesda, MD', kind: 'Plenary', highlight: true },
+  { year: '2024', title: 'Electrophysiological biomarkers for sensing-enabled DBS in OCD', venue: 'NIH BRAIN Initiative Conference · Scholar Spotlight Plenary', place: 'Bethesda, MD', kind: 'Plenary', highlight: true },
   { year: '2024', title: 'A candidate responsive biomarker in sensing-enabled DBS for OCD', venue: 'Congress of Neurological Surgeons Annual Meeting', place: 'Houston, TX', kind: 'Conference' },
   { year: '2024', title: 'Biomarker-guided DBS for obsessive-compulsive disorder', venue: 'Biennial Psychiatric Neurosurgery Symposium', place: 'Nashville, TN', kind: 'Conference' },
   { year: '2024', title: 'Distinct roles of subthalamic neuron coupling to speech-related cortical areas', venue: 'Joint BWH–MGH Neurosurgery Translational Science Series', place: 'Boston, MA', kind: 'Invited' },
@@ -330,7 +362,7 @@ export const talks: Talk[] = [
 export type Media = { label: string; org: string; href: string }
 export const media: Media[] = [
   {
-    label: 'Behind the paper — “Synchrony in Speech”',
+    label: 'Behind the paper: “Synchrony in Speech”',
     org: 'Springer Nature Research Communities · authored feature on how deep brain regions coordinate during speaking',
     href: 'https://communities.springernature.com/posts/synchrony-in-speech-revealing-how-deep-brain-regions-communicate-during-speaking',
   },
@@ -357,9 +389,10 @@ export const education: EduItem[] = [
 export const navLinks = [
   { id: 'about', label: 'About' },
   { id: 'research', label: 'Research' },
-  { id: 'work', label: 'Featured' },
+  { id: 'interactive', label: 'Interactive' },
   { id: 'publications', label: 'Papers' },
   { id: 'awards', label: 'Awards' },
+  { id: 'teaching', label: 'Teaching' },
   { id: 'talks', label: 'Talks' },
   { id: 'contact', label: 'Contact' },
 ]

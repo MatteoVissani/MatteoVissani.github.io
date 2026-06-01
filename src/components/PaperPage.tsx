@@ -1,11 +1,11 @@
 import { Suspense, lazy, useState } from 'react'
 import { motion } from 'framer-motion'
 import SignalArt from './SignalArt'
+import GraphicalAbstract from './GraphicalAbstract'
 import { LogoMark } from './Logo'
 import { Pdf, Doi, GitHub, ArrowRight } from './Icons'
 import { findPub, categoryLabels, publications, profile } from '../data/content'
 import { abstracts, summaries } from '../data/abstracts'
-import { figures } from '../data/figures'
 
 const PdfViewer = lazy(() => import('./PdfViewer'))
 
@@ -41,19 +41,12 @@ export default function PaperPage({ slug }: { slug: string }) {
   }
 
   const abstract = (abstracts[slug] || '')
-    .replace(/\b(OBJECTIVE|BACKGROUND|METHODS?|RESULTS?|CONCLUSIONS?|SIGNIFICANCE|AIM|PURPOSE)S?:\s*/gi, '')
+    .replace(/\b(OBJECTIVES?|BACKGROUND|METHODS?|APPROACH|MAIN RESULTS?|RESULTS?|CONCLUSIONS?|SIGNIFICANCE|AIM|PURPOSE)S?:\s*/gi, '')
     .replace(/\s*…\s*$/, '.')
     .replace(/\s{2,}/g, ' ')
     .trim()
 
   const summary = summaries[slug] || ''
-
-  // real paper figure used as the graphical abstract
-  const fig0 = figures[slug]?.[0]
-  const gradImg = fig0?.src || (p.figure && !/\.(mp4|webm)$/i.test(p.figure) ? p.figure : null)
-  const figCap =
-    (fig0?.caption ? fig0.caption.replace(/^fig(?:ure)?\.?\s*\d+\s*[.:|·-]?\s*/i, '').trim() : '') ||
-    p.figCaption || ''
 
   // sibling papers in the same research area
   const related = publications.filter((q) => q.category === p.category && q.slug !== p.slug).slice(0, 3)
@@ -99,20 +92,11 @@ export default function PaperPage({ slug }: { slug: string }) {
           </motion.div>
         )}
 
-        {(gradImg || summary) && (
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }}>
-            <h2 className="paper-h2">{gradImg ? 'Graphical abstract' : 'In brief'}</h2>
-            <div className={`paper-grab ${gradImg ? '' : 'noimg'}`}>
-              {gradImg && (
-                <figure className="paper-grab-img">
-                  <img src={gradImg} alt={`Graphical abstract — ${p.title}`} loading="lazy" />
-                  {figCap && <figcaption>{figCap}</figcaption>}
-                </figure>
-              )}
-              {summary && <p className="paper-grab-text">{summary}</p>}
-            </div>
-          </motion.div>
-        )}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }}>
+          <h2 className="paper-h2">In brief</h2>
+          <div className="ga-frame"><GraphicalAbstract slug={slug} variant={p.variant} /></div>
+          {summary && <p className="ga-caption">{summary}</p>}
+        </motion.div>
 
         {p.pdf && (
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }}>
@@ -120,7 +104,7 @@ export default function PaperPage({ slug }: { slug: string }) {
               Read the paper
               <a className="paper-h2-link" href={p.pdf} target="_blank" rel="noreferrer">open / download ↗</a>
             </h2>
-            <p className="paper-readhint">Flip through every page and figure — arrows or ← → keys.</p>
+            <p className="paper-readhint">Flip through every page and figure, arrows or ← → keys.</p>
             <Suspense fallback={<div className="pdfv-loading-block">loading viewer…</div>}>
               <PdfViewer url={p.pdf} />
             </Suspense>

@@ -1,5 +1,5 @@
 // Procedural neon "data-viz" artwork for featured-work cards.
-// Each variant is a self-contained animated SVG — no external images.
+// Each variant is a self-contained animated SVG, no external images.
 
 type Variant =
   | 'spikephase'
