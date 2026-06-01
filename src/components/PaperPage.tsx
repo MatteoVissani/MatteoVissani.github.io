@@ -101,26 +101,25 @@ export default function PaperPage({ slug }: { slug: string }) {
             {p.pdf && <a className="btn ghost" href={p.pdf} target="_blank" rel="noreferrer"><Pdf style={{ width: 16, height: 16, verticalAlign: '-3px', marginRight: 8 }} />PDF</a>}
             {p.code && <a className="btn ghost" href={p.code} target="_blank" rel="noreferrer"><GitHub style={{ width: 16, height: 16, verticalAlign: '-3px', marginRight: 8 }} />Code</a>}
             <button className="btn ghost" onClick={copyCite}>{copied ? '✓ Copied BibTeX' : 'Cite (BibTeX)'}</button>
+            {doi && (
+              <span className="paper-metrics">
+                <span
+                  key={`alt-${doi}`}
+                  className="altmetric-embed"
+                  data-badge-type="donut"
+                  data-badge-popover="top"
+                  data-doi={doi}
+                  data-hide-no-mentions="true"
+                />
+                <span
+                  key={`dim-${doi}`}
+                  className="__dimensions_badge_embed__"
+                  data-doi={doi}
+                  data-style="small_circle"
+                />
+              </span>
+            )}
           </div>
-
-          {doi && (
-            <div className="paper-metrics" style={{ marginTop: 20, display: 'inline-flex', alignItems: 'center', gap: 22, flexWrap: 'wrap', background: 'rgba(244,246,251,0.96)', padding: '12px 20px', borderRadius: 14 }}>
-              <div
-                key={`alt-${doi}`}
-                className="altmetric-embed"
-                data-badge-type="donut"
-                data-badge-popover="right"
-                data-doi={doi}
-                data-hide-no-mentions="true"
-              />
-              <span
-                key={`dim-${doi}`}
-                className="__dimensions_badge_embed__"
-                data-doi={doi}
-                data-style="small_circle"
-              />
-            </div>
-          )}
         </motion.div>
 
         {abstract && (
