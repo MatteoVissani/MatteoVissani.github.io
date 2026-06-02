@@ -551,6 +551,13 @@ img { max-width: 100%; display: block; }
   color: var(--neon-amber); border: 1px solid rgba(255,184,77,0.5);
   border-radius: 4px; padding: 1px 6px; margin-left: 8px; vertical-align: middle; text-transform: uppercase;
 }
+.pub-main .pt .explore-badge {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+  color: var(--neon-cyan); border: 1px solid rgba(34,225,255,0.55);
+  border-radius: 4px; padding: 1px 6px; margin-left: 8px; vertical-align: middle; text-transform: uppercase;
+  background: rgba(34,225,255,0.08); box-shadow: 0 0 8px rgba(34,225,255,0.25); white-space: nowrap;
+}
+.pub-row:hover .pt .explore-badge { box-shadow: 0 0 12px rgba(34,225,255,0.5); }
 .pub-main .pa { color: var(--text-faint); font-size: 0.85rem; margin-top: 4px; }
 .pub-main .pa b { color: var(--neon-magenta); font-weight: 600; }
 .pub-venue { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-dim); margin-top: 3px; }

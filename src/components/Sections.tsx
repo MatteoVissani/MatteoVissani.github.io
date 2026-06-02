@@ -20,7 +20,7 @@ import {
 } from './Icons'
 import {
   profile, aboutParagraphs, education, pillars, featured,
-  publications, awards, teaching, mentoring, talks, media, categoryLabels, type Pub, type Category,
+  publications, awards, teaching, mentoring, talks, media, categoryLabels, hasExplorer, type Pub, type Category,
 } from '../data/content'
 
 function Socials() {
@@ -227,6 +227,7 @@ export function Publications() {
                 <a className="pt" href={`/paper/${p.slug}/`}>
                   {p.title}
                   {p.flagship && <span className="flag">Flagship</span>}
+                  {hasExplorer(p.slug) && <span className="explore-badge">◆ Explore the data</span>}
                 </a>
                 <span className="pa" dangerouslySetInnerHTML={{ __html: authorHTML(p.authors) }} />
                 <span className="pub-venue">{p.venue}</span>

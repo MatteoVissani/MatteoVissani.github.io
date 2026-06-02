@@ -286,6 +286,10 @@ export const categoryLabels: Record<Category, string> = {
 
 export const findPub = (slug: string) => publications.find((p) => p.slug === slug)
 
+// papers that have an interactive "Explore the data" 3D showcase on their page
+export const explorableSlugs = ['spike-phase-speech']
+export const hasExplorer = (slug: string) => explorableSlugs.includes(slug)
+
 export type Award = {
   year: string
   title: string
