@@ -6,6 +6,7 @@ import CiteStrip from './CiteStrip'
 import LIFSim from './LIFSim'
 import InfoLab from './InfoLab'
 import SpikePhaseLab from './SpikePhaseLab'
+import SPCTool from './SPCTool'
 import DecodingLab from './DecodingLab'
 import WaveletLab from './WaveletLab'
 import FilterLab from './FilterLab'
@@ -20,7 +21,7 @@ import {
 } from './Icons'
 import {
   profile, aboutParagraphs, education, pillars, featured,
-  publications, awards, teaching, mentoring, talks, media, categoryLabels, hasExplorer, type Pub, type Category,
+  publications, awards, teaching, mentoring, talks, media, categoryLabels, hasExplorer, repos, codeProfileUrl, type Pub, type Category,
 } from '../data/content'
 
 function Socials() {
@@ -175,6 +176,121 @@ function authorHTML(a: string) {
   return a.replace(/Vissani M/g, '<b>Vissani M</b>')
 }
 
+/* ---------------- SOFTWARE & TOOLS ---------------- */
+export function Software() {
+  return (
+    <section id="software" className="section">
+      <div className="wrap">
+        <Reveal>
+          <p className="eyebrow">04 — Software &amp; tools</p>
+          <h2 className="section-title">Software &amp; <span className="accent">tools</span></h2>
+          <p className="section-lead">
+            Interactive simulations of the methods behind my research and the open-source code that implements them.
+            Launch any simulation in your browser, or browse the repositories.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.05}>
+          <p className="ilab-section-label">Simulations</p>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Neuronal dynamics</h3>
+            <DemoToggle title="Integrate-and-fire neuron"
+              subtitle="Live simulation, phase plane, f–I curve and adaptation">
+              <LIFSim />
+            </DemoToggle>
+            <DemoToggle title="Wilson–Cowan dynamics &amp; bifurcation"
+              subtitle="Coupled E/I populations: phase plane, nullclines, and a Hopf bifurcation into oscillations">
+              <WilsonCowanLab />
+            </DemoToggle>
+          </div>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Neural coding &amp; information</h3>
+            <DemoToggle title="Spike–phase coupling"
+              subtitle="STN single units locking to a cortical rhythm, phase-locking value and preferred phase">
+              <SpikePhaseLab />
+            </DemoToggle>
+            <DemoToggle title="Population coding &amp; neural decoding"
+              subtitle="Tuning curves, a maximum-likelihood decoder, Fisher information and the Cramér–Rao bound">
+              <DecodingLab />
+            </DemoToggle>
+            <DemoToggle title="Entropy &amp; mutual information"
+              subtitle="Noisy-channel information and Shannon/Huffman source coding">
+              <InfoLab />
+            </DemoToggle>
+          </div>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Signals &amp; time–frequency</h3>
+            <DemoToggle title="Fourier epicycles"
+              subtitle="Draw any shape and watch rotating vectors (the Fourier series) retrace it">
+              <FourierLab />
+            </DemoToggle>
+            <DemoToggle title="Digital filter designer"
+              subtitle="Windowed-sinc FIR band-pass: live frequency response and filtered signal">
+              <FilterLab />
+            </DemoToggle>
+            <DemoToggle title="Wavelet time–frequency decomposition"
+              subtitle="Live Morlet continuous wavelet transform of a neural signal, inspect every parameter">
+              <WaveletLab />
+            </DemoToggle>
+            <DemoToggle title="Kalman-filter BCI decoder"
+              subtitle="Track a 2D cursor from a noisy neural read-out with a real-time Kalman filter">
+              <KalmanLab />
+            </DemoToggle>
+          </div>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Neurotechnology</h3>
+            <DemoToggle title="DBS waveform &amp; charge-safety designer"
+              subtitle="Design a stimulation pulse, charge per phase, charge density, and the Shannon safety limit">
+              <DBSLab />
+            </DemoToggle>
+            <DemoToggle title="EEG source localization &amp; spatial mixing"
+              subtitle="A dipole spreads to every electrode (volume conduction); a dipole-fit tries to localize it">
+              <EEGLab />
+            </DemoToggle>
+          </div>
+
+          <p className="ilab-section-label">Repositories &amp; tools</p>
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Spike–phase coupling — code + live companion</h3>
+            <div className="repo-pair">
+              <a className="repo-card panel" href={repos[0].href} target="_blank" rel="noreferrer">
+                <span className="repo-ico"><GitHub /></span>
+                <span className="repo-body">
+                  <span className="repo-name">{repos[0].name}{repos[0].lang && <span className="repo-lang">{repos[0].lang}</span>}</span>
+                  <span className="repo-desc">{repos[0].desc}</span>
+                </span>
+                <span className="repo-arrow"><External /></span>
+              </a>
+              <div className="repo-pair-tool">
+                <span className="repo-pair-conn">Interactive companion: run this library in your browser</span>
+                <DemoToggle title="Spike–phase coupling toolkit — run the method on data"
+                  subtitle="PLV, PPC, constant-spike-count window and permutation null, computed live on simulated coupled data (Vissani et al. 2025)">
+                  <SPCTool />
+                </DemoToggle>
+              </div>
+            </div>
+          </div>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">More code</h3>
+            <div className="repo-list">
+              <a className="repo-card panel repo-more-card" href={codeProfileUrl} target="_blank" rel="noreferrer">
+                <span className="repo-ico"><GitHub /></span>
+                <span className="repo-body"><span className="repo-name">All repositories</span><span className="repo-desc">Browse the rest of my code on GitHub.</span></span>
+                <span className="repo-arrow"><External /></span>
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 export function Publications() {
   const [filter, setFilter] = useState<Pub['category'] | 'all'>('all')
   const list = useMemo(
@@ -275,85 +391,6 @@ export function Awards() {
             </Reveal>
           ))}
         </div>
-      </div>
-    </section>
-  )
-}
-
-/* ---------------- INTERACTIVE LABS ---------------- */
-export function Interactive() {
-  return (
-    <section id="interactive" className="section">
-      <div className="wrap">
-        <Reveal>
-          <p className="eyebrow">04 — Interactive</p>
-          <h2 className="section-title">Interactive <span className="accent">labs</span></h2>
-          <p className="section-lead">
-            Hands-on demos of the methods behind my research, grouped by theme: neuronal dynamics, neural coding and
-            information, signals and time–frequency, and neurotechnology. Click any to launch it live in your browser.
-          </p>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <div className="ilab-group">
-            <h3 className="ilab-group-title">Neuronal dynamics</h3>
-            <DemoToggle title="Integrate-and-fire neuron"
-              subtitle="Live simulation, phase plane, f–I curve and adaptation">
-              <LIFSim />
-            </DemoToggle>
-            <DemoToggle title="Wilson–Cowan dynamics &amp; bifurcation"
-              subtitle="Coupled E/I populations: phase plane, nullclines, and a Hopf bifurcation into oscillations">
-              <WilsonCowanLab />
-            </DemoToggle>
-          </div>
-
-          <div className="ilab-group">
-            <h3 className="ilab-group-title">Neural coding &amp; information</h3>
-            <DemoToggle title="Spike–phase coupling"
-              subtitle="STN single units locking to a cortical rhythm, phase-locking value and preferred phase">
-              <SpikePhaseLab />
-            </DemoToggle>
-            <DemoToggle title="Population coding &amp; neural decoding"
-              subtitle="Tuning curves, a maximum-likelihood decoder, Fisher information and the Cramér–Rao bound">
-              <DecodingLab />
-            </DemoToggle>
-            <DemoToggle title="Entropy &amp; mutual information"
-              subtitle="Noisy-channel information and Shannon/Huffman source coding">
-              <InfoLab />
-            </DemoToggle>
-          </div>
-
-          <div className="ilab-group">
-            <h3 className="ilab-group-title">Signals &amp; time–frequency</h3>
-            <DemoToggle title="Fourier epicycles"
-              subtitle="Draw any shape and watch rotating vectors (the Fourier series) retrace it">
-              <FourierLab />
-            </DemoToggle>
-            <DemoToggle title="Digital filter designer"
-              subtitle="Windowed-sinc FIR band-pass: live frequency response and filtered signal">
-              <FilterLab />
-            </DemoToggle>
-            <DemoToggle title="Wavelet time–frequency decomposition"
-              subtitle="Live Morlet continuous wavelet transform of a neural signal, inspect every parameter">
-              <WaveletLab />
-            </DemoToggle>
-            <DemoToggle title="Kalman-filter BCI decoder"
-              subtitle="Track a 2D cursor from a noisy neural read-out with a real-time Kalman filter">
-              <KalmanLab />
-            </DemoToggle>
-          </div>
-
-          <div className="ilab-group">
-            <h3 className="ilab-group-title">Neurotechnology</h3>
-            <DemoToggle title="DBS waveform &amp; charge-safety designer"
-              subtitle="Design a stimulation pulse, charge per phase, charge density, and the Shannon safety limit">
-              <DBSLab />
-            </DemoToggle>
-            <DemoToggle title="EEG source localization &amp; spatial mixing"
-              subtitle="A dipole spreads to every electrode (volume conduction); a dipole-fit tries to localize it">
-              <EEGLab />
-            </DemoToggle>
-          </div>
-        </Reveal>
       </div>
     </section>
   )

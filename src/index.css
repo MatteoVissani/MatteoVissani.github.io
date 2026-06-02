@@ -1086,3 +1086,24 @@ img { max-width: 100%; display: block; }
   html { scroll-behavior: auto; }
   .bg-grid, .scroll-hint .dot { animation: none; }
 }
+
+/* --- Software & tools section --- */
+.repo-list { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+.repo-card { display: flex; align-items: center; gap: 16px; padding: 14px 18px; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.repo-card:hover { border-color: rgba(34,225,255,0.45); transform: translateX(4px); box-shadow: 0 6px 22px rgba(0,0,0,0.35); }
+.repo-ico svg { width: 22px; height: 22px; color: var(--neon-cyan); }
+.repo-body { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.repo-name { color: var(--text); font-family: var(--font-mono); font-size: 0.95rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.repo-lang { font-size: 0.62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--neon-amber); border: 1px solid rgba(255,184,77,0.5); border-radius: 4px; padding: 1px 6px; }
+.repo-desc { color: var(--text-faint); font-size: 0.86rem; }
+.repo-arrow svg { width: 15px; height: 15px; color: var(--text-faint); }
+.repo-more { margin-top: 14px; color: var(--text-faint); font-size: 0.9rem; }
+.repo-more a { color: var(--neon-cyan); }
+
+/* two-tier label inside Software & tools (Simulations / Repositories) */
+.ilab-section-label { font: 700 0.95rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--neon-violet); margin: 44px 0 12px; padding-bottom: 7px; border-bottom: 1px solid rgba(177,91,255,0.28); }
+.ilab-section-label:first-of-type { margin-top: 24px; }
+
+/* repo + its live companion tool, visually linked */
+.repo-pair { border-left: 2px solid rgba(34,225,255,0.35); padding-left: 16px; }
+.repo-pair-conn { display: block; font: 600 0.66rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--neon-cyan); margin: 14px 0 0; }

@@ -3,7 +3,7 @@ import Background from './components/Background'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import PaperPage from './components/PaperPage'
-import { About, Research, Featured, Interactive, Publications, Awards, Teaching, Talks, Contact } from './components/Sections'
+import { About, Research, Featured, Software, Publications, Awards, Teaching, Talks, Contact } from './components/Sections'
 
 // Real-path router: paper pages live at /paper/<slug>/ so each is its own
 // crawlable, Scholar-indexable URL. Internal root-relative links are handled
@@ -62,7 +62,7 @@ export default function App() {
         <About />
         <Research />
         <Featured />
-        <Interactive />
+        <Software />
         <Publications />
         <Awards />
         <Teaching />

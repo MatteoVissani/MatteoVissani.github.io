@@ -45,7 +45,7 @@ export const scholarStats = {
 export const aboutParagraphs = [
   'I am a postdoctoral research fellow in neurosurgery at the Brain Modulation Lab (Massachusetts General Hospital and Harvard Medical School), where I study the intracranial electrophysiology of human behavior and psychiatric disease. In 2026 I received the <strong>NIH K99/R00 Pathway to Independence Award</strong> to develop an independent research program on closed-loop deep brain stimulation for OCD.',
   'I record and analyze intracranial neural activity in patients undergoing awake neurosurgery, and I develop the signal-processing and machine-learning methods needed to interpret it. To date I have contributed to neural data collection in more than 100 patients receiving neurosurgical treatment for movement disorders and psychiatric disease, work that has resulted in peer-reviewed publications and patented neurotechnology.',
-  'My broader aim is to make neurostimulation responsive to the individual patient. By relating neural dynamics directly to symptoms and movement, I work toward personalized, closed-loop therapies that can replace trial-and-error programming for brain disorders that do not respond to conventional treatment.',
+  'My broader aim is to make neurostimulation responsive to the individual patient. By relating neural dynamics directly to symptoms and patient state, I work toward personalized, closed-loop therapies that can replace trial-and-error programming for brain disorders that do not respond to conventional treatment.',
 ]
 
 export type Pillar = {
@@ -390,10 +390,16 @@ export const education: EduItem[] = [
   { period: '2011–2014', degree: 'B.Sc. in Biomedical Engineering', place: 'Marche Polytechnic University, Ancona (IT)' },
 ]
 
+export type Repo = { name: string; desc: string; href: string; lang?: string }
+export const repos: Repo[] = [
+  { name: 'code_SPC_ECoG_STN_Speech', lang: 'MATLAB', desc: 'Time-resolved spike-phase coupling pipeline (the interactive toolkit above is a browser port).', href: 'https://github.com/Brain-Modulation-Lab/code_SPC_ECoG_STN_Speech' },
+]
+export const codeProfileUrl = 'https://github.com/MatteoVissani'
+
 export const navLinks = [
   { id: 'about', label: 'About' },
   { id: 'research', label: 'Research' },
-  { id: 'interactive', label: 'Interactive' },
+  { id: 'software', label: 'Software' },
   { id: 'publications', label: 'Papers' },
   { id: 'awards', label: 'Awards' },
   { id: 'teaching', label: 'Teaching' },
