@@ -38,20 +38,18 @@ function CortexMesh({ opacity = 0.1 }: { opacity?: number }) {
     fetch('/data/spc/cortex_mesh.bin').then((r) => r.arrayBuffer()).then((buf) => {
       const dv = new DataView(buf); const nv = dv.getUint32(0, true), nf = dv.getUint32(4, true)
       const pos = new Float32Array(buf, 8, nv * 3)
-      const col = new Float32Array(buf, 8 + nv * 12, nv * 3)        // Destrieux per-vertex colours
-      const idx = new Uint32Array(buf, 8 + nv * 24, nf * 3)
+      const idx = new Uint32Array(buf, 8 + nv * 12, nf * 3)
       const sp = new Float32Array(nv * 3)
       for (let i = 0; i < nv; i++) { const s = toScene(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]); sp[i * 3] = s[0]; sp[i * 3 + 1] = s[1]; sp[i * 3 + 2] = s[2] }
       const g = new THREE.BufferGeometry()
       g.setAttribute('position', new THREE.BufferAttribute(sp, 3))
-      g.setAttribute('color', new THREE.BufferAttribute(col.slice(), 3))
       g.setIndex(new THREE.BufferAttribute(idx.slice(), 1)); g.computeVertexNormals()
       if (alive) setGeo(g); else g.dispose()
     }).catch(() => {})
     return () => { alive = false }
   }, [])
   if (!geo) return null
-  return (<mesh geometry={geo} renderOrder={-1}><meshStandardMaterial vertexColors transparent opacity={opacity} roughness={0.7} metalness={0} side={THREE.FrontSide} depthWrite={false} /></mesh>)
+  return (<mesh geometry={geo} renderOrder={-1}><meshStandardMaterial color="#9aa6cc" transparent opacity={opacity} roughness={0.72} metalness={0} side={THREE.FrontSide} depthWrite={false} /></mesh>)
 }
 
 // translucent surface from a .bin (header nv,nf; float positions in MNI; uint32
@@ -77,6 +75,20 @@ function SurfaceMesh({ url, color, opacity, mag = 1, center, onTop = false }:
   }, [url, mag, center])
   if (!geo) return null
   return (<mesh geometry={geo} renderOrder={onTop ? 10 : 1}><meshStandardMaterial color={color} transparent opacity={opacity} roughness={0.5} metalness={0} side={THREE.DoubleSide} depthTest={!onTop} depthWrite={false} /></mesh>)
+}
+
+type Region = { label: string; color: string; segs: number[][] }
+
+// outline (border) of selected cortical atlas regions, drawn on the cortex.
+function RegionBorders({ regions, on }: { regions: Region[]; on: boolean[] }) {
+  const objs = useMemo(() => regions.map((r) => {
+    const pos = new Float32Array(r.segs.length * 6)
+    r.segs.forEach((s, j) => { const a = toScene(s[0], s[1], s[2]), b = toScene(s[3], s[4], s[5]); pos.set(a, j * 6); pos.set(b, j * 6 + 3) })
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3))
+    const ls = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: r.color, transparent: true, depthTest: false, depthWrite: false })); ls.renderOrder = 14
+    return ls
+  }), [regions])
+  return (<>{objs.map((o, i) => (on[i] ? <primitive key={i} object={o} /> : null))}</>)
 }
 
 function Cloud({ data, rscale, minR, sel, mag = 1, center, onTop = false, dmax }:
@@ -170,6 +182,8 @@ export default function SPCBrainViz() {
   const [conn, setConn] = useState<Edges | null>(null)
   const [sel, setSel] = useState(ALL)
   const [showEdges, setShowEdges] = useState(true)
+  const [regions, setRegions] = useState<Region[]>([])
+  const [regOn, setRegOn] = useState<boolean[]>([])
   const [err, setErr] = useState(false)
   const wrap = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(true)
@@ -180,6 +194,9 @@ export default function SPCBrainViz() {
       fetch('/data/spc/stn.json').then((r) => r.json()),
       fetch('/data/spc/connections.json').then((r) => r.json()),
     ]).then(([c, s, e]) => { setCortex(c); setStn(s); setConn(e) }).catch(() => setErr(true))
+    fetch('/data/spc/cortex_regions.json').then((r) => r.json()).then((d) => {
+      setRegions(d.regions); setRegOn(d.regions.map((_: Region, i: number) => i < 2)) // Supramarginal + STG on by default
+    }).catch(() => {})
   }, [])
   useEffect(() => {
     const el = wrap.current; if (!el) return
@@ -206,7 +223,7 @@ export default function SPCBrainViz() {
             Real published data in MNI space. Spheres are per-band SPC density (radius ∝ density, colour = band) on the
             cortex and STN. Each tube is one coupling cluster joining an STN spike source to a cortical site at their true
             coordinates; <b>tube width ∝ the nearest cortical SPC density</b>. The STN is small and deep — drawn through the cortex
-            and magnified ×6 in the inset. Drag to rotate; click a band to isolate it.
+            and magnified ×3 in the inset. Drag to rotate; click a band to isolate it.
           </div>
         </div>
       </div>
@@ -223,6 +240,17 @@ export default function SPCBrainViz() {
         <button className={`pub-filter ${showEdges ? 'active' : ''}`} onClick={() => setShowEdges((v) => !v)}>connections</button>
       </div>
 
+      {regions.length > 0 && (
+        <div className="spcviz-bands">
+          <span className="spcviz-bandlabel">highlight cortex regions:</span>
+          {regions.map((r, i) => (
+            <button key={r.label} className={`pub-filter ${regOn[i] ? 'active' : ''}`} style={regOn[i] ? { borderColor: r.color, color: r.color } : undefined} onClick={() => setRegOn((o) => o.map((v, j) => (j === i ? !v : v)))}>
+              <i className="spcviz-swatch" style={{ background: r.color }} />{r.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div ref={wrap} className="spcviz-stage">
         {err && <div className="spcviz-msg">Could not load SPC data.</div>}
         {!err && !ready && <div className="spcviz-msg">Loading SPC data…</div>}
@@ -232,6 +260,7 @@ export default function SPCBrainViz() {
             <directionalLight position={[4, 8, 6]} intensity={0.7} />
             <directionalLight position={[-6, -2, -4]} intensity={0.3} />
             <CortexMesh opacity={0.42} />
+            {regions.length > 0 && <RegionBorders regions={regions} on={regOn} />}
             <Cloud data={cortex!} rscale={1.4} minR={0.012} sel={sel} />
             <Cloud data={stn!} rscale={0.05} minR={0.015} dmax={stn!.max} sel={sel} mag={STN_MAG_MAIN} center={stnCentroid} onTop />
             {showEdges && <Flows edges={conn!.edges} sel={sel} center={stnCentroid} mag={STN_MAG_MAIN} />}
@@ -245,12 +274,12 @@ export default function SPCBrainViz() {
         {ready && (
           <div className="spcviz-inset">
             <div className="spcviz-inset-lab">STN closeup — DISTAL (×3)</div>
-            <Canvas camera={{ position: [stnCentroid[0] + 0.37, stnCentroid[1] + 0.23, stnCentroid[2] + 0.47], fov: 40 }} dpr={[1, 1.5]} frameloop={active ? 'always' : 'never'} gl={{ antialias: true, alpha: true }}>
+            <Canvas camera={{ position: [stnCentroid[0] + 1.4, stnCentroid[1] + 0.9, stnCentroid[2] + 1.8], fov: 40 }} dpr={[1, 1.5]} frameloop={active ? 'always' : 'never'} gl={{ antialias: true, alpha: true }}>
               <ambientLight intensity={0.85} />
               <directionalLight position={[2, 3, 4]} intensity={0.5} />
-              {STRUCTS.map((s) => <SurfaceMesh key={s.label} url={s.url} color={s.color} opacity={0.3} />)}
-              <Cloud data={stn!} rscale={0.07} minR={0.02} dmax={stn!.max} sel={sel} />
-              <OrbitControls enablePan={false} autoRotate autoRotateSpeed={1} target={stnCentroid} minDistance={0.2} maxDistance={4} />
+              {STRUCTS.map((s) => <SurfaceMesh key={s.label} url={s.url} color={s.color} opacity={0.3} mag={3} center={stnCentroid} />)}
+              <Cloud data={stn!} rscale={0.12} minR={0.04} dmax={stn!.max} sel={sel} mag={3} center={stnCentroid} />
+              <OrbitControls enablePan={false} autoRotate autoRotateSpeed={1} target={stnCentroid} minDistance={1} maxDistance={8} />
             </Canvas>
           </div>
         )}
@@ -267,7 +296,7 @@ export default function SPCBrainViz() {
           band). Each tube is one spike-phase-coupling cluster connecting an STN spike source to a cortical site at their
           real MNI coordinates; the <b>tube's width is proportional to the nearest cortical SPC density</b> and its colour is the band. Isolate a
           band to see that rhythm's coupling. The subthalamic nucleus is only millimetres wide, so it is drawn through the
-          translucent cortex and magnified ×6 in the inset.
+          translucent cortex and magnified ×3 in the inset.
         </p>
       </div>
     </div>
