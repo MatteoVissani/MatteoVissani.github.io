@@ -285,9 +285,9 @@ export default function SPCBrainViz() {
             <ambientLight intensity={0.6} />
             <directionalLight position={[4, 8, 6]} intensity={0.7} />
             <directionalLight position={[-6, -2, -4]} intensity={0.3} />
-            <CortexMesh opacity={0.55} />
+            <CortexMesh opacity={0.32} />
             {regions.length > 0 && <RegionBorders regions={regions} on={regOn} />}
-            <Cloud data={cortex!} rscale={1.5} minR={0.02} sel={sel} onTop />
+            <Cloud data={cortex!} rscale={1.7} minR={0.03} sel={sel} onTop />
             <Cloud data={stn!} rscale={0.05} minR={0.015} dmax={stn!.max} sel={sel} mag={STN_MAG_MAIN} center={stnCentroid} onTop />
             {showEdges && <Flows edges={conn!.edges} sel={sel} center={stnCentroid} mag={STN_MAG_MAIN} />}
             {/* translucent DISTAL atlas structures at true scale + labels */}
