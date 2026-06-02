@@ -706,6 +706,13 @@ img { max-width: 100%; display: block; }
 @media (max-width: 760px) { .lifsim-grid { grid-template-columns: 1fr; } }
 
 /* collapsible demo launcher */
+.ilab-group { margin-top: 38px; }
+.ilab-group:first-child { margin-top: 20px; }
+.ilab-group-title {
+  font: 600 0.72rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--neon-cyan); margin: 0 0 6px; display: flex; align-items: center; gap: 14px;
+}
+.ilab-group-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(34,225,255,0.35), rgba(34,225,255,0)); }
 .demo-toggle { margin-top: 16px; }
 .demo-launch {
   display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; cursor: pointer;

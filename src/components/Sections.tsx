@@ -289,55 +289,70 @@ export function Interactive() {
           <p className="eyebrow">04 — Interactive</p>
           <h2 className="section-title">Interactive <span className="accent">labs</span></h2>
           <p className="section-lead">
-            Hands-on demos of the methods behind my research, single-neuron dynamics, neural coding and
-            information theory, time–frequency analysis, filtering and decoding.
+            Hands-on demos of the methods behind my research, grouped by theme: neuronal dynamics, neural coding and
+            information, signals and time–frequency, and neurotechnology. Click any to launch it live in your browser.
           </p>
         </Reveal>
         <Reveal delay={0.05}>
-          <DemoToggle title="Integrate-and-fire neuron"
-            subtitle="Live simulation, phase plane, f–I curve and adaptation">
-            <LIFSim />
-          </DemoToggle>
-          <DemoToggle title="Spike–phase coupling"
-            subtitle="STN single units locking to a cortical rhythm, phase-locking value and preferred phase">
-            <SpikePhaseLab />
-          </DemoToggle>
-          <DemoToggle title="Entropy &amp; mutual information"
-            subtitle="Noisy-channel information and Shannon/Huffman source coding">
-            <InfoLab />
-          </DemoToggle>
-          <DemoToggle title="Population coding &amp; neural decoding"
-            subtitle="Tuning curves, a maximum-likelihood decoder, Fisher information and the Cramér–Rao bound">
-            <DecodingLab />
-          </DemoToggle>
-          <DemoToggle title="Wavelet time–frequency decomposition"
-            subtitle="Live Morlet continuous wavelet transform of a neural signal, inspect every parameter">
-            <WaveletLab />
-          </DemoToggle>
-          <DemoToggle title="Digital filter designer"
-            subtitle="Windowed-sinc FIR band-pass: live frequency response and filtered signal">
-            <FilterLab />
-          </DemoToggle>
-          <DemoToggle title="Kalman-filter BCI decoder"
-            subtitle="Track a 2D cursor from a noisy neural read-out with a real-time Kalman filter">
-            <KalmanLab />
-          </DemoToggle>
-          <DemoToggle title="Fourier epicycles"
-            subtitle="Draw any shape and watch rotating vectors (the Fourier series) retrace it">
-            <FourierLab />
-          </DemoToggle>
-          <DemoToggle title="DBS waveform &amp; charge-safety designer"
-            subtitle="Design a stimulation pulse, charge per phase, charge density, and the Shannon safety limit">
-            <DBSLab />
-          </DemoToggle>
-          <DemoToggle title="EEG source localization &amp; spatial mixing"
-            subtitle="A dipole spreads to every electrode (volume conduction); a dipole-fit tries to localize it">
-            <EEGLab />
-          </DemoToggle>
-          <DemoToggle title="Wilson–Cowan dynamics &amp; bifurcation"
-            subtitle="Coupled E/I populations: phase plane, nullclines, and a Hopf bifurcation into oscillations">
-            <WilsonCowanLab />
-          </DemoToggle>
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Neuronal dynamics</h3>
+            <DemoToggle title="Integrate-and-fire neuron"
+              subtitle="Live simulation, phase plane, f–I curve and adaptation">
+              <LIFSim />
+            </DemoToggle>
+            <DemoToggle title="Wilson–Cowan dynamics &amp; bifurcation"
+              subtitle="Coupled E/I populations: phase plane, nullclines, and a Hopf bifurcation into oscillations">
+              <WilsonCowanLab />
+            </DemoToggle>
+          </div>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Neural coding &amp; information</h3>
+            <DemoToggle title="Spike–phase coupling"
+              subtitle="STN single units locking to a cortical rhythm, phase-locking value and preferred phase">
+              <SpikePhaseLab />
+            </DemoToggle>
+            <DemoToggle title="Population coding &amp; neural decoding"
+              subtitle="Tuning curves, a maximum-likelihood decoder, Fisher information and the Cramér–Rao bound">
+              <DecodingLab />
+            </DemoToggle>
+            <DemoToggle title="Entropy &amp; mutual information"
+              subtitle="Noisy-channel information and Shannon/Huffman source coding">
+              <InfoLab />
+            </DemoToggle>
+          </div>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Signals &amp; time–frequency</h3>
+            <DemoToggle title="Fourier epicycles"
+              subtitle="Draw any shape and watch rotating vectors (the Fourier series) retrace it">
+              <FourierLab />
+            </DemoToggle>
+            <DemoToggle title="Digital filter designer"
+              subtitle="Windowed-sinc FIR band-pass: live frequency response and filtered signal">
+              <FilterLab />
+            </DemoToggle>
+            <DemoToggle title="Wavelet time–frequency decomposition"
+              subtitle="Live Morlet continuous wavelet transform of a neural signal, inspect every parameter">
+              <WaveletLab />
+            </DemoToggle>
+            <DemoToggle title="Kalman-filter BCI decoder"
+              subtitle="Track a 2D cursor from a noisy neural read-out with a real-time Kalman filter">
+              <KalmanLab />
+            </DemoToggle>
+          </div>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Neurotechnology</h3>
+            <DemoToggle title="DBS waveform &amp; charge-safety designer"
+              subtitle="Design a stimulation pulse, charge per phase, charge density, and the Shannon safety limit">
+              <DBSLab />
+            </DemoToggle>
+            <DemoToggle title="EEG source localization &amp; spatial mixing"
+              subtitle="A dipole spreads to every electrode (volume conduction); a dipole-fit tries to localize it">
+              <EEGLab />
+            </DemoToggle>
+          </div>
         </Reveal>
       </div>
     </section>
