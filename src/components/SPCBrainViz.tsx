@@ -138,7 +138,9 @@ function Cloud({ data, rscale, minR, sel, mag = 1, center, onTop = false, dmax }
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, data.points.length]} renderOrder={onTop ? 18 : 0}>
       <sphereGeometry args={[1, 20, 20]} />
-      <meshBasicMaterial toneMapped={false} depthTest={!onTop} depthWrite={!onTop} />
+      {/* transparent (opacity 1) so it renders in the transparent pass AFTER the
+          translucent cortex; high renderOrder keeps it on top */}
+      <meshBasicMaterial toneMapped={false} transparent opacity={1} depthTest={!onTop} depthWrite={!onTop} />
     </instancedMesh>
   )
 }
