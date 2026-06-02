@@ -138,7 +138,7 @@ function Cloud({ data, rscale, minR, sel, mag = 1, center, onTop = false, dmax }
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, data.points.length]} renderOrder={onTop ? 18 : 0}>
       <sphereGeometry args={[1, 20, 20]} />
-      <meshStandardMaterial toneMapped={false} roughness={0.38} metalness={0} depthTest={!onTop} depthWrite={!onTop} />
+      <meshBasicMaterial toneMapped={false} depthTest={!onTop} depthWrite={!onTop} />
     </instancedMesh>
   )
 }
