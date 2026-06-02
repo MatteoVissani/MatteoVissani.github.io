@@ -138,9 +138,10 @@ function Cloud({ data, rscale, minR, sel, mag = 1, center, onTop = false, dmax }
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, data.points.length]} renderOrder={onTop ? 18 : 0}>
       <sphereGeometry args={[1, 20, 20]} />
-      {/* transparent (opacity 1) so it renders in the transparent pass AFTER the
-          translucent cortex; high renderOrder keeps it on top */}
-      <meshBasicMaterial toneMapped={false} transparent opacity={1} depthTest={!onTop} depthWrite={!onTop} />
+      {/* transparent (opacity 1) -> renders in the transparent pass AFTER the
+          translucent cortex (high renderOrder); depthWrite on so overlapping
+          spheres occlude each other, and the lit material gives them 3D form */}
+      <meshStandardMaterial toneMapped={false} transparent opacity={1} roughness={0.42} metalness={0} depthWrite />
     </instancedMesh>
   )
 }
