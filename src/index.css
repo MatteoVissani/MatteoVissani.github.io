@@ -19,7 +19,7 @@
 
   --text: #ece8ff;
   --text-dim: #b6abda;
-  --text-faint: #7b709f;
+  --text-faint: #968cba;  /* WCAG-AA: >=4.5 contrast on the dark background */
 
   --font-display: 'Orbitron', sans-serif;
   --font-body: 'Space Grotesk', system-ui, sans-serif;
