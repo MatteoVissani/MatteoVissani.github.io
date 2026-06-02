@@ -79,16 +79,23 @@ function SurfaceMesh({ url, color, opacity, mag = 1, center, onTop = false }:
 
 type Region = { label: string; color: string; segs: number[][] }
 
-// outline (border) of selected cortical atlas regions, drawn on the cortex.
+// glowing outline of selected cortical atlas regions + a readable label.
 function RegionBorders({ regions, on }: { regions: Region[]; on: boolean[] }) {
-  const objs = useMemo(() => regions.map((r) => {
+  const items = useMemo(() => regions.map((r) => {
     const pos = new Float32Array(r.segs.length * 6)
-    r.segs.forEach((s, j) => { const a = toScene(s[0], s[1], s[2]), b = toScene(s[3], s[4], s[5]); pos.set(a, j * 6); pos.set(b, j * 6 + 3) })
+    let cx = 0, cy = 0, cz = 0
+    r.segs.forEach((s, j) => { const a = toScene(s[0], s[1], s[2]), b = toScene(s[3], s[4], s[5]); pos.set(a, j * 6); pos.set(b, j * 6 + 3); cx += a[0] + b[0]; cy += a[1] + b[1]; cz += a[2] + b[2] })
+    const n = r.segs.length * 2 || 1
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-    const ls = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: r.color, transparent: true, depthTest: false, depthWrite: false })); ls.renderOrder = 14
-    return ls
+    const ls = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: r.color, transparent: true, opacity: 0.95, depthTest: false, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false })); ls.renderOrder = 14
+    return { ls, centroid: [cx / n, cy / n, cz / n] as [number, number, number], color: r.color, label: r.label }
   }), [regions])
-  return (<>{objs.map((o, i) => (on[i] ? <primitive key={i} object={o} /> : null))}</>)
+  return (<>{items.map((it, i) => (on[i] ? (
+    <group key={i}>
+      <primitive object={it.ls} />
+      <Html position={it.centroid} center zIndexRange={[20, 0]}><span className="spcviz-tag" style={{ borderColor: it.color, color: it.color }}>{it.label}</span></Html>
+    </group>
+  ) : null))}</>)
 }
 
 function Cloud({ data, rscale, minR, sel, mag = 1, center, onTop = false, dmax }:
@@ -266,7 +273,7 @@ export default function SPCBrainViz() {
             {showEdges && <Flows edges={conn!.edges} sel={sel} center={stnCentroid} mag={STN_MAG_MAIN} />}
             {/* translucent DISTAL atlas structures at true scale + labels */}
             {STRUCTS.map((s) => <SurfaceMesh key={s.label} url={s.url} color={s.color} opacity={0.32} onTop />)}
-            {STRUCTS.map((s) => <Html key={s.label} position={toScene(s.c[0], s.c[1], s.c[2])} center distanceFactor={16}><span className="spcviz-tag" style={{ borderColor: s.color, color: s.color }}>{s.label}</span></Html>)}
+            {STRUCTS.map((s) => <Html key={s.label} position={toScene(s.c[0], s.c[1], s.c[2])} center zIndexRange={[20, 0]}><span className="spcviz-tag" style={{ borderColor: s.color, color: s.color }}>{s.label}</span></Html>)}
             <OrbitControls enablePan={false} autoRotate autoRotateSpeed={0.5} minDistance={4} maxDistance={16} />
           </Canvas>
         )}

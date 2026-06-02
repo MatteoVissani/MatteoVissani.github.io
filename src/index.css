@@ -580,7 +580,7 @@ img { max-width: 100%; display: block; }
 .spcviz-orient { position: absolute; right: 14px; top: 12px; font: 11px var(--mono, monospace); color: #c8cce6; pointer-events: none; }
 .spcviz-orient .cy { color: #3cd1ff; }
 .spcviz-inset { position: absolute; left: 12px; top: 12px; width: 240px; height: 200px; border-radius: 10px; overflow: hidden; background: radial-gradient(ellipse at 50% 40%, #15102a, #07050f); border: 1px solid rgba(255,255,255,0.14); }
-.spcviz-tag { font: 700 11px var(--mono, monospace); letter-spacing: 0.08em; color: #bff0ff; background: rgba(8,10,24,0.7); border: 1px solid rgba(143,220,255,0.5); border-radius: 5px; padding: 1px 6px; white-space: nowrap; pointer-events: none; }
+.spcviz-tag { font: 800 13px var(--mono, monospace); letter-spacing: 0.06em; color: #fff; background: rgba(4,6,16,0.88); border: 1.5px solid currentColor; border-radius: 6px; padding: 2px 8px; white-space: nowrap; pointer-events: none; text-shadow: 0 1px 3px rgba(0,0,0,0.9); box-shadow: 0 0 10px rgba(0,0,0,0.5); }
 .spcviz-inset canvas { display: block; width: 100% !important; height: 100% !important; }
 .spcviz-inset-lab { position: absolute; left: 8px; top: 6px; z-index: 2; font: 10px var(--mono, monospace); color: #c8cce6; letter-spacing: 0.04em; pointer-events: none; }
 .spcviz-bars2 { position: absolute; right: 12px; bottom: 12px; background: rgba(8,6,20,0.66); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 8px 10px 6px; backdrop-filter: blur(4px); }
