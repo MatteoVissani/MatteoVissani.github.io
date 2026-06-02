@@ -6,3 +6,6 @@ dist-ssr
 .vite
 *.log
 *.tsbuildinfo
+
+# generated social cards (rebuilt by scripts/og-images.ts)
+public/og/

@@ -85,8 +85,11 @@ for (const p of publications) {
     .replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${esc(desc)}" />`)
     .replace(/<meta property="og:type"[^>]*>/, `<meta property="og:type" content="article" />`)
     .replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${url}" />`)
+    .replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="${ORIGIN}/og/${p.slug}.png" />`)
+    .replace(/<meta property="og:image:alt"[^>]*>/, `<meta property="og:image:alt" content="${esc(p.title)}" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />`)
     .replace(/<meta name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${esc(p.title)}" />`)
     .replace(/<meta name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${esc(desc)}" />`)
+    .replace(/<meta name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="${ORIGIN}/og/${p.slug}.png" />`)
     .replace(/<\/head>/, `    ${head}\n  </head>`)
     .replace(/<div id="root">\s*<\/div>/, `<div id="root">${body}</div>`)
 

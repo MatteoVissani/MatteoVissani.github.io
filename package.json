@@ -6,7 +6,7 @@
   "homepage": "https://matteovissani.github.io",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build && tsx scripts/prerender.ts",
+    "build": "tsc --noEmit && tsx scripts/og-images.ts && vite build && tsx scripts/prerender.ts",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "three": "^0.169.0"
   },
   "devDependencies": {
+    "@napi-rs/canvas": "^1.0.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@types/three": "^0.169.0",

@@ -25,8 +25,14 @@ function bibtex(p: NonNullable<ReturnType<typeof findPub>>) {
 }`
 }
 
+function ris(p: NonNullable<ReturnType<typeof findPub>>) {
+  const doi = p.link.replace('https://doi.org/', '')
+  const authors = p.authors.split(',').map((a) => a.trim()).filter((a) => a && a !== '…' && !/^et al\.?$/i.test(a))
+  return ['TY  - JOUR', `TI  - ${p.title}`, ...authors.map((a) => `AU  - ${a}`), `JO  - ${p.venue}`, `PY  - ${p.year}`, doi.startsWith('10.') ? `DO  - ${doi}` : '', 'ER  - '].filter(Boolean).join('\n')
+}
+
 export default function PaperPage({ slug }: { slug: string }) {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState('')
   const p = findPub(slug)
 
   if (!p) {
@@ -71,11 +77,11 @@ export default function PaperPage({ slug }: { slug: string }) {
   // sibling papers in the same research area
   const related = publications.filter((q) => q.category === p.category && q.slug !== p.slug).slice(0, 3)
 
-  const copyCite = async () => {
+  const copyCite = async (kind: 'bibtex' | 'ris') => {
     try {
-      await navigator.clipboard.writeText(bibtex(p))
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(kind === 'bibtex' ? bibtex(p!) : ris(p!))
+      setCopied(kind)
+      setTimeout(() => setCopied(''), 2000)
     } catch { /* clipboard blocked */ }
   }
 
@@ -101,7 +107,8 @@ export default function PaperPage({ slug }: { slug: string }) {
             <a className="btn" href={p.link} target="_blank" rel="noreferrer"><Doi style={{ width: 16, height: 16, verticalAlign: '-3px', marginRight: 8 }} />View on publisher</a>
             {p.pdf && <a className="btn ghost" href={p.pdf} target="_blank" rel="noreferrer"><Pdf style={{ width: 16, height: 16, verticalAlign: '-3px', marginRight: 8 }} />PDF</a>}
             {p.code && <a className="btn ghost" href={p.code} target="_blank" rel="noreferrer"><GitHub style={{ width: 16, height: 16, verticalAlign: '-3px', marginRight: 8 }} />Code</a>}
-            <button className="btn ghost" onClick={copyCite}>{copied ? '✓ Copied BibTeX' : 'Cite (BibTeX)'}</button>
+            <button className="btn ghost" onClick={() => copyCite('bibtex')}>{copied === 'bibtex' ? '✓ Copied' : 'Cite · BibTeX'}</button>
+            <button className="btn ghost" onClick={() => copyCite('ris')}>{copied === 'ris' ? '✓ Copied' : 'RIS'}</button>
             {doi && (
               <span className="paper-metrics">
                 <span
