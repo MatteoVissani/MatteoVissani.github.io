@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
@@ -268,18 +268,40 @@ function Scene() {
 }
 
 export default function NeuralScene() {
+  const wrap = useRef<HTMLDivElement>(null)
+  const inView = useRef(true)
+  const visible = useRef(true)
+  const [active, setActive] = useState(true)
+  const reduced = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  // Only run the render loop while the hero is on screen and the tab is
+  // focused; this keeps scrolling and reading the rest of the page smooth.
+  useEffect(() => {
+    const el = wrap.current
+    if (!el) return
+    const sync = () => setActive(inView.current && visible.current)
+    const io = new IntersectionObserver(([e]) => { inView.current = e.isIntersecting; sync() }, { threshold: 0 })
+    io.observe(el)
+    const onVis = () => { visible.current = document.visibilityState === 'visible'; sync() }
+    document.addEventListener('visibilitychange', onVis)
+    return () => { io.disconnect(); document.removeEventListener('visibilitychange', onVis) }
+  }, [])
+
   return (
-    <Canvas
-      className="hero-canvas"
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-      camera={{ position: [0, 0, 9], fov: 55 }}
-      dpr={[1, 1.5]}
-      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-    >
-      <Scene />
-      <EffectComposer>
-        <Bloom intensity={0.7} luminanceThreshold={0.16} luminanceSmoothing={0.3} mipmapBlur radius={0.7} />
-      </EffectComposer>
-    </Canvas>
+    <div ref={wrap} style={{ position: 'absolute', inset: 0 }}>
+      <Canvas
+        className="hero-canvas"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+        camera={{ position: [0, 0, 9], fov: 55 }}
+        dpr={[1, 1.5]}
+        frameloop={reduced ? 'demand' : active ? 'always' : 'never'}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      >
+        <Scene />
+        <EffectComposer>
+          <Bloom intensity={0.7} luminanceThreshold={0.16} luminanceSmoothing={0.3} mipmapBlur radius={0.7} />
+        </EffectComposer>
+      </Canvas>
+    </div>
   )
 }
