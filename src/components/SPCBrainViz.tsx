@@ -266,7 +266,7 @@ export default function SPCBrainViz() {
             <ambientLight intensity={0.6} />
             <directionalLight position={[4, 8, 6]} intensity={0.7} />
             <directionalLight position={[-6, -2, -4]} intensity={0.3} />
-            <CortexMesh opacity={0.42} />
+            <CortexMesh opacity={0.55} />
             {regions.length > 0 && <RegionBorders regions={regions} on={regOn} />}
             <Cloud data={cortex!} rscale={1.4} minR={0.012} sel={sel} />
             <Cloud data={stn!} rscale={0.05} minR={0.015} dmax={stn!.max} sel={sel} mag={STN_MAG_MAIN} center={stnCentroid} onTop />
