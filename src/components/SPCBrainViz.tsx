@@ -136,7 +136,7 @@ function Cloud({ data, rscale, minR, sel, mag = 1, center, onTop = false, dmax }
     m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true
   }, [data, rscale, minR, sel, mag, center, dmax, dummy, col])
   return (
-    <instancedMesh ref={ref} args={[undefined, undefined, data.points.length]} renderOrder={onTop ? 12 : 0}>
+    <instancedMesh ref={ref} args={[undefined, undefined, data.points.length]} renderOrder={onTop ? 18 : 0}>
       <sphereGeometry args={[1, 20, 20]} />
       <meshStandardMaterial toneMapped={false} roughness={0.38} metalness={0} depthTest={!onTop} depthWrite={!onTop} />
     </instancedMesh>
@@ -287,7 +287,7 @@ export default function SPCBrainViz() {
             <directionalLight position={[-6, -2, -4]} intensity={0.3} />
             <CortexMesh opacity={0.32} />
             {regions.length > 0 && <RegionBorders regions={regions} on={regOn} />}
-            <Cloud data={cortex!} rscale={1.7} minR={0.03} sel={sel} onTop />
+            <Cloud data={cortex!} rscale={1.9} minR={0.05} sel={sel} onTop />
             <Cloud data={stn!} rscale={0.05} minR={0.015} dmax={stn!.max} sel={sel} mag={STN_MAG_MAIN} center={stnCentroid} onTop />
             {showEdges && <Flows edges={conn!.edges} sel={sel} center={stnCentroid} mag={STN_MAG_MAIN} />}
             {/* translucent DISTAL atlas structures at true scale + labels */}
