@@ -239,7 +239,7 @@ export default function SPCBrainViz() {
         <button className={`pub-filter ${sel === ALL ? 'active' : ''}`} onClick={() => setSel(ALL)}>all bands</button>
         <span className="spcviz-sep" />
         {BANDS.map((b, i) => (
-          <button key={b} className={`pub-filter ${sel === i ? 'active' : ''}`} style={sel === i ? { borderColor: BAND_HEX[i], color: BAND_HEX[i] } : undefined} onClick={() => setSel(i)}>
+          <button key={b} className={`pub-filter ${sel === i ? 'active' : ''}`} style={sel === i ? { borderColor: BAND_HEX[i], color: BAND_HEX[i], background: 'rgba(10,8,22,0.92)', boxShadow: `0 0 9px ${BAND_HEX[i]}66` } : undefined} onClick={() => setSel(i)}>
             <i className="spcviz-swatch" style={{ background: BAND_HEX[i] }} />{b}
           </button>
         ))}
@@ -251,7 +251,7 @@ export default function SPCBrainViz() {
         <div className="spcviz-bands">
           <span className="spcviz-bandlabel">highlight cortex regions:</span>
           {regions.map((r, i) => (
-            <button key={r.label} className={`pub-filter ${regOn[i] ? 'active' : ''}`} style={regOn[i] ? { borderColor: r.color, color: r.color } : undefined} onClick={() => setRegOn((o) => o.map((v, j) => (j === i ? !v : v)))}>
+            <button key={r.label} className={`pub-filter ${regOn[i] ? 'active' : ''}`} style={regOn[i] ? { borderColor: r.color, color: r.color, background: 'rgba(10,8,22,0.92)', boxShadow: `0 0 9px ${r.color}66` } : undefined} onClick={() => setRegOn((o) => o.map((v, j) => (j === i ? !v : v)))}>
               <i className="spcviz-swatch" style={{ background: r.color }} />{r.label}
             </button>
           ))}
