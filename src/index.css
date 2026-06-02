@@ -565,6 +565,32 @@ img { max-width: 100%; display: block; }
 .pub-act.pdf:hover { color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: var(--glow-pink); }
 .pub-altmetric { display: inline-flex; align-items: center; transform: scale(0.5); transform-origin: center; margin: 0 -8px; background: rgba(244,246,251,0.96); border-radius: 50%; padding: 3px; }
 .paper-metrics { display: inline-flex; align-items: center; gap: 8px; background: rgba(244,246,251,0.96); padding: 4px 10px; border-radius: 9px; transform: scale(0.7); transform-origin: left center; }
+/* --- SPC 3D research showcase --- */
+.spcviz { margin: 8px 0; }
+.spcviz-bands { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 14px 0 10px; }
+.spcviz-bandlabel { font: 600 12px var(--mono, monospace); color: var(--muted, #9aa0c0); letter-spacing: 0.04em; }
+.spcviz-stage { position: relative; height: 460px; border-radius: 14px; overflow: hidden; background: radial-gradient(ellipse at 50% 38%, #16102b 0%, #0a0718 60%, #050310 100%); border: 1px solid rgba(255,255,255,0.08); }
+.spcviz-stage canvas { display: block; width: 100% !important; height: 100% !important; }
+.spcviz-msg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted, #9aa0c0); font: 13px var(--mono, monospace); }
+.spcviz-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.15); margin: 0 2px; }
+.spcviz-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+.spcviz-key { position: absolute; left: 14px; bottom: 12px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font: 11px var(--mono, monospace); color: #c8cce6; pointer-events: none; max-width: 70%; }
+.spcviz-key > span { display: inline-flex; align-items: center; }
+.spcviz-key > span > i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
+.spcviz-orient { position: absolute; right: 14px; top: 12px; font: 11px var(--mono, monospace); color: #c8cce6; pointer-events: none; }
+.spcviz-orient .cy { color: #3cd1ff; }
+.spcviz-inset { position: absolute; left: 12px; top: 12px; width: 240px; height: 200px; border-radius: 10px; overflow: hidden; background: radial-gradient(ellipse at 50% 40%, #15102a, #07050f); border: 1px solid rgba(255,255,255,0.14); }
+.spcviz-tag { font: 700 11px var(--mono, monospace); letter-spacing: 0.08em; color: #bff0ff; background: rgba(8,10,24,0.7); border: 1px solid rgba(143,220,255,0.5); border-radius: 5px; padding: 1px 6px; white-space: nowrap; pointer-events: none; }
+.spcviz-inset canvas { display: block; width: 100% !important; height: 100% !important; }
+.spcviz-inset-lab { position: absolute; left: 8px; top: 6px; z-index: 2; font: 10px var(--mono, monospace); color: #c8cce6; letter-spacing: 0.04em; pointer-events: none; }
+.spcviz-bars2 { position: absolute; right: 12px; bottom: 12px; background: rgba(8,6,20,0.66); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 8px 10px 6px; backdrop-filter: blur(4px); }
+.spcviz-bars2-title { font: 10px var(--mono, monospace); color: #9aa0c0; letter-spacing: 0.03em; margin-bottom: 5px; text-align: center; }
+.spcviz-bars2-row { display: flex; align-items: flex-end; gap: 6px; height: 64px; }
+.spcviz-bar2 { display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: none; cursor: pointer; padding: 0; height: 100%; justify-content: flex-end; }
+.spcviz-bar2-track { width: 14px; height: 50px; display: flex; align-items: flex-end; border-radius: 3px; background: rgba(255,255,255,0.05); }
+.spcviz-bar2-fill { width: 100%; border-radius: 3px; transition: opacity 0.2s, height 0.2s; min-height: 2px; }
+.spcviz-bar2.sel .spcviz-bar2-track { outline: 1px solid rgba(255,255,255,0.4); outline-offset: 1px; }
+.spcviz-bar2-lab { font: 10px var(--mono, monospace); }
 @media (max-width: 720px) {
   .pub-row { grid-template-columns: 44px 1fr; gap: 12px; }
   .pub-actions { grid-column: 2; }

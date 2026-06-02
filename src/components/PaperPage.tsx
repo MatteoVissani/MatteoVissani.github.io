@@ -8,6 +8,7 @@ import { findPub, categoryLabels, publications, profile } from '../data/content'
 import { abstracts, summaries } from '../data/abstracts'
 
 const PdfViewer = lazy(() => import('./PdfViewer'))
+const SPCBrainViz = lazy(() => import('./SPCBrainViz'))
 
 function authorHTML(a: string) {
   return a.replace(/Vissani M/g, '<b>Vissani M</b>')
@@ -134,6 +135,15 @@ export default function PaperPage({ slug }: { slug: string }) {
           <div className="ga-frame"><GraphicalAbstract slug={slug} variant={p.variant} /></div>
           {summary && <p className="ga-caption">{summary}</p>}
         </motion.div>
+
+        {slug === 'spike-phase-speech' && (
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }}>
+            <h2 className="paper-h2">Explore the data</h2>
+            <Suspense fallback={<div className="pdfv-loading-block">loading 3D viewer…</div>}>
+              <SPCBrainViz />
+            </Suspense>
+          </motion.div>
+        )}
 
         {p.pdf && (
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }}>
