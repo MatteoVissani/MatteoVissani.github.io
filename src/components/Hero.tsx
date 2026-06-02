@@ -1,9 +1,24 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { profile } from '../data/content'
 import SceneBoundary from './SceneBoundary'
 
 const NeuralScene = lazy(() => import('./NeuralScene'))
+
+// Only mount the heavy WebGL hero on capable, wide, non-reduced-motion devices.
+// On phones/data-saver/low-core it never loads (the lazy chunk stays unfetched),
+// so the CSS synthwave backdrop carries the hero and mobile load stays fast.
+function useHeavyScene() {
+  const [ok, setOk] = useState(false)
+  useEffect(() => {
+    const wide = window.matchMedia('(min-width: 860px)').matches
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const conn = (navigator as unknown as { connection?: { saveData?: boolean } }).connection
+    const cores = navigator.hardwareConcurrency || 8
+    setOk(wide && !reduce && !conn?.saveData && cores >= 4)
+  }, [])
+  return ok
+}
 
 const rise = {
   hidden: { opacity: 0, y: 30 },
@@ -15,13 +30,16 @@ const rise = {
 }
 
 export default function Hero() {
+  const heavy = useHeavyScene()
   return (
     <header id="top" className="hero">
-      <SceneBoundary>
-        <Suspense fallback={null}>
-          <NeuralScene />
-        </Suspense>
-      </SceneBoundary>
+      {heavy && (
+        <SceneBoundary>
+          <Suspense fallback={null}>
+            <NeuralScene />
+          </Suspense>
+        </SceneBoundary>
+      )}
 
       <div className="hero-inner wrap">
         <motion.p className="hero-tag" custom={0} variants={rise} initial="hidden" animate="show">
