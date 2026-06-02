@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Html } from '@react-three/drei'
+import { OrbitControls, Html, Line } from '@react-three/drei'
 import * as THREE from 'three'
 
 // 3D research showcase for the spike-phase coupling (SPC) project (Vissani et al.
@@ -79,23 +79,42 @@ function SurfaceMesh({ url, color, opacity, mag = 1, center, onTop = false }:
 
 type Region = { label: string; color: string; segs: number[][] }
 
-// glowing outline of selected cortical atlas regions + a readable label.
+// wide, bright, sparkling outline of a selected cortical atlas region.
+function RegionBorder({ pts, beads, color }: { pts: [number, number, number][]; beads: [number, number, number][]; color: string }) {
+  const ref = useRef<THREE.InstancedMesh>(null)
+  const dummy = useMemo(() => new THREE.Object3D(), [])
+  const col = useMemo(() => new THREE.Color(), [])
+  const base = useMemo(() => new THREE.Color(color), [color])
+  useFrame((st) => {
+    const m = ref.current; if (!m) return
+    const t = st.clock.elapsedTime
+    beads.forEach((p, j) => {
+      const tw = 0.5 + 0.5 * Math.sin(t * 3.5 + j * 1.7)         // per-bead twinkle
+      dummy.position.set(p[0], p[1], p[2]); dummy.scale.setScalar(0.015 + 0.05 * tw); dummy.updateMatrix(); m.setMatrixAt(j, dummy.matrix)
+      col.copy(base).multiplyScalar(0.35 + 1.1 * tw); m.setColorAt(j, col)
+    })
+    m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true
+  })
+  return (<>
+    <Line points={pts} segments color={color} lineWidth={4} transparent depthTest={false} renderOrder={14} />
+    <instancedMesh ref={ref} args={[undefined, undefined, beads.length]} renderOrder={15}>
+      <sphereGeometry args={[1, 6, 6]} />
+      <meshBasicMaterial toneMapped={false} transparent depthTest={false} depthWrite={false} blending={THREE.AdditiveBlending} />
+    </instancedMesh>
+  </>)
+}
+
 function RegionBorders({ regions, on }: { regions: Region[]; on: boolean[] }) {
   const items = useMemo(() => regions.map((r) => {
-    const pos = new Float32Array(r.segs.length * 6)
-    let cx = 0, cy = 0, cz = 0
-    r.segs.forEach((s, j) => { const a = toScene(s[0], s[1], s[2]), b = toScene(s[3], s[4], s[5]); pos.set(a, j * 6); pos.set(b, j * 6 + 3); cx += a[0] + b[0]; cy += a[1] + b[1]; cz += a[2] + b[2] })
-    const n = r.segs.length * 2 || 1
-    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3))
-    const ls = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: r.color, transparent: true, opacity: 0.95, depthTest: false, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false })); ls.renderOrder = 14
-    return { ls, centroid: [cx / n, cy / n, cz / n] as [number, number, number], color: r.color, label: r.label }
+    const pts: [number, number, number][] = []
+    const beads: [number, number, number][] = []
+    r.segs.forEach((s) => {
+      const a = toScene(s[0], s[1], s[2]), b = toScene(s[3], s[4], s[5])
+      pts.push(a, b); beads.push([(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2])
+    })
+    return { pts, beads, color: r.color }
   }), [regions])
-  return (<>{items.map((it, i) => (on[i] ? (
-    <group key={i}>
-      <primitive object={it.ls} />
-      <Html position={it.centroid} center zIndexRange={[20, 0]}><span className="spcviz-tag" style={{ borderColor: it.color, color: it.color }}>{it.label}</span></Html>
-    </group>
-  ) : null))}</>)
+  return (<>{items.map((it, i) => (on[i] ? <RegionBorder key={i} pts={it.pts} beads={it.beads} color={it.color} /> : null))}</>)
 }
 
 function Cloud({ data, rscale, minR, sel, mag = 1, center, onTop = false, dmax }:
@@ -118,8 +137,8 @@ function Cloud({ data, rscale, minR, sel, mag = 1, center, onTop = false, dmax }
   }, [data, rscale, minR, sel, mag, center, dmax, dummy, col])
   return (
     <instancedMesh ref={ref} args={[undefined, undefined, data.points.length]} renderOrder={onTop ? 12 : 0}>
-      <sphereGeometry args={[1, 12, 12]} />
-      <meshStandardMaterial toneMapped={false} roughness={0.4} metalness={0} depthTest={!onTop} depthWrite={!onTop} />
+      <sphereGeometry args={[1, 20, 20]} />
+      <meshStandardMaterial toneMapped={false} roughness={0.3} metalness={0.25} depthTest={!onTop} depthWrite={!onTop} />
     </instancedMesh>
   )
 }
