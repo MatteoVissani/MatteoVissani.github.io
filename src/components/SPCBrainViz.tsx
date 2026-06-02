@@ -327,6 +327,11 @@ export default function SPCBrainViz() {
           band to see that rhythm's coupling. The subthalamic nucleus is only millimetres wide, so it is drawn through the
           translucent cortex and magnified ×3 in the inset.
         </p>
+        <p className="spcviz-credit">
+          Data: Vissani et al., <i>Nature Communications</i> 2025 ·{' '}
+          <a href="https://doi.org/10.5281/zenodo.12610957" target="_blank" rel="noreferrer">Zenodo 10.5281/zenodo.12610957</a>.
+          Cortical surface &amp; deep nuclei: DISTAL atlas (Lead-DBS); parcellation: Destrieux.
+        </p>
       </div>
     </div>
   )

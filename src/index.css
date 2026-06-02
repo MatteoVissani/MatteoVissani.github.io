@@ -579,6 +579,8 @@ img { max-width: 100%; display: block; }
 .spcviz-key > span > i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
 .spcviz-orient { position: absolute; right: 14px; top: 12px; font: 11px var(--mono, monospace); color: #c8cce6; pointer-events: none; }
 .spcviz-orient .cy { color: #3cd1ff; }
+.spcviz-credit { margin-top: 8px; font-size: 11px; color: var(--muted, #9aa0c0); opacity: 0.85; }
+.spcviz-credit a { color: var(--neon-cyan, #22e1ff); }
 .spcviz-inset { position: absolute; left: 12px; top: 12px; width: 240px; height: 200px; border-radius: 10px; overflow: hidden; background: radial-gradient(ellipse at 50% 40%, #15102a, #07050f); border: 1px solid rgba(255,255,255,0.14); }
 .spcviz-tag { font: 800 13px var(--mono, monospace); letter-spacing: 0.06em; color: #fff; background: rgba(4,6,16,0.88); border: 1.5px solid currentColor; border-radius: 6px; padding: 2px 8px; white-space: nowrap; pointer-events: none; text-shadow: 0 1px 3px rgba(0,0,0,0.9); box-shadow: 0 0 10px rgba(0,0,0,0.5); }
 .spcviz-inset canvas { display: block; width: 100% !important; height: 100% !important; }
