@@ -99,9 +99,15 @@ for (const p of publications) {
   made++
 }
 
+// Theory & methods page: a client-rendered route, so emit the SPA shell at
+// /notes/ so a direct hit / refresh on GitHub Pages doesn't 404.
+mkdirSync(resolve(dist, 'notes'), { recursive: true })
+writeFileSync(resolve(dist, 'notes', 'index.html'),
+  template.replace(/<title>[^<]*<\/title>/, '<title>Theory & methods — Matteo Vissani</title>'))
+
 // Full sitemap: home + every paper page.
 const today = new Date().toISOString().slice(0, 10)
-const urls = [`${ORIGIN}/`, ...publications.map((p) => `${ORIGIN}/paper/${p.slug}/`)]
+const urls = [`${ORIGIN}/`, `${ORIGIN}/notes`, ...publications.map((p) => `${ORIGIN}/paper/${p.slug}/`)]
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${u === ORIGIN + '/' ? '1.0' : '0.8'}</priority>\n  </url>`).join('\n')}

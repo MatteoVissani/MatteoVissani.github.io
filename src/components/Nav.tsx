@@ -29,7 +29,7 @@ export default function Nav() {
 
       <div className={`nav-links ${open ? 'open' : ''}`}>
         {navLinks.map((l) => (
-          <a key={l.id} href={`#${l.id}`} onClick={() => setOpen(false)}>
+          <a key={l.id} href={(l as { href?: string }).href ?? `#${l.id}`} onClick={() => setOpen(false)}>
             {l.label}
           </a>
         ))}

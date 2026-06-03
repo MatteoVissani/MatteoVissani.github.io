@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import Background from './components/Background'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import PaperPage from './components/PaperPage'
 import { About, Research, Featured, Software, Publications, Awards, Teaching, Talks, Contact } from './components/Sections'
+
+// KaTeX + all chapter content live here; load only when visiting /notes.
+const NotesPage = lazy(() => import('./components/NotesPage'))
 
 // Real-path router: paper pages live at /paper/<slug>/ so each is its own
 // crawlable, Scholar-indexable URL. Internal root-relative links are handled
@@ -49,6 +52,17 @@ export default function App() {
       <>
         <Background />
         <PaperPage slug={decodeURIComponent(paper[1])} />
+      </>
+    )
+  }
+
+  if (path.split('#')[0].replace(/\/$/, '') === '/notes') {
+    return (
+      <>
+        <Background />
+        <Suspense fallback={null}>
+          <NotesPage />
+        </Suspense>
       </>
     )
   }

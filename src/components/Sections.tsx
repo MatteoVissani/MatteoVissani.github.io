@@ -16,6 +16,7 @@ import DBSLab from './DBSLab'
 import EEGLab from './EEGLab'
 import WilsonCowanLab from './WilsonCowanLab'
 import DemoToggle from './DemoToggle'
+import DemoNotes from './DemoNotes'
 import {
   Mail, LinkedIn, GitHub, Scholar, Orcid, ResearchGate, ArrowRight, External, Pdf, Doi,
 } from './Icons'
@@ -186,10 +187,10 @@ export function Software() {
           <h2 className="section-title">Software &amp; <span className="accent">tools</span></h2>
           <p className="section-lead">
             Interactive simulations of the methods behind my research and the open-source code that implements them.
-            Launch any simulation in your browser, or browse the repositories. A{' '}
-            <a href="/interactive-demos.pdf" target="_blank" rel="noreferrer">companion PDF</a>{' '}
-            documents the math and simulation details of every demo.
+            Launch any simulation in your browser, or browse the repositories. Every method is written up in full on the{' '}
+            <a href="/notes">Theory &amp; methods</a> page — foundations, step-by-step derivations, schematics and parameters.
           </p>
+          <a className="btn ghost" href="/notes" style={{ marginTop: 4 }}>∑ Read the theory &amp; methods →</a>
         </Reveal>
 
         <Reveal delay={0.05}>
@@ -200,10 +201,12 @@ export function Software() {
             <DemoToggle title="Integrate-and-fire neuron"
               subtitle="Live simulation, phase plane, f–I curve and adaptation">
               <LIFSim />
+              <DemoNotes demo="lif" />
             </DemoToggle>
             <DemoToggle title="Wilson–Cowan dynamics &amp; bifurcation"
               subtitle="Coupled E/I populations: phase plane, nullclines, and a Hopf bifurcation into oscillations">
               <WilsonCowanLab />
+              <DemoNotes demo="wilson-cowan" />
             </DemoToggle>
           </div>
 
@@ -212,14 +215,17 @@ export function Software() {
             <DemoToggle title="Spike–phase coupling"
               subtitle="STN single units locking to a cortical rhythm, phase-locking value and preferred phase">
               <SpikePhaseLab />
+              <DemoNotes demo="spike-phase" />
             </DemoToggle>
             <DemoToggle title="Population coding &amp; neural decoding"
               subtitle="Tuning curves, a maximum-likelihood decoder, Fisher information and the Cramér–Rao bound">
               <DecodingLab />
+              <DemoNotes demo="decoding" />
             </DemoToggle>
             <DemoToggle title="Entropy &amp; mutual information"
               subtitle="Noisy-channel information and Shannon/Huffman source coding">
               <InfoLab />
+              <DemoNotes demo="information" />
             </DemoToggle>
           </div>
 
@@ -228,18 +234,22 @@ export function Software() {
             <DemoToggle title="Fourier epicycles"
               subtitle="Draw any shape and watch rotating vectors (the Fourier series) retrace it">
               <FourierLab />
+              <DemoNotes demo="fourier" />
             </DemoToggle>
             <DemoToggle title="Digital filter designer"
               subtitle="Windowed-sinc FIR band-pass: live frequency response and filtered signal">
               <FilterLab />
+              <DemoNotes demo="filter" />
             </DemoToggle>
             <DemoToggle title="Wavelet time–frequency decomposition"
               subtitle="Live Morlet continuous wavelet transform of a neural signal, inspect every parameter">
               <WaveletLab />
+              <DemoNotes demo="wavelet" />
             </DemoToggle>
             <DemoToggle title="Kalman-filter BCI decoder"
               subtitle="Track a 2D cursor from a noisy neural read-out with a real-time Kalman filter">
               <KalmanLab />
+              <DemoNotes demo="kalman" />
             </DemoToggle>
           </div>
 
@@ -248,10 +258,12 @@ export function Software() {
             <DemoToggle title="DBS waveform &amp; charge-safety designer"
               subtitle="Design a stimulation pulse, charge per phase, charge density, and the Shannon safety limit">
               <DBSLab />
+              <DemoNotes demo="dbs" />
             </DemoToggle>
             <DemoToggle title="EEG source localization &amp; spatial mixing"
               subtitle="A dipole spreads to every electrode (volume conduction); a dipole-fit tries to localize it">
               <EEGLab />
+              <DemoNotes demo="eeg" />
             </DemoToggle>
           </div>
 
@@ -272,6 +284,7 @@ export function Software() {
                 <DemoToggle title="Spike–phase coupling toolkit — run the method on data"
                   subtitle="PLV, PPC, constant-spike-count window and permutation null, computed live on simulated coupled data (Vissani et al. 2025)">
                   <SPCTool />
+                  <DemoNotes demo="spc-toolkit" />
                 </DemoToggle>
               </div>
             </div>
