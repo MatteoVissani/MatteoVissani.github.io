@@ -186,7 +186,9 @@ export function Software() {
           <h2 className="section-title">Software &amp; <span className="accent">tools</span></h2>
           <p className="section-lead">
             Interactive simulations of the methods behind my research and the open-source code that implements them.
-            Launch any simulation in your browser, or browse the repositories.
+            Launch any simulation in your browser, or browse the repositories. A{' '}
+            <a href="/interactive-demos.pdf" target="_blank" rel="noreferrer">companion PDF</a>{' '}
+            documents the math and simulation details of every demo.
           </p>
         </Reveal>
 

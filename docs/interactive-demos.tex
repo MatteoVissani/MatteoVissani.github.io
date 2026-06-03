@@ -1,0 +1,443 @@
+\documentclass[11pt]{article}
+
+% ---------------------------------------------------------------------------
+%  Companion notes for the interactive demos at matteovissani.github.io
+%  Mathematical model + numerical scheme + simulated data for each lab.
+% ---------------------------------------------------------------------------
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,allcolors=mygreen]{hyperref}
+\usepackage{parskip}
+\usepackage{booktabs}
+
+% --- synthwave-ish accent palette (kept subtle on a white page) -----------
+\definecolor{neoncyan}{HTML}{0E8FA8}
+\definecolor{neonmag}{HTML}{C81E6E}
+\definecolor{violet}{HTML}{5B4BC4}
+\definecolor{mygreen}{HTML}{1E8C5A}
+\definecolor{rule}{HTML}{C81E6E}
+
+\titleformat{\section}{\Large\bfseries\color{violet}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{neoncyan}}{\thesubsection}{0.6em}{}
+\titlespacing{\section}{0pt}{1.6em}{0.6em}
+
+\newcommand{\param}[1]{\textcolor{neonmag}{\texttt{#1}}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\E}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\dd}{\mathrm{d}}
+
+\setlist[itemize]{leftmargin=1.4em,itemsep=2pt,topsep=3pt}
+
+\begin{document}
+
+% ======================= TITLE =======================
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+{\color{rule}\rule{\textwidth}{2pt}}\\[1.2em]
+{\Huge\bfseries Interactive Demos}\\[0.4em]
+{\LARGE Mathematical \& Simulation Notes}\\[1em]
+{\color{rule}\rule{\textwidth}{2pt}}\\[2em]
+{\large A companion to the interactive labs at}\\[0.3em]
+{\large\href{https://matteovissani.github.io}{matteovissani.github.io}}\\[3em]
+{\large\bfseries Matteo Vissani}\\[0.3em]
+{\normalsize Neuroengineer --- Massachusetts General Hospital / Harvard Medical School}\\[2em]
+\vfill
+{\small Every figure on the site is computed live in the browser. These notes give, for
+each lab, the exact model, the numerical scheme, the synthetic data it runs on, and the
+quantities it measures --- so the demos can be read, checked, and reused as teaching material.}\\[1em]
+{\small\itshape Generated \today.}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% =====================================================================
+\section*{How to read these notes}
+\addcontentsline{toc}{section}{How to read these notes}
+
+Each lab is a small, self-contained simulation that runs in real time on an HTML5 canvas
+(no server, no precomputed data). For every lab below you will find:
+
+\begin{itemize}
+  \item \textbf{Model} --- the governing equations.
+  \item \textbf{Numerics} --- the integration / estimation scheme and step sizes.
+  \item \textbf{Synthetic data} --- how the signals or spikes are generated.
+  \item \textbf{Measured} --- the quantities reported back to the user.
+  \item \textbf{Controls} --- the adjustable parameters and their ranges.
+\end{itemize}
+
+Parameters that appear as on-screen sliders are written like \param{this}. The labs are
+grouped exactly as on the website: \emph{neuronal dynamics}, \emph{neural coding \&
+information}, \emph{signals \& time--frequency}, \emph{neurotechnology}, and the
+\emph{spike--phase coupling toolkit}.
+
+% #####################################################################
+\section{Neuronal dynamics}
+
+% ---------------------------------------------------------------------
+\subsection{The (adaptive) integrate-and-fire neuron}
+
+\textbf{Model.} A leaky integrate-and-fire neuron with an adaptation current $w$:
+\begin{align}
+\tau_m \frac{\dd V}{\dd t} &= -(V - E_L) + R I - w + \text{noise}, &
+\tau_w \frac{\dd w}{\dd t} &= -w,
+\end{align}
+with the fire-and-reset rule: when $V \ge V_{\text{th}}$ emit a spike, set $V \leftarrow V_r$
+and $w \leftarrow w + b$. Fixed constants are $E_L=-70$, $V_{\text{th}}=-50$, $V_r=-65$~mV.
+Setting $b=0$ recovers the pure LIF neuron; $b>0$ produces spike-frequency adaptation.
+
+\textbf{Numerics.} Euler--Maruyama with $\Delta t = 0.5$~ms. The stochastic term is added as
+$\sigma\sqrt{\Delta t/\tau_m}\,\xi$ with $\xi\sim\mathcal N(0,1)$ (Box--Muller). The membrane
+panel scrolls an $800$~ms ring buffer; the integrator advances $8$ substeps per animation frame.
+
+\textbf{Phase plane.} The $(V,w)$ plane shows the two nullclines
+\[
+\text{$V$-nullcline:}\quad w = R I - (V - E_L), \qquad
+\text{$w$-nullcline:}\quad w = 0,
+\]
+with the live trajectory riding up toward threshold, resetting leftward, and being kicked up
+by $b$ at each spike.
+
+\textbf{$f$--$I$ curve.} For the current shape parameters the gain curve is measured by a
+direct sweep of the drive over $[0,45]$~mV: each point integrates a $400$~ms burn-in followed
+by a $1400$~ms count window ($\Delta t = 0.5$~ms) and reports the firing rate
+$f = 1000\,n_{\text{spikes}}/T$ (Hz). With $w=0$ the steady state is $V=E_L+RI$, so the
+\emph{rheobase} (minimum drive to fire) is $V_{\text{th}}-E_L = 20$~mV.
+
+\textbf{Controls.} \param{drive $RI$} $\in[0,45]$~mV, \param{noise $\sigma$} $\in[0,8]$~mV,
+\param{adaptation $b$} $\in[0,10]$~mV, \param{$\tau_w$} $\in[40,300]$~ms,
+\param{$\tau_m$} $\in[5,40]$~ms.
+
+% ---------------------------------------------------------------------
+\subsection{Wilson--Cowan dynamics \& bifurcation}
+
+\textbf{Model.} Two coupled populations, excitatory $E$ and inhibitory $I$:
+\begin{align}
+\tau_E \dot E &= -E + S\!\left(w_{EE} E - w_{EI} I + P\right), &
+\tau_I \dot I &= -I + S\!\left(w_{IE} E - w_{II} I + Q\right),
+\end{align}
+with the logistic gain $S(x) = S_{\max}\big/\big(1 + \E^{-a(x-\theta)}\big)$,
+$S_{\max}=1$, $\theta=3$. Fixed: $\tau_E=1$, $w_{IE}=10$, $w_{II}=2$, $Q=0$.
+
+\textbf{Numerics.} Forward Euler, $\Delta t = 0.04$. The phase-plane flow field samples
+$f(E,I)=(\dot E,\dot I)$ on an $11\times11$ grid (arrows), and tracer particles are advected
+along $f$ to visualize the basins of attraction.
+
+\textbf{Nullclines and fixed points.} Inverting the sigmoid,
+$S^{-1}(y)=\theta + \frac1a\ln\!\frac{y}{S_{\max}-y}$, gives the closed-form nullclines
+\[
+\text{$E$-null:}\;\; I = \frac{w_{EE}E + P - S^{-1}(E)}{w_{EI}},\qquad
+\text{$I$-null:}\;\; E = \frac{S^{-1}(I) + w_{II}I - Q}{w_{IE}}.
+\]
+Fixed points are the roots of $g(E) = -E + S\!\big(w_{EE}E - w_{EI} I^\ast(E) + P\big)$,
+where $I^\ast(E)$ is obtained by fixed-point iteration of the $I$ equation; a sign-change scan
+locates the $1$ or $3$ intersections (single state, or bistable cusp / saddle-node regime).
+
+\textbf{Bifurcation diagram.} The external drive is swept $P\in[0,12]$ ($80$ values). For each
+$P$ the system settles ($1600$ steps), then the running min/max of $E$ over the next $1500$
+steps gives the lower/upper branch; their separation is the oscillation amplitude, which grows
+continuously from zero at a \emph{supercritical Hopf bifurcation}.
+
+\textbf{Controls.} \param{$P$} $\in[0,12]$, \param{$w_{EE}$} $\in[4,16]$,
+\param{$w_{EI}$} $\in[6,22]$, \param{$\tau_I$} $\in[1,4]$, \param{gain $a$} $\in[0.8,2.5]$.
+
+% #####################################################################
+\section{Neural coding \& information}
+
+% ---------------------------------------------------------------------
+\subsection{Spike--phase coupling (teaching demo)}
+
+\textbf{Model.} A cortical rhythm $\cos$ wave of frequency $f$ drives a subthalamic unit whose
+instantaneous firing rate is phase-modulated by a von Mises-type kernel,
+\[
+\lambda(\phi) = r_0\, \exp\!\big(\kappa[\cos(\phi-\phi_{\text{pref}})-1]\big),
+\]
+bounded in $(0,1]\cdot r_0$, where $\phi = 2\pi f t$ is the oscillation phase, $\kappa$ the
+concentration (coupling strength) and $\phi_{\text{pref}} = 2\pi f \cdot(\text{offset})$.
+
+\textbf{Numerics.} Inhomogeneous Poisson sampling at $\Delta t = 1$~ms: a spike is emitted when
+$\mathcal U(0,1) < \lambda(\phi)\,\Delta t$. The last $180$ spike phases are kept in a ring buffer.
+
+\textbf{Measured.} The phase-locking value and preferred phase from the unit resultant vector,
+\[
+\text{PLV} = \Big|\tfrac1n\textstyle\sum_{k=1}^{n}\E^{\ii\phi_k}\Big|, \qquad
+\phi_{\text{pref}} = \arg\!\Big(\textstyle\sum_k \E^{\ii\phi_k}\Big),
+\]
+with an $18$-bin polar histogram and the mean vector drawn at length PLV.
+
+\textbf{Controls.} \param{frequency} $\in[2,40]$~Hz ($\delta$ to $\gamma$),
+\param{$\kappa$} $\in[0,5]$, \param{phase offset} $\in[0,40]$~ms,
+\param{firing rate} $\in[5,80]$~Hz.
+
+% ---------------------------------------------------------------------
+\subsection{Population coding \& neural decoding}
+
+\textbf{Model.} A bank of $N$ Gaussian tuning curves over a stimulus $s\in[0,180]^\circ$,
+\[
+f_i(s) = 0.5 + r_{\max}\,\exp\!\Big(-\frac{(s-c_i)^2}{2\sigma^2}\Big), \qquad
+c_i = \frac{i}{N-1}\,180^\circ,
+\]
+producing independent Poisson spike counts $r_i\sim\text{Poisson}(f_i(s))$ each trial.
+
+\textbf{Decoder.} Maximum likelihood over a $1^\circ$ grid; dropping $s$-independent terms,
+\[
+\hat s = \arg\max_{g}\ \sum_{i=1}^{N}\big[\,r_i \ln f_i(g) - f_i(g)\,\big].
+\]
+
+\textbf{Optimality bound.} For Poisson firing with Gaussian tuning the Fisher information is
+\[
+J(s) = \sum_{i} \frac{f_i(s)\,(c_i-s)^2}{\sigma^4},
+\]
+and the Cram\'er--Rao bound on any unbiased estimator's standard deviation is
+$\mathrm{CRB} = 1/\sqrt{J}$. The lab overlays this Gaussian on the empirical error histogram
+(last $200$ trials) and reports the ratio $\mathrm{RMSE}/\mathrm{CRB}$ (near $1$ $\Rightarrow$
+near-optimal). Poisson counts use direct multiplication for small $\lambda$ and a Gaussian
+approximation for $\lambda>30$.
+
+\textbf{Controls.} \param{$s$} $\in[10,170]^\circ$, \param{$\sigma$} $\in[6,45]^\circ$,
+\param{$N$} $\in[6,40]$, \param{$r_{\max}$} $\in[5,50]$.
+
+% ---------------------------------------------------------------------
+\subsection{Information theory: channel \& source coding}
+
+\textbf{Part 1 --- binary symmetric channel.} A bit $X$ with $P(X{=}1)=p$ is flipped with
+probability $f$. With the binary entropy $H_2(q) = -q\log_2 q - (1-q)\log_2(1-q)$,
+\[
+H(X)=H_2(p),\quad H(Y\,|\,X)=H_2(f),\quad p_Y = p(1-f)+(1-p)f,
+\]
+\[
+I(X;Y) = H(Y) - H(Y\,|\,X), \qquad C = 1 - H_2(f),
+\]
+and the joint entropy decomposes as $H(X,Y) = H(X\,|\,Y) + I(X;Y) + H(Y\,|\,X)$, shown as a
+stacked bar. The mutual information is maximal at $p=0.5$, where it equals the capacity $C$.
+
+\textbf{Part 2 --- source coding.} For a symbol distribution $\{p_i\}$ the entropy
+$H = -\sum_i p_i \log_2 p_i$ is the compression limit. An exact \textbf{Huffman} code is built
+by repeatedly merging the two least-probable nodes; its expected length $L=\sum_i p_i \ell_i$
+obeys Shannon's bound $H \le L < H+1$. The lab reports the efficiency $H/L$, which reaches
+$100\%$ when the probabilities are (negative) powers of two.
+
+\textbf{Controls.} \param{$p$} $\in[0,1]$, \param{$f$} $\in[0,0.5]$, and five symbol
+\param{weights} $\in[0,8]$.
+
+% #####################################################################
+\section{Signals \& time--frequency}
+
+% ---------------------------------------------------------------------
+\subsection{Fourier epicycles}
+
+\textbf{Model.} A closed planar curve is sampled to $N=220$ complex points
+$z_n = x_n + \ii y_n$ (mean-centered) and transformed by the DFT,
+\[
+c_k = \frac1N \sum_{n=0}^{N-1} z_n\, \E^{-\ii 2\pi kn/N}, \qquad
+z(t) = \sum_{k} c_k\, \E^{\ii 2\pi f_k t},
+\]
+where each coefficient is one rotating vector (epicycle) of radius $|c_k|$, angular frequency
+$f_k$ (mapped to $[-N/2, N/2]$) and phase $\arg c_k$. Coefficients are sorted by amplitude and
+the slider keeps the largest $K$; chained tip-to-tail they retrace the shape.
+
+\textbf{Numerics.} The user-drawn or preset path is arc-length resampled to $N$ equal steps
+before the DFT, so the parametrization speed is uniform. Sharp corners require many
+high-frequency terms (the square-wave Gibbs phenomenon).
+
+\textbf{Controls.} \param{number of terms} $\in[1,220]$, \param{speed} $\in[0.2,4]\times$;
+or draw a custom shape on the canvas.
+
+% ---------------------------------------------------------------------
+\subsection{Digital filter designer (windowed-sinc FIR)}
+
+\textbf{Model.} A band-pass FIR filter from the windowed-sinc method at $F_s = 250$~Hz. With
+normalized edges $\omega_{L,H} = 2\pi f_{L,H}/F_s$ and $M$ taps centred at $\text{mid}=(M{-}1)/2$,
+\[
+h_{\text{ideal}}[n] =
+\begin{cases}
+(\omega_H - \omega_L)/\pi, & n = 0,\\[4pt]
+\dfrac{\sin(\omega_H n) - \sin(\omega_L n)}{\pi n}, & n \ne 0,
+\end{cases}
+\qquad h[k] = h_{\text{ideal}}[k-\text{mid}]\cdot w[k],
+\]
+with a Hamming window $w[k] = 0.54 - 0.46\cos\!\big(2\pi k/(M-1)\big)$.
+
+\textbf{Response \& application.} The magnitude response is evaluated directly,
+\[
+|H(f)| = \Big|\textstyle\sum_k h[k]\,\E^{-\ii 2\pi f k / F_s}\Big|,
+\]
+and the filter is applied by centred convolution. The test signal is
+$\sin(2\pi 8t) + \sin(2\pi 40 t) + 0.6\sin(2\pi 60 t) + 0.5\,\eta(t)$,
+where $\eta$ is $1/f$-like noise from an AR(1) process ($a=0.92$). Input and output power spectra
+are compared by direct DFT. More taps $\Rightarrow$ sharper passband but a longer impulse
+response (group delay) --- the FIR length vs.\ selectivity trade-off.
+
+\textbf{Controls.} \param{low edge} $\in[1,120]$~Hz, \param{high edge} $\in[3,124]$~Hz,
+\param{taps} $\in[11,201]$ (forced odd); Nyquist $=125$~Hz.
+
+% ---------------------------------------------------------------------
+\subsection{Wavelet time--frequency decomposition}
+
+\textbf{Model.} A complex Morlet continuous wavelet transform. The wavelet at analysis
+frequency $f$ is a complex exponential under a Gaussian envelope,
+\[
+\psi_f(\tau) = \E^{\,\ii 2\pi f \tau}\,\E^{-\tau^2/(2\sigma^2)}, \qquad
+\text{CWT}(f,t) = \sum_\tau x(t+\tau)\,\psi_f^{*}(\tau).
+\]
+The width $\sigma$ (seconds) can be set three equivalent ways (Cohen, 2019), with
+$K = 2\sqrt{2\ln 2}$ converting a Gaussian std to its FWHM:
+\[
+\underbrace{\sigma = \frac{n_{\text{cyc}}}{2\pi f}}_{\text{constant-}Q},\qquad
+\underbrace{\sigma = \frac{\text{FWHM}_t}{K}}_{\text{fixed time res.}},\qquad
+\underbrace{\sigma = \frac{1}{2\pi(\text{FWHM}_f/K)}}_{\text{fixed freq.\ res.}}
+\]
+The two resolutions always obey the uncertainty relation
+$\text{FWHM}_t \cdot \text{FWHM}_f \approx K^2/(2\pi) \approx 0.88$.
+
+\textbf{Numerics.} $F_s = 200$~Hz, $3$~s. The scalogram uses $46$ log-spaced frequencies
+($2$--$50$~Hz); power is $\log_{10}(|\text{CWT}|^2/(\sigma_{\text{samp}}{+}1))$ then
+normalized for display. The test signal is a $\theta$ rhythm $+$ a Gaussian-windowed $\beta$
+burst (centre $1.5$~s, $\sigma_{\text{win}}=0.28$~s) $+$ $1/f$ noise.
+
+\textbf{Controls.} wavelet-width mode (\param{$n_{\text{cyc}}$} $\in[2,15]$ /
+\param{FWHM time} $\in[40,800]$~ms / \param{FWHM freq} $\in[1,15]$~Hz),
+$\theta$ and $\beta$ \param{frequency}/\param{amplitude}, \param{$1/f$ noise}, burst on/off.
+
+% ---------------------------------------------------------------------
+\subsection{Kalman-filter BCI decoder}
+
+\textbf{Model.} A constant-velocity (near-constant-velocity) Kalman filter runs independently
+per axis with state $\mathbf x = [\,\text{pos},\ \text{vel}\,]^\top$. The intended cursor follows
+a spring--damper toward the active center-out target, $\ddot p = 6.5(p_{\text{tgt}}-p) - 3.2\,\dot p$,
+and the ``neural read-out'' is a noisy position measurement $z = p_{\text{true}} + \sigma\,\xi$.
+
+\textbf{Filter.} With $\Delta t = 0.045$~s, measurement variance $R=\sigma^2$ and process
+(acceleration) intensity $q$, the predict step propagates the covariance
+$\mathbf P=\big[\begin{smallmatrix}P_{00}&P_{01}\\P_{01}&P_{11}\end{smallmatrix}\big]$ with the
+continuous white-noise-acceleration model:
+\begin{align*}
+P_{00} &\mathrel{+}= 2\Delta t\,P_{01} + \Delta t^2 P_{11} + \tfrac13 q\,\Delta t^3, &
+P_{01} &\mathrel{+}= \Delta t\,P_{11} + \tfrac12 q\,\Delta t^2, &
+P_{11} &\mathrel{+}= q\,\Delta t,
+\end{align*}
+and the (scalar-measurement) update uses gain $K_0 = P_{00}/S$, $K_1 = P_{01}/S$ with
+$S = P_{00}+R$ and innovation $z - \hat p$. The lab compares the RMSE of the raw read-out and
+the Kalman estimate over the last $200$ steps. Too small $q$ lags fast reaches (over-smoothing);
+too large $q$ chases noise (under-smoothing) --- the BCI tuning problem.
+
+\textbf{Controls.} \param{measurement noise $\sigma$} $\in[0.03,0.45]$,
+\param{process noise $q$} $\in[0.001,0.1]$.
+
+% #####################################################################
+\section{Neurotechnology}
+
+% ---------------------------------------------------------------------
+\subsection{DBS waveform \& charge-safety designer}
+
+\textbf{Model.} A deep-brain-stimulation pulse is parametrized by amplitude $I$ (mA), pulse
+width $\text{PW}$ ($\mu$s), frequency, electrode area $A$, and waveform (monophasic, biphasic
+symmetric, biphasic asymmetric with a $4\times$ longer / $\tfrac14$ amplitude recharge phase
+and a $60~\mu$s interphase gap). The charge engineering is
+\[
+Q = \frac{I\cdot\text{PW}}{1000}\ [\mu\text{C/phase}],\qquad
+D = \frac{Q}{A/100}\ [\mu\text{C/cm}^2],\qquad
+\bar I = Q\cdot f\ [\mu\text{A}].
+\]
+
+\textbf{Safety.} The Shannon criterion for tissue damage uses
+$k = \log_{10} D + \log_{10} Q$; the plot draws the iso-$k$ lines $\log_{10} D = k - \log_{10} Q$
+at $k=1.5$ (safe boundary) and $k=2.0$ (damage). The verdict is SAFE ($k<1.5$),
+CAUTION ($1.5\le k<2.0$) or UNSAFE ($k\ge2.0$). Monophasic pulses leave an uncompensated net DC
+charge $Q$ per pulse (electrode corrosion / tissue damage); charge-balanced biphasic pulses net zero.
+
+\textbf{Controls.} \param{$I$} $\in[0.1,6]$~mA, \param{PW} $\in[20,450]~\mu$s,
+\param{frequency} $\in[2,250]$~Hz, \param{area} $\in[1,12]$~mm$^2$, waveform type.
+
+% ---------------------------------------------------------------------
+\subsection{EEG source localization}
+
+\textbf{Forward model.} An illustrative 2-D head: each cortical current dipole
+$s=(x,y,\text{ori})$ contributes a potential to a sensor at $(q_x,q_y)$,
+\[
+V(q; s) = \frac{\cos(\text{ori})\,\Delta x + \sin(\text{ori})\,\Delta y}{\Delta x^2 + \Delta y^2 + \varepsilon},
+\quad (\Delta x,\Delta y) = (q_x - x,\ q_y - y),\ \ \varepsilon = 0.0035,
+\]
+and the measurement at electrode $i$ of the $19$-channel $10$--$20$ montage is
+$y_i = \sum_{\text{sources}} V(\text{elec}_i; s) + \text{noise}\cdot\xi_i$ (volume conduction =
+spatial mixing). The scalp topomap is a Shepard inverse-distance interpolation, weights
+$w = 1/(d^2 + 0.02)$.
+
+\textbf{Inverse.} A greedy / matching-pursuit $K$-dipole fit: on each pass the best grid location
+is found by solving the $2\times2$ normal equations for the dipole moment $(p_0,p_1)$ that
+minimizes the residual
+\[
+\sum_i\Big(\text{resid}_i - \tfrac{\Delta x\,p_0 + \Delta y\,p_1}{r^2}\Big)^2;
+\]
+that dipole is then peeled off the residual and the search repeats. The reported error is the
+mean distance (scaled to mm) from each true source to its nearest fitted dipole. Under-fitting,
+deep sources, or high noise destabilize the estimate --- the EEG inverse problem is ill-posed.
+
+\textbf{Controls.} drag dipoles; \param{orientation} $\in[0,360]^\circ$,
+\param{sensor noise} $\in[0,0.5]$, number of \param{fit dipoles} $\in\{1,2,3,4\}$.
+
+% #####################################################################
+\section{Spike--phase coupling toolkit}
+
+This is a browser port of the analysis pipeline from
+\href{https://github.com/Brain-Modulation-Lab/code_SPC_ECoG_STN_Speech}{\code{code\_SPC\_ECoG\_STN\_Speech}}
+(Vissani et al., 2025), run live on simulated coupled data so the exact method can be inspected.
+
+\textbf{Synthetic data.} For each of $n_{\text{trials}}$ trials over $2$~s at $F_s = 500$~Hz
+($N=1000$ samples), an LFP $x(t) = \sin(2\pi f t + \phi_0) + 0.25\,\xi$ is generated and its
+instantaneous phase $\phi(t) = \arg\!\big(x(t) + \ii\,\mathcal H\{x\}(t)\big)$ is obtained from
+the analytic signal via an FFT-based Hilbert transform. Spikes are an inhomogeneous Poisson
+process: baseline probability $r_0/F_s$ per sample, multiplied inside a coupling window
+$[\,\text{winC}\pm\text{winW}/2\,]$ by $\big(1 + \kappa\cos(\phi - \phi_{\text{target}})\big)$ with
+\[
+\kappa = \frac{\text{ES}-1}{\text{ES}+1}, \qquad
+\text{ES} = \frac{1 + 2\sqrt{c}}{1 - 2\sqrt{c}},
+\]
+an effect-size parametrization of the coupling strength $c$.
+
+\textbf{Coupling statistics.} For the $n$ spike phases in the window,
+\[
+\text{PLV} = \Big|\tfrac1n \textstyle\sum_k \E^{\ii\phi_k}\Big|, \qquad
+\text{PPC} = \frac{n}{n-1}\Big(\text{PLV}^2 - \tfrac1n\Big),
+\]
+the pairwise phase consistency (Vinck et al., 2010) being an unbiased, rate-independent
+estimator of coupling.
+
+\textbf{Time-resolved analysis.} A constant-spike-count window (Fischer) de-biases the firing
+rate: with target $=\max(40,\ \lfloor 0.1\,N_{\text{spk}}\rceil)$, each of $40$ time centres takes
+the \emph{target} spikes nearest in time (first-crossing half-width). Significance comes from a
+phase-shuffle permutation null --- each selected spike is re-paired with the phase drawn from a
+random trial at the mirrored time index ($40$ permutations) --- and a center is significant when
+its real PPC exceeds the $95^{\text{th}}$ percentile of the null. The preferred phase per center
+is the circular mean of its selected spikes; it is overlaid on the across-trial
+phase$\times$time density map only where the PPC is significant.
+
+\textbf{Confidence interval.} The $95\%$ CI of the preferred (mean) phase follows the CircStat
+routine \code{circ\_confmean} (Zar, eq.\ 26.24/26.25): with $r=\text{PLV}$, $R_n = n r$ and
+$c_2 = \chi^2_{1,0.95}=3.841$, the half-width is $\delta = \arccos(t/R_n)$ where
+\[
+t =
+\begin{cases}
+\sqrt{\dfrac{2n\,(2R_n^2 - n c_2)}{4n - c_2}}, & r < 0.9,\\[10pt]
+\sqrt{\,n^2 - (n^2 - R_n^2)\,\E^{c_2/n}}, & r \ge 0.9.
+\end{cases}
+\]
+It is drawn as an arc just outside the polar plot.
+
+\textbf{Controls.} \param{coupling $c$} $\in[0,0.23]$, preferred phase $\phi_{\text{target}}$,
+oscillation frequency, base firing rate, number of trials, and the coupling-window
+centre/width.
+
+\vfill
+\begin{center}\small\itshape
+These notes are generated from the same source that runs the live demos; if a number here and
+on the site ever disagree, the code is ground truth.
+\end{center}
+
+\end{document}
