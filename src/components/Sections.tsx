@@ -15,6 +15,10 @@ import FourierLab from './FourierLab'
 import DBSLab from './DBSLab'
 import EEGLab from './EEGLab'
 import WilsonCowanLab from './WilsonCowanLab'
+import ControlLab from './ControlLab'
+import StateSpaceLab from './StateSpaceLab'
+import LqrLab from './LqrLab'
+import SubspacesLab from './SubspacesLab'
 import DemoToggle from './DemoToggle'
 import {
   Mail, LinkedIn, GitHub, Scholar, Orcid, ResearchGate, ArrowRight, External, Pdf, Doi,
@@ -194,6 +198,14 @@ export function Software() {
           <p className="ilab-section-label">Simulations</p>
 
           <div className="ilab-group">
+            <h3 className="ilab-group-title">Mathematical foundations</h3>
+            <DemoToggle title="Four fundamental subspaces &amp; the SVD"
+              subtitle="Row, column, null and left-null space of a matrix — and how the SVD hands you an orthonormal basis for each" notes="subspaces">
+              <SubspacesLab />
+            </DemoToggle>
+          </div>
+
+          <div className="ilab-group">
             <h3 className="ilab-group-title">Neuronal dynamics</h3>
             <DemoToggle title="Integrate-and-fire neuron"
               subtitle="Live simulation, phase plane, f–I curve and adaptation" notes="lif">
@@ -238,6 +250,22 @@ export function Software() {
             <DemoToggle title="Kalman-filter BCI decoder"
               subtitle="Track a 2D cursor from a noisy neural read-out with a real-time Kalman filter" notes="kalman">
               <KalmanLab />
+            </DemoToggle>
+          </div>
+
+          <div className="ilab-group">
+            <h3 className="ilab-group-title">Systems &amp; control</h3>
+            <DemoToggle title="Block-diagram sandbox"
+              subtitle="Drag functional blocks, wire them, and run: linear systems, feedback, open vs closed loop, and stability" notes="control">
+              <ControlLab />
+            </DemoToggle>
+            <DemoToggle title="Controllability & observability — in plain sight"
+              subtitle="Can you steer every state? Can you see every state? Two yes/no questions, shown with live demos — and what each one lets you do" notes="state-space">
+              <StateSpaceLab />
+            </DemoToggle>
+            <DemoToggle title="LQR — designing by trade-off, not by poles"
+              subtitle="Minimise ∫(xᵀQx + Ru²): one knob slides you along the optimal effort-vs-error frontier — and when that beats picking poles" notes="state-space">
+              <LqrLab />
             </DemoToggle>
           </div>
 

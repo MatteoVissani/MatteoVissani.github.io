@@ -11,6 +11,9 @@ import { kalman } from './kalman'
 import { dbs } from './dbs'
 import { eeg } from './eeg'
 import { spcToolkit } from './spc-toolkit'
+import { control } from './control'
+import { stateSpace } from './state-space'
+import { subspaces } from './subspaces'
 
 // keyed by the slug passed to <DemoNotes demo="…" />
 export const notes: Record<string, DemoNote> = {
@@ -26,4 +29,7 @@ export const notes: Record<string, DemoNote> = {
   dbs,
   eeg,
   'spc-toolkit': spcToolkit,
+  control,
+  'state-space': stateSpace,
+  subspaces,
 }
