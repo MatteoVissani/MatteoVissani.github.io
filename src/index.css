@@ -1378,6 +1378,7 @@ img { max-width: 100%; display: block; }
 .ss-canvas.ss-wide { height: 200px; }
 .ss-cart { width: 100%; height: 130px; background: #0a0c13; border: 1px solid var(--panel-border); border-radius: 11px; display: block; margin-top: 10px; touch-action: none; cursor: grab; }
 .ss-cart:active { cursor: grabbing; }
+.ss-inl { font-style: italic; font-family: var(--font-mono); color: var(--text); }
 .ss-implic { margin-top: 11px; padding: 10px 13px; border-radius: 9px; font-size: 0.86rem; line-height: 1.55; border-left: 3px solid; }
 .ss-implic.ok { background: rgba(84,230,160,0.08); border-color: #54e6a0; color: var(--text); }
 .ss-implic.bad { background: rgba(255,107,107,0.08); border-color: #ff6b6b; color: var(--text); }

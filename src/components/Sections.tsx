@@ -11,10 +11,12 @@ import DecodingLab from './DecodingLab'
 import WaveletLab from './WaveletLab'
 import FilterLab from './FilterLab'
 import KalmanLab from './KalmanLab'
+import SpecParamLab from './SpecParamLab'
 import FourierLab from './FourierLab'
 import DBSLab from './DBSLab'
 import EEGLab from './EEGLab'
 import WilsonCowanLab from './WilsonCowanLab'
+import KuramotoLab from './KuramotoLab'
 import ControlLab from './ControlLab'
 import StateSpaceLab from './StateSpaceLab'
 import LqrLab from './LqrLab'
@@ -215,6 +217,10 @@ export function Software() {
               subtitle="Coupled E/I populations: phase plane, nullclines, and a Hopf bifurcation into oscillations" notes="wilson-cowan">
               <WilsonCowanLab />
             </DemoToggle>
+            <DemoToggle title="Kuramoto model — synchronization &amp; desynchronizing stimulation"
+              subtitle="Coupled phase oscillators lock into a collective rhythm above a critical coupling — and a desync pulse (coordinated-reset DBS) shatters it" notes="kuramoto">
+              <KuramotoLab />
+            </DemoToggle>
           </div>
 
           <div className="ilab-group">
@@ -250,6 +256,10 @@ export function Software() {
             <DemoToggle title="Kalman-filter BCI decoder"
               subtitle="Track a 2D cursor from a noisy neural read-out with a real-time Kalman filter" notes="kalman">
               <KalmanLab />
+            </DemoToggle>
+            <DemoToggle title="Spectral parameterization — oscillations vs the 1/f background"
+              subtitle="Separate a neural power spectrum into its aperiodic 1/f background and oscillatory peaks (specparam / FOOOF), and see why the background fit decides which oscillations you find" notes="spectral-parameterization">
+              <SpecParamLab />
             </DemoToggle>
           </div>
 

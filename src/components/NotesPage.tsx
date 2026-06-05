@@ -7,9 +7,9 @@ import { Anim, hasAnim } from './notes/anims'
 // Ordered, grouped table of contents for the Theory & methods page.
 const GROUPS: { label: string; items: string[] }[] = [
   { label: 'Mathematical foundations', items: ['subspaces'] },
-  { label: 'Neuronal dynamics', items: ['lif', 'wilson-cowan'] },
+  { label: 'Neuronal dynamics', items: ['lif', 'wilson-cowan', 'kuramoto'] },
   { label: 'Neural coding & information', items: ['spike-phase', 'decoding', 'information'] },
-  { label: 'Signals & time–frequency', items: ['fourier', 'filter', 'wavelet', 'kalman'] },
+  { label: 'Signals & time–frequency', items: ['fourier', 'filter', 'wavelet', 'kalman', 'spectral-parameterization'] },
   { label: 'Systems & control', items: ['control', 'state-space'] },
   { label: 'Neurotechnology', items: ['dbs', 'eeg'] },
   { label: 'Toolkit', items: ['spc-toolkit'] },
