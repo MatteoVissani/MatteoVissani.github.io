@@ -3,7 +3,7 @@ import Background from './components/Background'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import PaperPage from './components/PaperPage'
-import { About, Research, Featured, Software, Publications, Awards, Teaching, Talks, Contact } from './components/Sections'
+import { About, Research, Featured, Software, Publications, Awards, Teaching, Tutoring, Talks, Contact } from './components/Sections'
 
 // KaTeX + all chapter content live here; load only when visiting /notes.
 const NotesPage = lazy(() => import('./components/NotesPage'))
@@ -76,10 +76,11 @@ export default function App() {
         <About />
         <Research />
         <Featured />
+        <Teaching />
+        <Tutoring />
         <Software />
         <Publications />
         <Awards />
-        <Teaching />
         <Talks />
         <Contact />
       </main>

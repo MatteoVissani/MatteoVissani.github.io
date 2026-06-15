@@ -327,6 +327,23 @@ export const teaching: Teaching[] = [
   },
 ]
 
+export type TutoringLink = { name: string; href: string }
+export const tutoring = {
+  blurb:
+    'Beyond the lab, I help high-school and university students truly master mathematics, physics, and engineering. Not by memorising recipes, but by building real intuition from first principles and earning fluency through hard problems we solve together. I am a PhD-level tutor who still remembers exactly what it feels like when an idea finally clicks. Lessons online or in person, in Italian or English.',
+  subjects: ['Mathematics', 'Physics', 'Engineering'],
+  examsBlurb:
+    'I also coach for the toughest university admission exams, where success rewards far more than knowing the maths. It rewards reasoning fast, writing clean arguments, and staying calm under pressure. We drill past papers, decode every question type, and turn exam-day nerves into a clear plan of attack.',
+  exams: ['STEP', 'TMUA', 'MAT', 'TOLC'],
+  languages: ['Italian', 'English'],
+  email: 'matteo.vissani7@gmail.com',
+  qr: '/images/preply-qr.png',
+  links: [
+    { name: 'Preply', href: 'https://preply.in/MATTEO7EN3811745210?ts=17815293' },
+    { name: 'Superprof', href: 'https://www.superprof.com/ir/43216447-0e8c1c' },
+  ] as TutoringLink[],
+}
+
 export type Mentoring = { program: string; since: string; detail: string; href: string }
 
 export const mentoring: Mentoring[] = [
@@ -396,13 +413,24 @@ export const repos: Repo[] = [
 ]
 export const codeProfileUrl = 'https://github.com/MatteoVissani'
 
-export const navLinks = [
+export type NavChild = { id: string; label: string }
+export type NavLink = { id: string; label: string; href?: string; children?: NavChild[] }
+
+export const navLinks: NavLink[] = [
   { id: 'about', label: 'About' },
-  { id: 'research', label: 'Research' },
-  { id: 'software', label: 'Software' },
-  { id: 'publications', label: 'Papers' },
-  { id: 'awards', label: 'Awards' },
+  {
+    id: 'research',
+    label: 'Research',
+    children: [
+      { id: 'research', label: 'Lines of research' },
+      { id: 'work', label: 'Selected work' },
+      { id: 'publications', label: 'Publications' },
+      { id: 'awards', label: 'Awards' },
+      { id: 'talks', label: 'Talks & media' },
+    ],
+  },
   { id: 'teaching', label: 'Teaching' },
-  { id: 'talks', label: 'Talks' },
+  { id: 'tutoring', label: 'Tutoring' },
+  { id: 'software', label: 'Software' },
   { id: 'contact', label: 'Contact' },
 ]

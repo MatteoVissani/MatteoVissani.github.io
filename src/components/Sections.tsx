@@ -27,7 +27,7 @@ import {
 } from './Icons'
 import {
   profile, aboutParagraphs, education, pillars, featured,
-  publications, awards, teaching, mentoring, talks, media, categoryLabels, hasExplorer, repos, codeProfileUrl, type Pub, type Category,
+  publications, awards, teaching, tutoring, mentoring, talks, media, categoryLabels, hasExplorer, repos, codeProfileUrl, type Pub, type Category,
 } from '../data/content'
 
 function Socials() {
@@ -188,7 +188,7 @@ export function Software() {
     <section id="software" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">04 — Software &amp; tools</p>
+          <p className="eyebrow">06 — Software &amp; tools</p>
           <h2 className="section-title">Software &amp; <span className="accent">tools</span></h2>
           <p className="section-lead">
             Interactive demos of methods I use (or just like playing with), and the code behind them.
@@ -352,7 +352,7 @@ export function Publications() {
     <section id="publications" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">05 — Publications</p>
+          <p className="eyebrow">07 — Publications</p>
           <h2 className="section-title">Peer-reviewed <span className="accent">papers</span></h2>
           <p className="section-lead">
             {publications.length} selected peer-reviewed articles. Filter by research area, or open any title for its
@@ -415,7 +415,7 @@ export function Awards() {
     <section id="awards" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">06 — Recognition</p>
+          <p className="eyebrow">08 — Recognition</p>
           <h2 className="section-title">Awards &amp; <span className="accent">honors</span></h2>
         </Reveal>
         <div className="awards-wrap">
@@ -440,7 +440,7 @@ export function Teaching() {
     <section id="teaching" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">07 — Teaching</p>
+          <p className="eyebrow">04 — Teaching</p>
           <h2 className="section-title">Teaching &amp; <span className="accent">mentoring</span></h2>
           <p className="section-lead">Graduate-level teaching from my doctoral training.</p>
         </Reveal>
@@ -486,13 +486,69 @@ export function Teaching() {
   )
 }
 
+/* ---------------- TUTORING ---------------- */
+export function Tutoring() {
+  return (
+    <section id="tutoring" className="section">
+      <div className="wrap">
+        <Reveal>
+          <p className="eyebrow">05 — Tutoring</p>
+          <h2 className="section-title">Private <span className="accent">tutoring</span></h2>
+          <p className="section-lead">
+            One-to-one coaching that takes students from stuck to fluent in math, physics and engineering.
+          </p>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <div className="tutoring panel">
+            <div className="tutoring-main">
+              <p className="tutoring-blurb">{tutoring.blurb}</p>
+              <div className="tutoring-tags">
+                {tutoring.subjects.map((s) => (
+                  <span key={s} className="tutoring-tag">{s}</span>
+                ))}
+              </div>
+
+              <div className="tutoring-exams">
+                <span className="tutoring-exams-label">University admission prep</span>
+                <p className="tutoring-exams-blurb">{tutoring.examsBlurb}</p>
+                <div className="tutoring-tags">
+                  {tutoring.exams.map((e) => (
+                    <span key={e} className="tutoring-tag exam">{e}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="tutoring-meta">
+                High-school &amp; university level · {tutoring.languages.join(' & ')}
+              </div>
+              <div className="tutoring-cta">
+                {tutoring.links.map((l) => (
+                  <a key={l.name} className="btn" href={l.href} target="_blank" rel="noreferrer">
+                    {l.name} <External style={{ width: 14, height: 14, verticalAlign: 'middle' }} />
+                  </a>
+                ))}
+                <a className="btn ghost" href={`mailto:${tutoring.email}`}>
+                  <Mail style={{ width: 15, height: 15, verticalAlign: 'middle' }} /> Email me
+                </a>
+              </div>
+            </div>
+            <a className="tutoring-qr" href={tutoring.links[0].href} target="_blank" rel="noreferrer" aria-label="Book a lesson on Preply">
+              <img src={tutoring.qr} alt="Book a lesson with Matteo on Preply, scan the QR code" loading="lazy" />
+            </a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 /* ---------------- TALKS & MEDIA ---------------- */
 export function Talks() {
   return (
     <section id="talks" className="section">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow">08 — Talks &amp; Media</p>
+          <p className="eyebrow">09 — Talks &amp; Media</p>
           <h2 className="section-title">On stage &amp; <span className="accent">in the field</span></h2>
           <p className="section-lead">
             Recent invited talks and conference presentations, and where the work has been featured.
@@ -538,7 +594,7 @@ export function Contact() {
     <section id="contact" className="section contact">
       <div className="wrap">
         <Reveal>
-          <p className="eyebrow" style={{ justifyContent: 'center' }}>09 — Contact</p>
+          <p className="eyebrow" style={{ justifyContent: 'center' }}>10 — Contact</p>
           <h2 className="section-title">Get in <span className="accent">touch</span></h2>
           <p className="big">
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
