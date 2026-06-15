@@ -7,6 +7,8 @@ import { About, Research, Featured, Software, Publications, Awards, Teaching, Tu
 
 // KaTeX + all chapter content live here; load only when visiting /notes.
 const NotesPage = lazy(() => import('./components/NotesPage'))
+// Standalone tutoring landing page; load only when visiting /tutoring.
+const TutoringPage = lazy(() => import('./components/TutoringPage'))
 
 // Real-path router: paper pages live at /paper/<slug>/ so each is its own
 // crawlable, Scholar-indexable URL. Internal root-relative links are handled
@@ -62,6 +64,17 @@ export default function App() {
         <Background />
         <Suspense fallback={null}>
           <NotesPage />
+        </Suspense>
+      </>
+    )
+  }
+
+  if (path.split('#')[0].replace(/\/$/, '') === '/tutoring') {
+    return (
+      <>
+        <Background />
+        <Suspense fallback={null}>
+          <TutoringPage />
         </Suspense>
       </>
     )

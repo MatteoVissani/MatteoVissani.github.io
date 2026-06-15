@@ -495,22 +495,23 @@ export function Tutoring() {
           <p className="eyebrow">05 — Tutoring</p>
           <h2 className="section-title">Private <span className="accent">tutoring</span></h2>
           <p className="section-lead">
-            One-to-one coaching that takes students from stuck to fluent in math, physics and engineering.
+            One-to-one coaching that takes students from stuck to fluent in math, physics and engineering.{' '}
+            <a href="/tutoring" style={{ color: 'var(--neon-cyan)' }}>See the full tutoring page →</a>
           </p>
         </Reveal>
         <Reveal delay={0.05}>
           <div className="tutoring panel">
             <div className="tutoring-main">
-              <p className="tutoring-blurb">{tutoring.blurb}</p>
+              <p className="tutoring-blurb">{tutoring.en.blurb}</p>
               <div className="tutoring-tags">
-                {tutoring.subjects.map((s) => (
+                {tutoring.en.subjects.map((s) => (
                   <span key={s} className="tutoring-tag">{s}</span>
                 ))}
               </div>
 
               <div className="tutoring-exams">
                 <span className="tutoring-exams-label">University admission prep</span>
-                <p className="tutoring-exams-blurb">{tutoring.examsBlurb}</p>
+                <p className="tutoring-exams-blurb">{tutoring.en.examsBlurb}</p>
                 <div className="tutoring-tags">
                   {tutoring.exams.map((e) => (
                     <span key={e} className="tutoring-tag exam">{e}</span>

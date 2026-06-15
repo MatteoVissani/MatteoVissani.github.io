@@ -7,7 +7,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { publications } from '../src/data/content'
+import { publications, tutoring } from '../src/data/content'
 import { abstracts, summaries } from '../src/data/abstracts'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -105,9 +105,89 @@ mkdirSync(resolve(dist, 'notes'), { recursive: true })
 writeFileSync(resolve(dist, 'notes', 'index.html'),
   template.replace(/<title>[^<]*<\/title>/, '<title>Theory & methods — Matteo Vissani</title>'))
 
-// Full sitemap: home + every paper page.
+// Standalone tutoring landing page: bilingual (EN + IT), crawlable, with
+// schema.org Service markup so it can surface as a tutoring service in search.
+{
+  const url = `${ORIGIN}/tutoring`
+  const t = tutoring
+  const desc = t.seo.description.slice(0, 300)
+
+  const ld = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Private tutoring',
+    name: 'Private tutoring in mathematics, physics and engineering',
+    description: t.seo.description,
+    url,
+    provider: { '@type': 'Person', name: 'Matteo Vissani', url: `${ORIGIN}/` },
+    areaServed: 'Online (worldwide) and in person',
+    availableLanguage: ['English', 'Italian'],
+    audience: { '@type': 'EducationalAudience', educationalRole: 'high school and university student' },
+    offers: {
+      '@type': 'OfferCatalog',
+      name: 'Subjects and admission-test preparation',
+      itemListElement: [...t.en.subjects, ...t.exams.map((e) => `${e} admission-test preparation`)].map((name) => ({
+        '@type': 'Offer', itemOffered: { '@type': 'Service', name },
+      })),
+    },
+  })
+
+  const body = `<main style="max-width:760px;margin:0 auto;padding:120px 24px 80px;color:#e9ebfb;font-family:system-ui,sans-serif;line-height:1.6">
+      <p style="opacity:.6"><a href="/" style="color:#22e1ff">← Matteo Vissani · portfolio</a></p>
+      <h1>Private tutoring in mathematics, physics and engineering</h1>
+      <p>${esc(t.en.blurb)}</p>
+      <p><b>University admission prep:</b> ${esc(t.en.examsBlurb)} (${t.exams.join(', ')}).</p>
+      <p><b>Levels:</b> high-school and university. <b>Languages:</b> ${t.languages.join(', ')}.</p>
+      <h2>What I teach</h2>
+      <ul>${t.en.subjectAreas.map((s) => `<li><b>${esc(s.name)}:</b> ${esc(s.topics.join(', '))}</li>`).join('')}</ul>
+      <h2>Good to know</h2>
+      <dl>${t.en.faqs.map((f) => `<dt><b>${esc(f.q)}</b></dt><dd>${esc(f.a)}</dd>`).join('')}</dl>
+      <h2 lang="it">Ripetizioni private di matematica, fisica e ingegneria</h2>
+      <p lang="it">${esc(t.it.blurb)}</p>
+      <p lang="it"><b>${esc(t.it.examsLabel)}:</b> ${esc(t.it.examsBlurb)}</p>
+      <ul lang="it">${t.it.subjectAreas.map((s) => `<li><b>${esc(s.name)}:</b> ${esc(s.topics.join(', '))}</li>`).join('')}</ul>
+      <p><a href="${esc(t.links[0].href)}" style="color:#22e1ff">Book on ${esc(t.links[0].name)} →</a> · <a href="${esc(t.links[1].href)}" style="color:#22e1ff">${esc(t.links[1].name)}</a> · <a href="mailto:${esc(t.email)}" style="color:#22e1ff">${esc(t.email)}</a></p>
+    </main>`
+
+  const faqLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: t.en.faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })
+
+  const head = [
+    `<meta name="robots" content="index, follow" />`,
+    `<meta property="og:locale:alternate" content="it_IT" />`,
+    `<script type="application/ld+json">${ld}</script>`,
+    `<script type="application/ld+json">${faqLd}</script>`,
+  ].join('\n    ')
+
+  const html = template
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(t.seo.title)}</title>`)
+    .replace(/<meta\s+name="description"[\s\S]*?\/>/, `<meta name="description" content="${esc(desc)}" />`)
+    .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${url}" />`)
+    .replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${esc(t.seo.title)}" />`)
+    .replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${esc(desc)}" />`)
+    .replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${url}" />`)
+    .replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="${ORIGIN}/og/tutoring.png" />`)
+    .replace(/<meta property="og:image:alt"[^>]*>/, `<meta property="og:image:alt" content="Private tutoring with Matteo Vissani" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />`)
+    .replace(/<meta name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${esc(t.seo.title)}" />`)
+    .replace(/<meta name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${esc(desc)}" />`)
+    .replace(/<meta name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="${ORIGIN}/og/tutoring.png" />`)
+    .replace(/<\/head>/, `    ${head}\n  </head>`)
+    .replace(/<div id="root">\s*<\/div>/, `<div id="root">${body}</div>`)
+
+  mkdirSync(resolve(dist, 'tutoring'), { recursive: true })
+  writeFileSync(resolve(dist, 'tutoring', 'index.html'), html)
+}
+
+// Full sitemap: home + tutoring + notes + every paper page.
 const today = new Date().toISOString().slice(0, 10)
-const urls = [`${ORIGIN}/`, `${ORIGIN}/notes`, ...publications.map((p) => `${ORIGIN}/paper/${p.slug}/`)]
+const urls = [`${ORIGIN}/`, `${ORIGIN}/tutoring`, `${ORIGIN}/notes`, ...publications.map((p) => `${ORIGIN}/paper/${p.slug}/`)]
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${u === ORIGIN + '/' ? '1.0' : '0.8'}</priority>\n  </url>`).join('\n')}

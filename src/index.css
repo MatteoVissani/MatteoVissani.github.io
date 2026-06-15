@@ -742,6 +742,80 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.05em;
   color: var(--text-dim); margin-top: 16px;
 }
+
+/* Standalone /tutoring landing page */
+.paper-lead { color: var(--text-dim); font-size: 1.1rem; line-height: 1.7; max-width: 70ch; margin: 0 0 2rem; }
+.tutoring-page .tutoring { margin-top: 0; max-width: none; }
+.tutoring-lang-badge {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em;
+  color: var(--neon-cyan); border: 1px solid var(--panel-border); border-radius: 999px;
+  padding: 3px 10px; vertical-align: middle; margin-left: 12px; text-transform: uppercase;
+}
+.tut-blurb { color: var(--text-dim); font-size: 1.04rem; line-height: 1.7; max-width: 72ch; margin: 0; }
+
+/* EN / IT language tabs */
+.tut-tabs { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 2rem; border: 1px solid var(--panel-border); border-radius: 999px; background: rgba(255,255,255,0.02); }
+.tut-tab {
+  font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); background: none; border: 0; cursor: pointer;
+  padding: 8px 20px; border-radius: 999px; transition: color 0.2s, background 0.2s;
+}
+.tut-tab:hover { color: #fff; }
+.tut-tab.active { color: #04121a; background: var(--neon-cyan); box-shadow: 0 0 16px rgba(24,224,255,0.45); }
+
+/* Hero */
+.tut-hero { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; margin-bottom: 2.6rem; }
+.tut-hero-main .paper-title { margin-bottom: 1.1rem; }
+.tut-hero-qr {
+  flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px;
+  text-decoration: none; border-radius: 14px; transition: transform 0.2s;
+}
+.tut-hero-qr:hover { transform: translateY(-3px); }
+.tut-hero-qr img { width: 184px; height: auto; border-radius: 12px; display: block; box-shadow: 0 12px 38px rgba(0,0,0,0.5); }
+.tut-hero-qr-cap { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--neon-cyan); text-transform: uppercase; }
+
+/* Trust strip */
+.tut-trust { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.8rem; }
+.tut-trust-item {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--text);
+  border: 1px solid var(--panel-border); border-radius: 8px; padding: 7px 12px;
+  background: rgba(255,255,255,0.02);
+}
+
+/* Subject grid */
+.tut-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.tut-subject { padding: 22px 24px; }
+.tut-subject h3 { font-size: 1.15rem; color: #fff; margin: 0 0 14px; }
+.tut-subject ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+.tut-subject li { color: var(--text-dim); font-size: 0.92rem; padding-left: 18px; position: relative; }
+.tut-subject li::before { content: '▹'; position: absolute; left: 0; color: var(--neon-cyan); }
+.tut-subject-exam { border-color: rgba(255,46,136,0.35); }
+.tut-subject-exam h3 { color: var(--neon-pink); }
+.tut-subject-note { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; margin: 0 0 14px; }
+
+/* How-we-work steps */
+.tut-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.tut-step { position: relative; padding: 8px 4px; }
+.tut-step-n { font-family: var(--font-display); font-weight: 800; font-size: 2.4rem; color: transparent; -webkit-text-stroke: 1px var(--neon-violet); opacity: 0.75; }
+.tut-step h3 { color: #fff; font-size: 1.08rem; margin: 8px 0 8px; }
+.tut-step p { color: var(--text-dim); font-size: 0.93rem; line-height: 1.6; margin: 0; }
+
+/* FAQ */
+.tut-faq { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px 32px; }
+.tut-faq-item h3 { color: var(--neon-cyan); font-size: 0.98rem; margin: 0 0 7px; }
+.tut-faq-item p { color: var(--text-dim); font-size: 0.93rem; line-height: 1.6; margin: 0; }
+
+/* Final CTA */
+.tut-cta-final { text-align: center; padding: 40px 28px; margin-top: 1rem; }
+.tut-cta-final h2 { font-family: var(--font-display); font-size: 1.6rem; color: #fff; margin: 0 0 0.6rem; }
+.tut-cta-final p { color: var(--text-dim); max-width: 56ch; margin: 0 auto 1.8rem; line-height: 1.6; }
+.tut-cta-final .tutoring-cta { justify-content: center; }
+
+@media (max-width: 760px) {
+  .tut-hero { grid-template-columns: 1fr; }
+  .tut-hero-qr { flex-direction: row; align-self: flex-start; }
+  .tut-hero-qr img { width: 132px; }
+}
 .tutoring-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
 .tutoring-cta .btn { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
 .tutoring-qr {

@@ -328,12 +328,136 @@ export const teaching: Teaching[] = [
 ]
 
 export type TutoringLink = { name: string; href: string }
-export const tutoring = {
+export type TutContent = {
+  langName: string
+  eyebrow: string
+  title: string
+  accent: string
+  pitch: string
+  blurb: string
+  credentials: string[]
+  subjects: string[]
+  subjectAreas: { name: string; topics: string[] }[]
+  approach: { step: string; title: string; text: string }[]
+  examsLabel: string
+  examsBlurb: string
+  faqs: { q: string; a: string }[]
+  metaLabel: string
+  labels: {
+    whatITeach: string
+    howWeWork: string
+    admissionPrep: string
+    admissionCard: string
+    admissionNote: string
+    goodToKnow: string
+    bookTitle: string
+    bookText: string
+    scanCap: string
+    emailBtn: string
+  }
+}
+
+const tutoringEN: TutContent = {
+  langName: 'English',
+  eyebrow: 'Private tutoring',
+  title: 'From stuck to fluent in maths, physics and engineering',
+  accent: 'fluent',
+  pitch:
+    'Clear, patient, one-to-one lessons that build the deep understanding exams actually reward, taught by a researcher who uses this maths and physics every day.',
   blurb:
     'Beyond the lab, I help high-school and university students truly master mathematics, physics, and engineering. Not by memorising recipes, but by building real intuition from first principles and earning fluency through hard problems we solve together. I am a PhD-level tutor who still remembers exactly what it feels like when an idea finally clicks. Lessons online or in person, in Italian or English.',
+  credentials: [
+    'PhD, awarded with highest honour',
+    'Published in Nature and Nature Communications',
+    'Taught graduate-level courses',
+    'Researcher at MGH / Harvard',
+  ],
   subjects: ['Mathematics', 'Physics', 'Engineering'],
+  subjectAreas: [
+    { name: 'Mathematics', topics: ['Calculus and real analysis', 'Linear algebra', 'Differential equations', 'Probability and statistics'] },
+    { name: 'Physics', topics: ['Classical mechanics', 'Electromagnetism', 'Thermodynamics and waves', 'Modern physics'] },
+    { name: 'Engineering', topics: ['Signals and systems', 'Control and dynamics', 'Circuits and electronics', 'Numerical methods · MATLAB / Python'] },
+  ],
+  approach: [
+    { step: '01', title: 'Find the real gap', text: 'We pinpoint exactly where the understanding breaks down. Not just the wrong answer, but the shaky idea underneath it.' },
+    { step: '02', title: 'Rebuild the intuition', text: 'Then we reconstruct it from first principles, with the visual, worked-through explanations that make a concept finally click and stay.' },
+    { step: '03', title: 'Make it automatic', text: 'We drill it on real problems and past papers until you can do it quickly, cleanly, and calmly under exam pressure.' },
+  ],
+  examsLabel: 'University admission prep',
   examsBlurb:
     'I also coach for the toughest university admission exams, where success rewards far more than knowing the maths. It rewards reasoning fast, writing clean arguments, and staying calm under pressure. We drill past papers, decode every question type, and turn exam-day nerves into a clear plan of attack.',
+  faqs: [
+    { q: 'Online or in person?', a: 'Both. Most lessons run online through Preply or Superprof with a shared interactive whiteboard; in-person can be arranged locally.' },
+    { q: 'Which languages?', a: 'Italian and English, including the technical vocabulary in both. Handy if you study in one language and think in the other.' },
+    { q: 'Can we start with a trial?', a: 'Yes. Book a first lesson on Preply or Superprof so we can map your goals before settling on a plan.' },
+    { q: 'Do you prep for admission tests?', a: 'Yes: STEP, TMUA, MAT and the Italian TOLC, with past-paper drills and exam strategy. Start a few months ahead for the best results.' },
+  ],
+  metaLabel: 'High-school and university level · Italian and English',
+  labels: {
+    whatITeach: 'What I teach',
+    howWeWork: 'How we’ll work together',
+    admissionPrep: 'University admission prep',
+    admissionCard: 'Admission tests',
+    admissionNote: 'Past-paper drills plus exam strategy for the toughest entrance exams.',
+    goodToKnow: 'Good to know',
+    bookTitle: 'Book your first lesson',
+    bookText: 'Tell me your goal: a tricky course, a looming exam, or an admission test, and we’ll build a plan around it.',
+    scanCap: 'Scan to book on Preply',
+    emailBtn: 'Email me',
+  },
+}
+
+const tutoringIT: TutContent = {
+  langName: 'Italiano',
+  eyebrow: 'Ripetizioni private',
+  title: 'Da bloccato a sicuro in matematica, fisica e ingegneria',
+  accent: 'sicuro',
+  pitch:
+    'Lezioni individuali chiare e pazienti, che costruiscono la comprensione profonda che gli esami premiano davvero. Le tiene un ricercatore che usa questa matematica e questa fisica ogni giorno.',
+  blurb:
+    'Oltre alla ricerca, aiuto studenti di scuola superiore e università a padroneggiare davvero la matematica, la fisica e l’ingegneria. Non imparando formule a memoria, ma costruendo una vera intuizione a partire dai principi primi e acquisendo padronanza risolvendo insieme problemi difficili. Sono un tutor con un dottorato di ricerca che ricorda ancora bene cosa si prova quando un’idea finalmente si accende. Lezioni online o in presenza, in italiano o in inglese.',
+  credentials: [
+    'Dottorato di ricerca con lode',
+    'Pubblicato su Nature e Nature Communications',
+    'Ha insegnato corsi universitari magistrali',
+    'Ricercatore al MGH / Harvard',
+  ],
+  subjects: ['Matematica', 'Fisica', 'Ingegneria'],
+  subjectAreas: [
+    { name: 'Matematica', topics: ['Analisi e calcolo', 'Algebra lineare', 'Equazioni differenziali', 'Probabilità e statistica'] },
+    { name: 'Fisica', topics: ['Meccanica classica', 'Elettromagnetismo', 'Termodinamica e onde', 'Fisica moderna'] },
+    { name: 'Ingegneria', topics: ['Segnali e sistemi', 'Controlli e dinamica', 'Circuiti ed elettronica', 'Metodi numerici · MATLAB / Python'] },
+  ],
+  approach: [
+    { step: '01', title: 'Trovare il vero punto debole', text: 'Individuiamo con precisione dove si inceppa la comprensione. Non solo la risposta sbagliata, ma l’idea incerta che ci sta sotto.' },
+    { step: '02', title: 'Ricostruire l’intuizione', text: 'Poi la ricostruiamo dai principi primi, con spiegazioni visive e svolte passo dopo passo, quelle che fanno scattare e restare un concetto.' },
+    { step: '03', title: 'Renderla automatica', text: 'La alleniamo su problemi veri e prove d’esame finché non la esegui in fretta, in modo pulito e con calma sotto pressione.' },
+  ],
+  examsLabel: 'Preparazione ai test di ammissione',
+  examsBlurb:
+    'Preparo anche ai test di ammissione universitari più impegnativi, dove non basta sapere la matematica: conta ragionare in fretta, scrivere argomentazioni pulite e restare lucidi sotto pressione. Lavoriamo sulle prove degli anni precedenti, analizziamo ogni tipo di quesito e trasformiamo l’ansia da esame in un piano d’azione chiaro.',
+  faqs: [
+    { q: 'Online o in presenza?', a: 'Entrambi. La maggior parte delle lezioni si svolge online su Preply o Superprof con una lavagna interattiva condivisa; in presenza si può organizzare in zona.' },
+    { q: 'In quali lingue?', a: 'Italiano e inglese, compreso il lessico tecnico in entrambe. Utile se studi in una lingua e ragioni nell’altra.' },
+    { q: 'Possiamo iniziare con una prova?', a: 'Sì. Prenota una prima lezione su Preply o Superprof, così definiamo i tuoi obiettivi prima di scegliere un percorso.' },
+    { q: 'Prepari ai test di ammissione?', a: 'Sì: STEP, TMUA, MAT e il TOLC italiano, con esercizi sulle prove passate e strategia d’esame. Meglio iniziare qualche mese prima.' },
+  ],
+  metaLabel: 'Livello scuola superiore e università · in italiano e in inglese',
+  labels: {
+    whatITeach: 'Cosa insegno',
+    howWeWork: 'Come lavoreremo insieme',
+    admissionPrep: 'Preparazione ai test di ammissione',
+    admissionCard: 'Test di ammissione',
+    admissionNote: 'Esercizi sulle prove passate e strategia d’esame per i test d’ingresso più difficili.',
+    goodToKnow: 'Buono a sapersi',
+    bookTitle: 'Prenota la tua prima lezione',
+    bookText: 'Dimmi il tuo obiettivo: un corso ostico, un esame imminente o un test di ammissione, e costruiamo un piano su misura.',
+    scanCap: 'Scansiona per prenotare su Preply',
+    emailBtn: 'Scrivimi',
+  },
+}
+
+export const tutoring = {
   exams: ['STEP', 'TMUA', 'MAT', 'TOLC'],
   languages: ['Italian', 'English'],
   email: 'matteo.vissani7@gmail.com',
@@ -342,6 +466,14 @@ export const tutoring = {
     { name: 'Preply', href: 'https://preply.in/MATTEO7EN3811745210?ts=17815293' },
     { name: 'Superprof', href: 'https://www.superprof.com/ir/43216447-0e8c1c' },
   ] as TutoringLink[],
+  en: tutoringEN,
+  it: tutoringIT,
+  // SEO for the standalone /tutoring landing page.
+  seo: {
+    title: 'Private maths, physics & engineering tutor (EN/IT) · Matteo Vissani',
+    description:
+      'PhD-level online and in-person tutoring in mathematics, physics and engineering for high-school and university students, in English and Italian. Admission-test prep for STEP, TMUA, MAT and TOLC. Ripetizioni private di matematica, fisica e ingegneria, in italiano e in inglese.',
+  },
 }
 
 export type Mentoring = { program: string; since: string; detail: string; href: string }

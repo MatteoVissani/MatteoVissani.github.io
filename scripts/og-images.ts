@@ -68,4 +68,37 @@ for (const p of publications) {
   writeFileSync(resolve(outDir, `${p.slug}.png`), cv.toBuffer('image/png'))
   n++
 }
+
+// Standalone /tutoring landing-page card.
+{
+  const cv = createCanvas(W, H); const ctx = cv.getContext('2d')
+  const g = ctx.createLinearGradient(0, 0, W, H)
+  g.addColorStop(0, '#0a0618'); g.addColorStop(0.55, '#150b2b'); g.addColorStop(1, '#04030e')
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H)
+  const sun = ctx.createRadialGradient(W / 2, 250, 20, W / 2, 250, 360)
+  sun.addColorStop(0, 'rgba(255,45,143,0.30)'); sun.addColorStop(1, 'rgba(255,45,143,0)')
+  ctx.fillStyle = sun; ctx.beginPath(); ctx.arc(W / 2, 250, 360, 0, 2 * Math.PI); ctx.fill()
+  ctx.strokeStyle = 'rgba(177,91,255,0.25)'; ctx.lineWidth = 1.5
+  for (let i = 0; i <= 16; i++) { const x = (i / 16) * W; ctx.beginPath(); ctx.moveTo(W / 2, 470); ctx.lineTo(x, H); ctx.stroke() }
+  for (let i = 1; i <= 6; i++) { const y = 470 + (i * i) * 4.4; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke() }
+  ctx.fillStyle = CYAN; ctx.fillRect(70, 70, 60, 6)
+  ctx.font = '600 26px sans-serif'; ctx.fillStyle = VIOLET
+  ctx.fillText('PRIVATE TUTORING  ·  EN / IT', 70, 130)
+  ctx.fillStyle = '#eef0ff'; ctx.font = '800 64px sans-serif'
+  ctx.fillText('Maths · Physics', 70, 250)
+  ctx.fillText('· Engineering', 70, 325)
+  ctx.font = '400 29px sans-serif'; ctx.fillStyle = 'rgba(233,235,251,0.78)'
+  ctx.fillText('High-school & university · admission-test prep', 70, 400)
+  ctx.fillStyle = PINK; ctx.font = '700 30px sans-serif'
+  ctx.fillText('STEP · TMUA · MAT · TOLC', 70, 455)
+  ctx.fillStyle = CYAN; ctx.font = '700 28px sans-serif'
+  ctx.fillText(profile.name, 70, 575)
+  ctx.fillStyle = PINK; ctx.font = '500 24px sans-serif'
+  const url = 'matteovissani.github.io/tutoring'
+  ctx.fillText(url, W - 70 - ctx.measureText(url).width, 575)
+  ctx.fillStyle = 'rgba(34,225,255,0.5)'; ctx.fillRect(70, 600, W - 140, 2)
+  writeFileSync(resolve(outDir, 'tutoring.png'), cv.toBuffer('image/png'))
+  n++
+}
+
 console.log(`generated ${n} OG images -> public/og/`)
